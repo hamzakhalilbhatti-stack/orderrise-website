@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>OrderRise 3D Diagnostics</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three.module.js",
+      "three/addons/": "./vendor/"
+    }
+  }
+  </script>
+  <style>
+    .diagnostic-page{min-height:100vh;padding:70px 0;background:#06101e}
+    .diagnostic-grid{display:grid;gap:18px;grid-template-columns:.8fr 1.2fr;margin-top:30px}
+    .diagnostic-list{display:grid;gap:10px}
+    .diagnostic-item{display:flex;justify-content:space-between;gap:18px;border:1px solid rgba(255,255,255,.14);border-radius:15px;background:rgba(255,255,255,.04);padding:14px}
+    .diagnostic-item strong{color:#fff}.diagnostic-result{color:#ffca5c}.diagnostic-result.pass{color:#68ff9b}.diagnostic-result.fail{color:#ff5a67}
+    .diagnostic-canvas-wrap{position:relative;min-height:460px;border:1px solid rgba(255,255,255,.16);border-radius:24px;overflow:hidden;background:#071426}
+    #diagnosticCanvas{display:block;width:100%;height:460px}
+    .diagnostic-help{margin-top:18px;color:#9ba3af;line-height:1.7}
+    @media(max-width:820px){.diagnostic-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="diagnostic-page">
+    <div class="container">
+      <a class="back-link" href="index.html">← Return to OrderRise</a>
+      <p class="eyebrow">3D system test</p>
+      <h1>OrderRise WebGL Diagnostics</h1>
+      <p class="lead">This page checks whether your browser can load the local Three.js files and render a colorful 3D object.</p>
+      <div class="diagnostic-grid">
+        <section>
+          <div class="diagnostic-list">
+            <div class="diagnostic-item"><strong>JavaScript</strong><span class="diagnostic-result pass">Working</span></div>
+            <div class="diagnostic-item"><strong>WebGL support</strong><span id="webglResult" class="diagnostic-result">Checking…</span></div>
+            <div class="diagnostic-item"><strong>Local Three.js module</strong><span id="threeResult" class="diagnostic-result">Checking…</span></div>
+            <div class="diagnostic-item"><strong>3D renderer</strong><span id="rendererResult" class="diagnostic-result">Checking…</span></div>
+            <div class="diagnostic-item"><strong>Animation</strong><span id="animationResult" class="diagnostic-result">Checking…</span></div>
+          </div>
+          <p id="diagnosticMessage" class="diagnostic-help">The test is starting.</p>
+          <a class="button" href="index.html">Open the Complete 3D Website</a>
+        </section>
+        <section class="diagnostic-canvas-wrap">
+          <canvas id="diagnosticCanvas"></canvas>
+          <div class="canvas-instructions"><span>Drag to rotate</span><span>Scroll to zoom</span></div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+    const setResult=(id,passed,text)=>{const el=document.getElementById(id);el.textContent=text;el.classList.add(passed?'pass':'fail');};
+    const probe=document.createElement('canvas');
+    const gl=probe.getContext('webgl2')||probe.getContext('webgl');
+    setResult('webglResult',Boolean(gl),gl?'Available':'Unavailable');
+    setResult('threeResult',Boolean(THREE.REVISION),`Loaded r${THREE.REVISION}`);
+
+    try{
+      const canvas=document.getElementById('diagnosticCanvas');
+      const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+      renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));
+      renderer.outputColorSpace=THREE.SRGBColorSpace;
+      renderer.toneMapping=THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure=1.25;
+      const scene=new THREE.Scene();scene.background=new THREE.Color(0x071426);
+      const camera=new THREE.PerspectiveCamera(42,1,.1,100);camera.position.set(5,4.5,7);
+      const controls=new OrbitControls(camera,canvas);controls.target.set(0,.6,0);controls.enableDamping=true;
+      scene.add(new THREE.HemisphereLight(0xffffff,0x11213b,3));
+      const light=new THREE.DirectionalLight(0xffffff,4);light.position.set(5,8,5);scene.add(light);
+      [[0x25d366,-2],[0xa47cff,0],[0xff9f43,2]].forEach(([color,x])=>{const mesh=new THREE.Mesh(new THREE.BoxGeometry(1.35,1.35,1.35),new THREE.MeshStandardMaterial({color,emissive:color,emissiveIntensity:.18,metalness:.25,roughness:.3}));mesh.position.set(x,.8,0);scene.add(mesh);});
+      const floor=new THREE.Mesh(new THREE.PlaneGeometry(10,7),new THREE.MeshStandardMaterial({color:0x101a2b,roughness:.65}));floor.rotation.x=-Math.PI/2;scene.add(floor);
+      setResult('rendererResult',true,'Created');
+      const resize=()=>{const r=canvas.getBoundingClientRect();renderer.setSize(Math.max(1,r.width),Math.max(1,r.height),false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix();};
+      new ResizeObserver(resize).observe(canvas);resize();
+      let frames=0;function animate(){requestAnimationFrame(animate);frames++;scene.children.filter(x=>x.isMesh&&x.geometry?.type==='BoxGeometry').forEach((m,i)=>{m.rotation.y+=.006+i*.001;m.rotation.x=.15*Math.sin(performance.now()*.001+i);});controls.update();renderer.render(scene,camera);if(frames===20){setResult('animationResult',true,'Running');document.getElementById('diagnosticMessage').textContent='All browser-side 3D checks passed. The complete OrderRise scenes should render correctly.';}}animate();
+    }catch(error){setResult('rendererResult',false,'Failed');setResult('animationResult',false,'Not running');document.getElementById('diagnosticMessage').textContent=`3D could not start: ${error.message}. Enable hardware acceleration or try current Chrome/Edge.`;console.error(error);}
+  </script>
+</body>
+</html>

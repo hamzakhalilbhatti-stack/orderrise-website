@@ -3,28 +3,76 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 
-const C={bg:0x050608,dark:0x0d1015,surface:0x151920,surface2:0x1b2028,green:0x25d366,greenLight:0x68ff9b,amber:0xffb547,red:0xff5a67,white:0xf7f8fa,blue:0x62b7ff,purple:0x9d7cff};
+const C={bg:0x06101e,dark:0x0d1625,surface:0x101a2b,surface2:0x263247,green:0x25d366,greenLight:0x68ff9b,orange:0xff9f43,amber:0xffca5c,red:0xff5a67,white:0xf7f8fa,blue:0x43c6ff,purple:0xa47cff,pink:0xff63b8,cyan:0x4de2c5};
 const canvas=document.querySelector(".subpage-canvas");
 if(!canvas) throw new Error("No subpage canvas");
+
+const SCENE_GUIDES = {
+  product: ["WhatsApp connects every restaurant team", "The green phone sends one order to ordering, kitchen, inventory, delivery and reports."],
+  features: ["AI coordinates the complete operating system", "The purple AI core routes information to every restaurant module."],
+  how: ["Seven visible stages from message to reporting", "Follow the numbered color path: capture, understand, cart, kitchen, inventory, delivery and owner."],
+  solutions: ["One platform adapts to different restaurants", "Each colored restaurant represents a different workflow using the same OrderRise operating system."],
+  demo: ["A customer order becomes kitchen work", "The green WhatsApp message creates orange cart items and an amber kitchen ticket."],
+  pricing: ["Restaurant inputs become measurable opportunity", "The dashboard connects missed orders with recovered revenue and staff time."],
+  about: ["One connected intelligence layer", "The central core represents OrderRise connecting restaurant teams and customer activity."],
+  contact: ["From interest to a booked restaurant demo", "A prospect can move from the website to WhatsApp and a scheduled product demonstration."],
+  "solution-fast-food": ["Fast-food rush workflow", "WhatsApp order → rapid preparation → packaging → pickup or delivery."],
+  "solution-pizza-restaurants": ["Pizza ordering workflow", "Size and toppings → oven preparation → packaging → delivery."],
+  "solution-cafes": ["Cafe ordering workflow", "Drink customization → barista station → pickup → loyalty update."],
+  "solution-cloud-kitchens": ["Cloud-kitchen workflow", "Multiple digital orders → shared kitchen → brand-specific packaging → dispatch."],
+  "solution-burger-restaurants": ["Burger restaurant workflow", "Meal selection → modifiers → grill ticket → completed order."],
+  "solution-bakeries": ["Bakery pre-order workflow", "Product availability → customization → packaging → scheduled pickup."],
+  "solution-takeaway": ["Takeaway pickup workflow", "Order confirmation → preparation → labeled shelf → customer pickup."],
+  "solution-multi-location": ["Multi-location operating view", "Orders and performance connect across restaurant locations." ]
+};
+
+function addSceneGuide(type) {
+  const shell = canvas.closest(".subpage-canvas-shell");
+  const guide = SCENE_GUIDES[type];
+  if (!shell || !guide) return;
+  const panel = document.createElement("div");
+  panel.className = "subpage-scene-guide";
+  panel.innerHTML = `<strong>${guide[0]}</strong><span>${guide[1]}</span><div class="mini-process-flow"><i></i><b>Message</b><i></i><b>Action</b><i></i><b>Result</b></div>`;
+  shell.appendChild(panel);
+}
 
 function mat(color,opt={}){return new THREE.MeshStandardMaterial({color,metalness:opt.metalness??.38,roughness:opt.roughness??.43,emissive:opt.emissive??0,emissiveIntensity:opt.emissiveIntensity??0,transparent:opt.transparent??false,opacity:opt.opacity??1});}
 function box(w,h,d,color,r=.1,opt={}){const m=new THREE.Mesh(new RoundedBoxGeometry(w,h,d,4,Math.min(r,w/2,h/2,d/2)),opt.basic?new THREE.MeshBasicMaterial({color,transparent:(opt.opacity??1)<1,opacity:opt.opacity??1,toneMapped:false}):mat(color,opt));m.castShadow=true;m.receiveShadow=true;return m;}
 function cyl(rt,rb,h,color,opt={}){const m=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,24),mat(color,opt));m.castShadow=true;return m;}
 function sprite(text,color="#f7f8fa",bg="rgba(8,10,13,.82)",scale=.7){
-  const c=document.createElement("canvas"),x=c.getContext("2d");x.font="700 38px Inter,Arial";const w=Math.ceil(x.measureText(text).width+54),h=76;c.width=w*2;c.height=h*2;x.scale(2,2);x.font="700 38px Inter,Arial";x.textBaseline="middle";x.fillStyle=bg;x.beginPath();x.roundRect(0,0,w,h,18);x.fill();x.fillStyle=color;x.fillText(text,27,h/2+1);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;const s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,transparent:true,depthWrite:false,toneMapped:false}));s.scale.set(w/110*scale,h/110*scale,1);return s;
+  const c=document.createElement("canvas"),x=c.getContext("2d");x.font="700 38px Inter,Arial";const w=Math.ceil(x.measureText(text).width+54),h=76;c.width=w*2;c.height=h*2;x.scale(2,2);x.font="700 38px Inter,Arial";x.textBaseline="middle";x.fillStyle=bg;x.beginPath();x.roundRect(0,0,w,h,18);x.fill();x.fillStyle=color;x.fillText(text,27,h/2+1);const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;const s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,transparent:true,depthWrite:false,depthTest:false,toneMapped:false}));s.renderOrder=100;s.scale.set(w/110*scale,h/110*scale,1);return s;
 }
-function floor(scene,w=12,d=8){const f=box(w,.35,d,C.surface,.2,{roughness:.6});f.position.y=-.18;scene.add(f);const g=new THREE.GridHelper(Math.max(w,d),16,C.green,0x303740);g.position.y=.01;g.material.transparent=true;g.material.opacity=.14;scene.add(g);}
-function lights(scene){scene.add(new THREE.HemisphereLight(0xbfe8ff,0x07090d,1.7));const k=new THREE.DirectionalLight(0xffffff,2.6);k.position.set(7,11,8);k.castShadow=true;scene.add(k);const p=new THREE.PointLight(C.green,16,16,2);p.position.set(0,4,1);scene.add(p);}
-function phone(){const g=new THREE.Group();g.add(box(2.1,4.2,.3,0x080a0d,.27,{metalness:.65,roughness:.25}));const s=box(1.84,3.82,.06,0x111821,.18,{basic:true});s.position.z=.18;g.add(s);for(let i=0;i<3;i++){const b=box(1.25-i*.08,.55,.04,i===0?C.green:C.surface2,.14,{basic:true});b.position.set(i===0?.12:-.12,.75-i*.72,.22);g.add(b);}return g;}
+function floor(scene,w=12,d=8){const f=box(w,.35,d,0x101a2b,.2,{roughness:.5});f.position.y=-.18;scene.add(f);const g=new THREE.GridHelper(Math.max(w,d),16,C.blue,0x334357);g.position.y=.01;g.material.transparent=true;g.material.opacity=.25;scene.add(g);}
+function lights(scene){scene.add(new THREE.AmbientLight(0xffffff,.7));scene.add(new THREE.HemisphereLight(0xcbeeff,0x101328,2.3));const k=new THREE.DirectionalLight(0xffffff,3.4);k.position.set(7,11,8);k.castShadow=true;scene.add(k);[[C.green,-4,4,2],[C.purple,0,5,-2],[C.amber,-3,3,-3],[C.blue,3,3,-3],[C.pink,4,3,3],[C.cyan,-4,3,3]].forEach(v=>{const p=new THREE.PointLight(v[0],13,12,2);p.position.set(v[1],v[2],v[3]);scene.add(p);});}
+function phone(){const g=new THREE.Group();g.add(box(2.1,4.2,.3,0x080a0d,.27,{metalness:.65,roughness:.25}));const s=box(1.84,3.82,.06,0x12342a,.18,{basic:true});s.position.z=.18;g.add(s);for(let i=0;i<3;i++){const b=box(1.25-i*.08,.55,.04,i===0?C.green:C.surface2,.14,{basic:true});b.position.set(i===0?.12:-.12,.75-i*.72,.22);g.add(b);}return g;}
 function burger(){const g=new THREE.Group();const parts=[[.5,.44,.22,0xe6a54c,.11],[.45,.45,.16,0x5a2e20,.31],[.48,.46,.08,0x5bd96a,.47],[.43,.5,.3,0xf0b75f,.67]];parts.forEach(p=>{const m=cyl(p[0],p[1],p[2],p[3]);m.position.y=p[4];g.add(m);});return g;}
-function scooter(){const g=new THREE.Group();for(const z of [-.72,.72]){const w=new THREE.Mesh(new THREE.TorusGeometry(.34,.1,12,26),mat(0x1c2026,{roughness:.7}));w.rotation.y=Math.PI/2;w.position.set(0,.4,z);g.add(w);}const b=box(.72,.44,1.2,C.green,.18);b.position.y=.72;g.add(b);const bag=box(.9,.85,.68,C.amber,.12);bag.position.set(0,1.2,.4);g.add(bag);return g;}
+function scooter(){const g=new THREE.Group();for(const z of [-.72,.72]){const w=new THREE.Mesh(new THREE.TorusGeometry(.34,.1,12,26),mat(0x1c2026,{roughness:.7}));w.rotation.y=Math.PI/2;w.position.set(0,.4,z);g.add(w);}const b=box(.72,.44,1.2,C.pink,.18,{emissive:C.pink,emissiveIntensity:.1});b.position.y=.72;g.add(b);const bag=box(.9,.85,.68,C.blue,.12,{emissive:C.blue,emissiveIntensity:.08});bag.position.set(0,1.2,.4);g.add(bag);return g;}
 function panel(label,color=C.green){const g=new THREE.Group();const b=box(3.2,2,.15,C.surface2,.12,{metalness:.55});g.add(b);const d=box(2.75,1.58,.03,0x0b1115,.08,{basic:true});d.position.z=.09;g.add(d);const l=sprite(label,"#68ff9b","rgba(37,211,102,.12)",.55);l.position.set(0,.55,.13);g.add(l);for(let i=0;i<5;i++){const bar=box(.24,.35+i*.16,.04,i===4?C.greenLight:color,.03,{basic:true});bar.position.set(-.72+i*.36,-.35+(i*.04),.13);g.add(bar);}return g;}
 function building(x,z,color=C.surface2){const g=new THREE.Group();const base=box(2.5,.35,2.2,color,.18);base.position.y=.17;g.add(base);const back=box(2.5,1.8,.15,0x20262d,.08);back.position.set(0,1,-1.02);g.add(back);const counter=box(2,.65,.8,0x2a3139,.12);counter.position.set(0,.55,.25);g.add(counter);g.position.set(x,0,z);return g;}
+function addProcessRail(root,labels,colors=[C.green,C.purple,C.orange,C.cyan]){
+  const count=labels.length;
+  const start=-((count-1)*1.55)/2;
+  const points=[];
+  labels.forEach((label,i)=>{
+    const color=colors[i%colors.length];
+    const x=start+i*1.55;
+    points.push(new THREE.Vector3(x,.32,3.0));
+    const node=box(1.25,.22,.58,color,.12,{emissive:color,emissiveIntensity:.22});
+    node.position.set(x,.2,3.0);root.add(node);
+    const tag=sprite(`${i+1} ${label}`,"#ffffff","rgba(4,8,17,.94)",.31);
+    tag.position.set(x,.73,3.0);root.add(tag);
+  });
+  if(points.length>1){
+    const curve=new THREE.CatmullRomCurve3(points);
+    const line=new THREE.Mesh(new THREE.TubeGeometry(curve,50,.035,8,false),new THREE.MeshBasicMaterial({color:C.white,transparent:true,opacity:.62,toneMapped:false}));
+    root.add(line);
+  }
+}
 function makeScene(type){
-  const scene=new THREE.Scene();scene.background=new THREE.Color(C.bg);scene.fog=new THREE.FogExp2(C.bg,.026);floor(scene,13,8);lights(scene);const root=new THREE.Group();scene.add(root);
+  const scene=new THREE.Scene();scene.background=new THREE.Color(C.bg);scene.fog=new THREE.FogExp2(C.bg,.016);floor(scene,13,8);lights(scene);const root=new THREE.Group();scene.add(root);
   if(type==="product"){const p=phone();p.position.set(-4,2.3,0);p.rotation.y=.35;root.add(p);["ORDERING","KITCHEN","INVENTORY","DELIVERY","REPORTS"].forEach((t,i)=>{const pa=panel(t,[C.green,C.amber,C.greenLight,C.blue,C.purple][i]);const a=i/5*Math.PI*2;pa.scale.setScalar(.52);pa.position.set(Math.cos(a)*3.1,1.4+Math.sin(a*2)*.5,Math.sin(a)*2.2);pa.rotation.y=-a+Math.PI/2;root.add(pa);});}
-  else if(type==="features"){for(let i=0;i<9;i++){const n=box(1.45,.65,.12,i%3===0?0x253329:C.surface2,.12,{metalness:.5});const a=i/9*Math.PI*2;n.position.set(Math.cos(a)*3.6,1.5+Math.sin(a*2)*.7,Math.sin(a)*2.4);n.rotation.y=-a+Math.PI/2;root.add(n);}const core=new THREE.Mesh(new THREE.IcosahedronGeometry(.85,3),new THREE.MeshStandardMaterial({color:C.green,emissive:C.green,emissiveIntensity:1.2,metalness:.35,roughness:.2}));core.position.y=1.6;root.add(core);}
-  else if(type==="how"){const points=[];for(let i=0;i<7;i++){const x=-4.5+i*1.5,z=Math.sin(i*.9)*1.4;points.push(new THREE.Vector3(x,1,z));const n=box(.9,.9,.9,i===0?C.green:C.surface2,.18);n.position.set(x,.75,z);root.add(n);const s=sprite(String(i+1),"#68ff9b","rgba(37,211,102,.12)",.36);s.position.set(x,1.8,z);root.add(s);}const curve=new THREE.CatmullRomCurve3(points);const tube=new THREE.Mesh(new THREE.TubeGeometry(curve,80,.04,8,false),new THREE.MeshBasicMaterial({color:C.green,transparent:true,opacity:.55,toneMapped:false}));root.add(tube);root.userData.curve=curve;const orb=new THREE.Mesh(new THREE.SphereGeometry(.13,16,16),new THREE.MeshBasicMaterial({color:C.greenLight,toneMapped:false}));root.add(orb);root.userData.orb=orb;}
+  else if(type==="features"){for(let i=0;i<9;i++){const n=box(1.45,.65,.12,i%3===0?0x253329:C.surface2,.12,{metalness:.5});const a=i/9*Math.PI*2;n.position.set(Math.cos(a)*3.6,1.5+Math.sin(a*2)*.7,Math.sin(a)*2.4);n.rotation.y=-a+Math.PI/2;root.add(n);}const core=new THREE.Mesh(new THREE.IcosahedronGeometry(.85,3),new THREE.MeshStandardMaterial({color:C.purple,emissive:C.purple,emissiveIntensity:1.35,metalness:.35,roughness:.2}));core.position.y=1.6;root.add(core);}
+  else if(type==="how"){const points=[];for(let i=0;i<7;i++){const x=-4.5+i*1.5,z=Math.sin(i*.9)*1.4;points.push(new THREE.Vector3(x,1,z));const stepColors=[C.green,C.purple,C.orange,C.amber,C.blue,C.pink,C.cyan];const n=box(.9,.9,.9,stepColors[i],.18,{emissive:stepColors[i],emissiveIntensity:.1});n.position.set(x,.75,z);root.add(n);const s=sprite(String(i+1),"#ffffff","rgba(4,8,17,.92)",.38);s.position.set(x,1.8,z);root.add(s);}const curve=new THREE.CatmullRomCurve3(points);const tube=new THREE.Mesh(new THREE.TubeGeometry(curve,80,.04,8,false),new THREE.MeshBasicMaterial({color:C.cyan,transparent:true,opacity:.78,toneMapped:false}));root.add(tube);root.userData.curve=curve;const orb=new THREE.Mesh(new THREE.SphereGeometry(.13,16,16),new THREE.MeshBasicMaterial({color:C.cyan,toneMapped:false}));root.add(orb);root.userData.orb=orb;}
   else if(type==="solutions"){[[-3,-1.7,C.green], [0,-1.7,C.amber],[3,-1.7,C.blue],[-1.5,1.6,C.purple],[1.5,1.6,C.greenLight]].forEach(v=>root.add(building(v[0],v[1],v[2])));}
   else if(type==="demo"){const p=phone();p.position.set(-3.6,2.2,0);p.rotation.y=.35;root.add(p);const b1=burger(),b2=burger();b1.position.set(.2,.2,.3);b2.position.set(1.2,.2,.3);root.add(b1,b2);const k=panel("KITCHEN",C.amber);k.scale.setScalar(.68);k.position.set(3.4,1.8,-.8);root.add(k);}
   else if(type==="pricing"){const p=panel("ROI & PLANS",C.green);p.position.set(0,2,0);root.add(p);for(let i=0;i<9;i++){const coin=cyl(.28,.28,.08,C.amber,{metalness:.7,roughness:.3});coin.rotation.x=Math.PI/2;coin.position.set(-3+i*.75,.45+Math.abs(Math.sin(i))*1.2,1.8);root.add(coin);}}
@@ -42,13 +90,34 @@ function makeScene(type){
     else if(solution==="multi-location"){for(let i=0;i<3;i++){root.add(building(-3+i*3,0,[C.green,C.blue,C.amber][i]));}const curve=new THREE.CatmullRomCurve3([new THREE.Vector3(-3,1.2,0),new THREE.Vector3(0,2,0),new THREE.Vector3(3,1.2,0)]);root.add(new THREE.Mesh(new THREE.TubeGeometry(curve,60,.04,8,false),new THREE.MeshBasicMaterial({color:C.greenLight,toneMapped:false})));}
     else {const fast=building(0,0,C.surface2);root.add(fast);for(let i=0;i<5;i++){const b=burger();b.scale.setScalar(.7);b.position.set(-3+i*1.5,.2,1.6);root.add(b);}const scooterObj=scooter();scooterObj.scale.setScalar(.72);scooterObj.position.set(3,.1,-1.4);root.add(scooterObj);}
   }
+  const rails = {
+    product: [["MESSAGE","AI","OPERATIONS","REPORTS"],[C.green,C.purple,C.orange,C.cyan]],
+    features: [["INPUT","UNDERSTAND","ROUTE","UPDATE"],[C.green,C.purple,C.amber,C.cyan]],
+    solutions: [["ORDER","PREPARE","FULFILL","GROW"],[C.green,C.amber,C.pink,C.cyan]],
+    demo: [["MESSAGE","CART","KITCHEN","STATUS"],[C.green,C.orange,C.amber,C.cyan]],
+    pricing: [["INPUTS","MISSED ORDERS","REVENUE","DECISION"],[C.blue,C.orange,C.green,C.cyan]],
+    about: [["CUSTOMER","ORDER","TEAM","GROWTH"],[C.green,C.purple,C.amber,C.cyan]],
+    contact: [["INTEREST","WHATSAPP","CALENDAR","DEMO"],[C.green,C.pink,C.blue,C.cyan]]
+  };
+  const solutionRails = {
+    "solution-fast-food":["ORDER","PREPARE","PACK","DISPATCH"],
+    "solution-pizza-restaurants":["CUSTOMIZE","OVEN","PACK","DELIVER"],
+    "solution-cafes":["CUSTOMIZE","BARISTA","PICKUP","LOYALTY"],
+    "solution-cloud-kitchens":["CHANNELS","KITCHEN","BRAND PACK","DISPATCH"],
+    "solution-burger-restaurants":["MEAL","MODIFIERS","GRILL","COMPLETE"],
+    "solution-bakeries":["AVAILABLE","CUSTOMIZE","PACKAGE","PICKUP"],
+    "solution-takeaway":["CONFIRM","PREPARE","SHELF","PICKUP"],
+    "solution-multi-location":["LOCATIONS","ORDERS","REPORTS","CONTROL"]
+  };
+  if(rails[type]) addProcessRail(root,rails[type][0],rails[type][1]);
+  if(solutionRails[type]) addProcessRail(root,solutionRails[type],[C.green,C.amber,C.pink,C.cyan]);
   return {scene,root};
 }
 try{
-  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:"high-performance"});renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.75));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;renderer.shadowMap.enabled=true;
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:"high-performance"});renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.75));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.28;renderer.shadowMap.enabled=true;
   const camera=new THREE.PerspectiveCamera(43,1,.1,100);camera.position.set(10,7,12);
   const controls=new OrbitControls(camera,canvas);controls.target.set(0,1.2,0);controls.enableDamping=true;controls.enablePan=false;controls.minDistance=5;controls.maxDistance=22;controls.maxPolarAngle=Math.PI*.49;
-  const type=canvas.dataset.scene||"product";const built=makeScene(type);let active=true;
+  const type=canvas.dataset.scene||"product";addSceneGuide(type);const built=makeScene(type);let active=true;
   const ro=new ResizeObserver(()=>{const r=canvas.getBoundingClientRect();renderer.setSize(Math.max(1,r.width),Math.max(1,r.height),false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix();});ro.observe(canvas);
   if("IntersectionObserver"in window){new IntersectionObserver(e=>active=e.some(x=>x.isIntersecting),{rootMargin:"200px"}).observe(canvas);}
   const clock=new THREE.Clock();function animate(){requestAnimationFrame(animate);if(!active)return;const dt=Math.min(clock.getDelta(),.05),t=performance.now()*.001;built.root.rotation.y=Math.sin(t*.18)*.12;if(built.root.userData.curve&&built.root.userData.orb)built.root.userData.orb.position.copy(built.root.userData.curve.getPointAt((t*.12)%1));built.root.children.forEach((o,i)=>{if(o.type==="Sprite")o.position.y+=Math.sin(t+i)*.0006;});controls.update();renderer.render(built.scene,camera);}animate();window.OrderRisePage3D=true;

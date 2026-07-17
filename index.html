@@ -18,8 +18,8 @@
   <script type="importmap">
   {
     "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+      "three": "./vendor/three.module.js",
+      "three/addons/": "./vendor/"
     }
   }
   </script>
@@ -78,18 +78,30 @@
             <strong>3D preview unavailable</strong>
             <span>Your browser can still explore every website section.</span>
           </div>
+          <div class="canvas-instructions"><span>↔ Drag to rotate</span><span>⌁ Scroll to zoom</span><span>● Follow the glowing order</span></div>
+          <div class="hero-process-map" id="heroProcessMap" aria-label="Order process stages">
+            <div class="process-stage stage-whatsapp active" data-hero-stage="0"><b>1</b><span>WhatsApp</span><small>Message arrives</small></div>
+            <div class="process-stage stage-ai" data-hero-stage="1"><b>2</b><span>AI</span><small>Understands order</small></div>
+            <div class="process-stage stage-cart" data-hero-stage="2"><b>3</b><span>Cart</span><small>Builds checkout</small></div>
+            <div class="process-stage stage-kitchen" data-hero-stage="3"><b>4</b><span>Kitchen</span><small>Creates ticket</small></div>
+            <div class="process-stage stage-inventory" data-hero-stage="4"><b>5</b><span>Inventory</span><small>Reserves stock</small></div>
+            <div class="process-stage stage-delivery" data-hero-stage="5"><b>6</b><span>Delivery</span><small>Assigns driver</small></div>
+            <div class="process-stage stage-owner" data-hero-stage="6"><b>7</b><span>Owner</span><small>Updates revenue</small></div>
+          </div>
           <div class="scene-hud hero-hud">
             <div class="hud-card"><span>Order</span><strong>#1042</strong></div>
-            <div class="hud-card"><span>Status</span><strong id="heroStatusText">Message received</strong></div>
+            <div class="hud-card"><span>Active process</span><strong id="heroStatusText">WhatsApp message received</strong></div>
             <div class="hud-card"><span>Value</span><strong>PKR 1,588</strong></div>
           </div>
           <div class="scene-controls" aria-label="Focus the 3D camera">
             <button type="button" data-hero-focus="overview" class="active">Full view</button>
-            <button type="button" data-hero-focus="phone">Phone</button>
-            <button type="button" data-hero-focus="kitchen">Kitchen</button>
-            <button type="button" data-hero-focus="inventory">Inventory</button>
-            <button type="button" data-hero-focus="delivery">Delivery</button>
-            <button type="button" data-hero-focus="owner">Owner</button>
+            <button type="button" data-hero-focus="phone">1 · Phone</button>
+            <button type="button" data-hero-focus="ai">2 · AI</button>
+            <button type="button" data-hero-focus="cart">3 · Cart</button>
+            <button type="button" data-hero-focus="kitchen">4 · Kitchen</button>
+            <button type="button" data-hero-focus="inventory">5 · Inventory</button>
+            <button type="button" data-hero-focus="delivery">6 · Delivery</button>
+            <button type="button" data-hero-focus="owner">7 · Owner</button>
           </div>
         </div>
       </div>
@@ -99,6 +111,18 @@
       <div class="container trust-strip-grid">
         <span>WhatsApp Ordering</span><span>Kitchen Operations</span><span>Inventory</span>
         <span>Customer CRM</span><span>Delivery</span><span>Owner Reports</span>
+      </div>
+    </section>
+
+    <section class="color-system-strip" aria-label="OrderRise process color legend">
+      <div class="container color-system-grid">
+        <span class="legend-whatsapp"><b>1</b> WhatsApp</span>
+        <span class="legend-ai"><b>2</b> AI understanding</span>
+        <span class="legend-cart"><b>3</b> Cart & checkout</span>
+        <span class="legend-kitchen"><b>4</b> Kitchen</span>
+        <span class="legend-inventory"><b>5</b> Inventory</span>
+        <span class="legend-delivery"><b>6</b> Delivery</span>
+        <span class="legend-owner"><b>7</b> Owner intelligence</span>
       </div>
     </section>
 
@@ -141,18 +165,24 @@
           <div class="order-demo-scene reveal" data-delay="90">
             <canvas id="orderDemoCanvas" aria-label="Interactive 3D WhatsApp order simulation"></canvas>
             <div class="webgl-fallback" data-fallback-for="orderDemoCanvas"><strong>3D demo unavailable</strong><span>The order controls and data remain available.</span></div>
+            <div class="canvas-instructions demo-instructions"><span>Click a step on the left</span><span>Watch the matching 3D object light up</span></div>
             <div class="order-message-card">
               <span id="orderDemoCustomer">Show me the menu</span>
               <strong id="orderDemoReply">Here are the most popular items.</strong>
             </div>
+            <div class="demo-explanation" id="demoExplanation" aria-live="polite">
+              <span id="demoExplanationStep">STEP 1 · MENU</span>
+              <strong id="demoExplanationTitle">The customer asks for the menu.</strong>
+              <p id="demoExplanationText">The phone and menu screen glow green. No kitchen or stock action is needed yet.</p>
+            </div>
           </div>
           <div class="live-updates reveal" data-delay="150">
             <div class="panel-label">Live operational updates</div>
-            <div><span>Cart</span><strong id="cartStatus">Empty</strong></div>
-            <div><span>Inventory</span><strong id="inventoryStatus">24 burgers</strong></div>
-            <div><span>Kitchen</span><strong id="kitchenStatus">Waiting</strong></div>
-            <div><span>Driver</span><strong id="driverStatus">Not required</strong></div>
-            <div><span>Revenue</span><strong id="revenueStatus">PKR 0</strong></div>
+            <div class="update-card update-cart"><span>🛒 Cart</span><strong id="cartStatus">Empty</strong></div>
+            <div class="update-card update-inventory"><span>📦 Inventory</span><strong id="inventoryStatus">24 burgers</strong></div>
+            <div class="update-card update-kitchen"><span>🍳 Kitchen</span><strong id="kitchenStatus">Waiting</strong></div>
+            <div class="update-card update-driver"><span>🛵 Driver</span><strong id="driverStatus">Not required</strong></div>
+            <div class="update-card update-owner"><span>📈 Revenue</span><strong id="revenueStatus">PKR 0</strong></div>
           </div>
         </div>
       </div>
@@ -168,6 +198,13 @@
             <div class="journey-overlay">
               <span id="journeyLabel">Capture</span>
               <strong id="journeyVisualText">“I need two burgers.”</strong>
+              <div class="journey-flow-card">
+                <div><small>INPUT</small><b id="journeyInput">Customer message</b></div>
+                <i>→</i>
+                <div><small>SYSTEM ACTION</small><b id="journeyAction">Capture WhatsApp text</b></div>
+                <i>→</i>
+                <div><small>OUTPUT</small><b id="journeyOutput">Raw order request</b></div>
+              </div>
             </div>
           </div>
         </div>
@@ -205,6 +242,10 @@
           <div class="pillar-scene-shell reveal" data-delay="80">
             <canvas id="pillarCanvas" aria-label="Interactive 3D OrderRise product pillars"></canvas>
             <div class="webgl-fallback" data-fallback-for="pillarCanvas"><strong>3D pillar scene unavailable</strong><span>The selected pillar details remain visible.</span></div>
+            <div class="scene-purpose">
+              <span id="pillarSceneName">INTELLIGENT ORDERING</span>
+              <strong id="pillarScenePurpose">Phone → AI → cart → checkout</strong>
+            </div>
           </div>
           <div class="pillar-copy reveal" data-delay="140">
             <p class="eyebrow" id="pillarEyebrow">Pillar 1</p>
@@ -228,6 +269,7 @@
         <div class="device-showcase reveal">
           <canvas id="deviceCanvas" aria-label="Floating 3D restaurant devices"></canvas>
           <div class="webgl-fallback" data-fallback-for="deviceCanvas"><strong>3D devices unavailable</strong><span>Select the workspace labels below.</span></div>
+          <div class="scene-purpose device-purpose"><span id="deviceSceneName">OWNER LAPTOP</span><strong id="deviceScenePurpose">Orders, revenue, customers and alerts</strong></div>
           <div class="device-tabs">
             <button type="button" data-device="owner" class="active">Laptop · Owner Hub</button>
             <button type="button" data-device="kitchen">Tablet · Kitchen</button>
@@ -249,6 +291,7 @@
           <div class="admin-scene reveal">
             <canvas id="adminCanvas" aria-label="3D restaurant admin command center"></canvas>
             <div class="webgl-fallback" data-fallback-for="adminCanvas"><strong>3D command center unavailable</strong><span>Select a module to review its role.</span></div>
+            <div class="scene-purpose admin-purpose"><span id="adminSceneName">ORDERS MODULE</span><strong id="adminScenePurpose">Message → status → fulfillment</strong></div>
           </div>
           <div class="admin-controls reveal" data-delay="100">
             <div class="module-grid">

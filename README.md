@@ -1,39 +1,33 @@
-# OrderRise — Complete Real 3D Website
+# OrderRise — Clear Colorful Real 3D Website
 
-This is the real WebGL/Three.js version of the OrderRise website.
+This is the clarity-focused real 3D version of OrderRise.
 
-## Included real 3D experiences
+## What makes the process easy to understand
 
-1. Cinematic floating smartphone and cutaway restaurant hero
-2. Kitchen, inventory, delivery and owner zones
-3. Glowing order pathway and moving order data
-4. Interactive WhatsApp order demo
-5. Seven-scene scroll-based order journey
-6. Five product-pillar 3D visual modes
-7. Floating laptop, tablet, phones and desktop dashboard
-8. Admin Hub command center with orbiting modules
-9. Final pull-away cinematic restaurant scene
-10. Eight restaurant-specific 3D solution pages
+The complete workflow uses one consistent color language:
 
-## Technology
+- Green: WhatsApp message
+- Purple: AI understanding
+- Orange: cart and checkout
+- Amber: kitchen
+- Blue: inventory
+- Pink: delivery
+- Cyan: owner reporting
 
-- HTML
-- CSS
-- JavaScript
-- Three.js 0.185.1
-- WebGL
-- OrbitControls
-- Procedural optimized 3D geometry
+Every main scene contains visible labels, numbered process stages and written explanations.
 
-No Node.js, npm, React, build step or PowerShell generator is required.
+## Start on Windows
 
-## Important local-testing rule
+Double-click:
 
-Do not double-click `index.html`. Three.js JavaScript modules should be opened through a local HTTP server.
+```text
+start-website.bat
+```
 
-From this folder run:
+Or run:
 
 ```powershell
+cd "PATH-TO-THIS-FOLDER"
 python -m http.server 8080
 ```
 
@@ -43,19 +37,32 @@ Then open:
 http://localhost:8080/
 ```
 
-Stop the server with `Ctrl + C`.
+## Test 3D support
+
+Open:
+
+```text
+http://localhost:8080/diagnostics.html
+```
+
+The diagnostics page tests WebGL, the local Three.js module, renderer creation and animation.
+
+## No CDN required for Three.js
+
+Three.js, OrbitControls and RoundedBoxGeometry are stored in `vendor/`, so the 3D scenes do not depend on a remote Three.js CDN.
+
+## Main files
+
+- `index.html`
+- `style.css`
+- `script.js`
+- `three-scene.js`
+- `page-scene.js`
+- `diagnostics.html`
+- `vendor/`
+- `solutions/`
+- `docs/`
 
 ## GitHub Pages
 
-Upload every file and folder to the root of the existing `orderrise-website` repository. GitHub Pages should publish:
-
-- Branch: `main`
-- Folder: `/(root)`
-
-## Safety
-
-- Public scenes use fictional data.
-- No production tokens or credentials are included.
-- No real customers or restaurant orders are included.
-- The demo form does not transmit data.
-- Live GPS tracking is not advertised.
+The project is a static website and can be deployed directly from the repository `main` branch and root folder.

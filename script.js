@@ -1,13 +1,13 @@
 
 const orderStates = [
-  { customer:"Show me the menu", reply:"Here are the most popular items.", cart:"Empty", inventory:"24 burgers", kitchen:"Waiting", driver:"Not required", revenue:"PKR 0" },
-  { customer:"Add two chicken burgers", reply:"Two chicken burgers were added to your cart.", cart:"2 burgers", inventory:"22 burgers", kitchen:"Ticket drafted", driver:"Not required", revenue:"PKR 1,598" },
-  { customer:"Make one spicy", reply:"One burger is now spicy.", cart:"2 customized burgers", inventory:"22 burgers", kitchen:"Modifier updated", driver:"Not required", revenue:"PKR 1,598" },
-  { customer:"Add extra cheese", reply:"Extra cheese was added to both burgers.", cart:"2 burgers + cheese", inventory:"20 cheese slices", kitchen:"Ticket updated", driver:"Not required", revenue:"PKR 1,798" },
-  { customer:"Apply SAVE10", reply:"SAVE10 applied successfully.", cart:"10% discount", inventory:"Validated", kitchen:"Ticket ready", driver:"Not required", revenue:"PKR 1,618" },
-  { customer:"I want delivery", reply:"Delivery selected. Please confirm your address.", cart:"Delivery order", inventory:"Reserved", kitchen:"Awaiting confirmation", driver:"Available", revenue:"PKR 1,768" },
-  { customer:"Confirm my order", reply:"Order #1042 is confirmed and sent to the kitchen.", cart:"Confirmed", inventory:"Reserved", kitchen:"Preparing", driver:"Assigned", revenue:"PKR 1,768" },
-  { customer:"Track my order", reply:"Your order is out for delivery.", cart:"Completed", inventory:"Updated", kitchen:"Ready", driver:"Out for delivery", revenue:"PKR 1,768" }
+  { customer:"Show me the menu", reply:"Here are the most popular items.", cart:"Empty", inventory:"24 burgers", kitchen:"Waiting", driver:"Not required", revenue:"PKR 0", step:"STEP 1 · MENU", title:"The customer asks for the menu.", explanation:"The WhatsApp phone and menu area glow green. No kitchen or stock action is needed yet.", accent:"#25d366" },
+  { customer:"Add two chicken burgers", reply:"Two chicken burgers were added to your cart.", cart:"2 burgers", inventory:"22 burgers", kitchen:"Ticket drafted", driver:"Not required", revenue:"PKR 1,598", step:"STEP 2 · CART", title:"Two burgers fly into the cart.", explanation:"The cart turns orange, the burger count changes and inventory reserves two burger items.", accent:"#ff9f43" },
+  { customer:"Make one spicy", reply:"One burger is now spicy.", cart:"2 customized burgers", inventory:"22 burgers", kitchen:"Modifier updated", driver:"Not required", revenue:"PKR 1,598", step:"STEP 3 · MODIFIER", title:"The spicy instruction is attached.", explanation:"A red modifier marker appears on one burger and the kitchen ticket receives the change.", accent:"#ff5a67" },
+  { customer:"Add extra cheese", reply:"Extra cheese was added to both burgers.", cart:"2 burgers + cheese", inventory:"20 cheese slices", kitchen:"Ticket updated", driver:"Not required", revenue:"PKR 1,798", step:"STEP 4 · ADD-ON", title:"Cheese is added and stock decreases.", explanation:"The cheese layers glow yellow while the inventory shelf removes the reserved slices.", accent:"#ffca5c" },
+  { customer:"Apply SAVE10", reply:"SAVE10 applied successfully.", cart:"10% discount", inventory:"Validated", kitchen:"Ticket ready", driver:"Not required", revenue:"PKR 1,618", step:"STEP 5 · COUPON", title:"The coupon changes the final total.", explanation:"The purple promotion badge activates, validates SAVE10 and recalculates the order value.", accent:"#a47cff" },
+  { customer:"I want delivery", reply:"Delivery selected. Please confirm your address.", cart:"Delivery order", inventory:"Reserved", kitchen:"Awaiting confirmation", driver:"Available", revenue:"PKR 1,768", step:"STEP 6 · DELIVERY", title:"The delivery station becomes active.", explanation:"The pink delivery zone lights up and an available driver and scooter appear.", accent:"#ff63b8" },
+  { customer:"Confirm my order", reply:"Order #1042 is confirmed and sent to the kitchen.", cart:"Confirmed", inventory:"Reserved", kitchen:"Preparing", driver:"Assigned", revenue:"PKR 1,768", step:"STEP 7 · KITCHEN", title:"A real kitchen ticket is created.", explanation:"The amber kitchen screen displays Order #1042 and preparation begins.", accent:"#ffca5c" },
+  { customer:"Track my order", reply:"Your order is out for delivery.", cart:"Completed", inventory:"Updated", kitchen:"Ready", driver:"Out for delivery", revenue:"PKR 1,768", step:"STEP 8 · TRACKING", title:"The driver moves along the delivery route.", explanation:"The blue route animates, the customer receives an update and owner revenue is finalized.", accent:"#43c6ff" }
 ];
 
 const pillarData = {
@@ -55,6 +55,46 @@ const adminData = {
   inventory:["Open the stock room.","Review item availability, low stock and product usage."],
   menu:["Control products, prices and modifiers.","Manage categories, availability, add-ons and restaurant menus."],
   system:["Manage the restaurant operating system.","Review opening status, integrations, settings and system health."]
+};
+
+const journeyFlow = [
+  {input:"Customer message", action:"Capture WhatsApp text", output:"Raw order request"},
+  {input:"Raw message", action:"Extract product, quantity and intent", output:"Structured order data"},
+  {input:"Structured order", action:"Check price, stock and promotions", output:"Validated cart"},
+  {input:"Validated cart", action:"Collect address, payment and coupon", output:"Confirmed checkout"},
+  {input:"Confirmed order", action:"Create kitchen ticket #1042", output:"Preparing status"},
+  {input:"Ready order", action:"Assign driver and dispatch", output:"Customer tracking update"},
+  {input:"Completed delivery", action:"Update CRM, loyalty and analytics", output:"Owner intelligence"}
+];
+
+const pillarPurpose = {
+  ordering:["INTELLIGENT ORDERING","Phone → AI → cart → checkout"],
+  operations:["RESTAURANT OPERATIONS","Kitchen + inventory + owner + delivery"],
+  growth:["CUSTOMERS & GROWTH","Profiles → loyalty → campaigns → reorder"],
+  delivery:["DELIVERY MANAGEMENT","Dispatch → driver → status → completion"],
+  intelligence:["OWNER INTELLIGENCE","Orders → metrics → reports → decisions"]
+};
+
+const devicePurpose = {
+  owner:["OWNER LAPTOP","Orders, revenue, customers and alerts"],
+  kitchen:["KITCHEN TABLET","New → preparing → ready kitchen tickets"],
+  driver:["DRIVER PHONE","Assignments, status and cash collection"],
+  customer:["CUSTOMER WHATSAPP","Menu, cart, checkout and tracking"],
+  reports:["REPORTS DESKTOP","Sales, products, customers and delivery"]
+};
+
+const adminPurpose = {
+  orders:"Message → status → fulfillment",
+  kitchen:"Ticket → preparation → ready",
+  receipts:"Order → payment → receipt",
+  promotions:"Audience → offer → conversion",
+  customers:"Profile → history → loyalty",
+  deliveries:"Assignment → route → completion",
+  reports:"Data → metrics → decisions",
+  staff:"Role → access → responsibility",
+  inventory:"Usage → stock → alert",
+  menu:"Product → price → availability",
+  system:"Integration → health → control"
 };
 
 function call3D(method, ...args) {
@@ -152,6 +192,12 @@ function updateOrderDemo(index) {
   document.getElementById("kitchenStatus").textContent = state.kitchen;
   document.getElementById("driverStatus").textContent = state.driver;
   document.getElementById("revenueStatus").textContent = state.revenue;
+  document.getElementById("demoExplanationStep").textContent = state.step;
+  document.getElementById("demoExplanationTitle").textContent = state.title;
+  document.getElementById("demoExplanationText").textContent = state.explanation;
+  const explanation = document.getElementById("demoExplanation");
+  explanation.style.borderLeftColor = state.accent;
+  explanation.style.boxShadow = `0 0 30px ${state.accent}22`;
   document.querySelectorAll("[data-order-step]").forEach((button, i) => button.classList.toggle("active", i === index));
   call3D("setOrderStage", index);
 }
@@ -181,6 +227,10 @@ function setJourneyStage(index) {
   if (label) label.textContent = titles[index];
   if (text) text.textContent = visual[index];
   if (counter) counter.textContent = `Scene ${index + 1} / 7`;
+  const flow = journeyFlow[index];
+  document.getElementById("journeyInput").textContent = flow.input;
+  document.getElementById("journeyAction").textContent = flow.action;
+  document.getElementById("journeyOutput").textContent = flow.output;
   call3D("setJourneyStage", index);
 }
 function initJourney() {
@@ -202,6 +252,9 @@ function updatePillar(key) {
   document.getElementById("pillarDescription").textContent = data.description;
   document.getElementById("pillarFeatures").innerHTML = data.features.map(item => `<li>${item}</li>`).join("");
   document.querySelectorAll("[data-pillar]").forEach(button => button.classList.toggle("active", button.dataset.pillar === key));
+  const purpose = pillarPurpose[key];
+  document.getElementById("pillarSceneName").textContent = purpose[0];
+  document.getElementById("pillarScenePurpose").textContent = purpose[1];
   call3D("setPillar", key);
 }
 function initPillars() {
@@ -212,8 +265,12 @@ function initPillars() {
 
 function initDevices() {
   document.querySelectorAll("[data-device]").forEach(button => button.addEventListener("click", () => {
+    const key = button.dataset.device;
     document.querySelectorAll("[data-device]").forEach(item => item.classList.toggle("active", item === button));
-    call3D("focusDevice", button.dataset.device);
+    const purpose = devicePurpose[key];
+    document.getElementById("deviceSceneName").textContent = purpose[0];
+    document.getElementById("deviceScenePurpose").textContent = purpose[1];
+    call3D("focusDevice", key);
   }));
 }
 
@@ -222,6 +279,8 @@ function updateAdmin(key) {
   document.getElementById("adminModuleLabel").textContent = key;
   document.getElementById("adminModuleTitle").textContent = data[0];
   document.getElementById("adminModuleText").textContent = data[1];
+  document.getElementById("adminSceneName").textContent = `${key.toUpperCase()} MODULE`;
+  document.getElementById("adminScenePurpose").textContent = adminPurpose[key];
   document.querySelectorAll("[data-admin-module]").forEach(button => button.classList.toggle("active", button.dataset.adminModule === key));
   call3D("focusAdmin", key);
 }

@@ -1,0 +1,265 @@
+{
+  "project": "OrderRise Clear Colorful 3D",
+  "html_pages": 21,
+  "solution_pages": 8,
+  "checks": {
+    "required_files": {
+      "passed": true,
+      "missing": []
+    },
+    "html_local_references": {
+      "passed": true,
+      "errors": []
+    },
+    "duplicate_html_ids": {
+      "passed": true,
+      "errors": {}
+    },
+    "local_import_maps": {
+      "passed": true,
+      "errors": []
+    },
+    "javascript_syntax": {
+      "script.js": {
+        "passed": true,
+        "stderr": ""
+      },
+      "three-scene.js": {
+        "passed": true,
+        "stderr": ""
+      },
+      "page-scene.js": {
+        "passed": true,
+        "stderr": ""
+      }
+    },
+    "module_bundle_resolution": {
+      "three-scene.js": {
+        "passed": true,
+        "bytes": 1322394,
+        "stderr": ""
+      },
+      "page-scene.js": {
+        "passed": true,
+        "bytes": 1275603,
+        "stderr": ""
+      }
+    },
+    "homepage_javascript_ids": {
+      "passed": true,
+      "missing": [],
+      "referenced": 41
+    },
+    "clarity_features": {
+      "hero_process_stages": 7,
+      "hero_focus_buttons": 8,
+      "interactive_demo_explanation": true,
+      "journey_explanation_fields": true,
+      "pillar_scene_purpose": true,
+      "device_scene_purpose": true,
+      "admin_scene_purpose": true,
+      "color_legend": true,
+      "subpage_guides": true,
+      "subpage_process_rails": true
+    },
+    "local_http_server": {
+      "passed": true,
+      "files_checked": 43,
+      "errors": []
+    },
+    "css_syntax": {
+      "passed": true,
+      "tool": "csstree-validator",
+      "output": ""
+    },
+    "dom_interactions": {
+      "passed": true,
+      "checks": [
+        {
+          "name": "eight order controls",
+          "passed": true,
+          "detail": "8"
+        },
+        {
+          "name": "order explanation updates",
+          "passed": true,
+          "detail": "Cheese is added and stock decreases."
+        },
+        {
+          "name": "status card updates",
+          "passed": true,
+          "detail": "20 cheese slices"
+        },
+        {
+          "name": "hero active focus",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "pillar purpose updates",
+          "passed": true,
+          "detail": "DELIVERY MANAGEMENT"
+        },
+        {
+          "name": "admin purpose updates",
+          "passed": true,
+          "detail": "Usage \u2192 stock \u2192 alert"
+        }
+      ]
+    }
+  },
+  "warnings": [
+    "The container has no usable EGL/WebGL display, so pixel-level visual rendering could not be captured here.",
+    "A browser-side diagnostics.html page is included to test WebGL, Three.js loading, renderer creation and animation on the deployment computer."
+  ],
+  "page_summaries": [
+    {
+      "page": "404.html",
+      "ids": 0,
+      "canvases": []
+    },
+    {
+      "page": "about.html",
+      "ids": 5,
+      "canvases": [
+        "page3dCanvas"
+      ]
+    },
+    {
+      "page": "contact.html",
+      "ids": 7,
+      "canvases": [
+        "page3dCanvas"
+      ]
+    },
+    {
+      "page": "demo.html",
+      "ids": 5,
+      "canvases": [
+        "page3dCanvas"
+      ]
+    },
+    {
+      "page": "diagnostics.html",
+      "ids": 6,
+      "canvases": [
+        "diagnosticCanvas"
+      ]
+    },
+    {
+      "page": "features.html",
+      "ids": 5,
+      "canvases": [
+        "page3dCanvas"
+      ]
+    },
+    {
+      "page": "how-it-works.html",
+      "ids": 5,
+      "canvases": [
+        "page3dCanvas"
+      ]
+    },
+    {
+      "page": "index.html",
+      "ids": 65,
+      "canvases": [
+        "hero3dCanvas",
+        "orderDemoCanvas",
+        "journeyCanvas",
+        "pillarCanvas",
+        "deviceCanvas",
+        "adminCanvas",
+        "finalCanvas"
+      ]
+    },
+    {
+      "page": "pricing.html",
+      "ids": 5,
+      "canvases": [
+        "page3dCanvas"
+      ]
+    },
+    {
+      "page": "privacy.html",
+      "ids": 3,
+      "canvases": []
+    },
+    {
+      "page": "product.html",
+      "ids": 5,
+      "canvases": [
+        "page3dCanvas"
+      ]
+    },
+    {
+      "page": "solutions.html",
+      "ids": 5,
+      "canvases": [
+        "page3dCanvas"
+      ]
+    },
+    {
+      "page": "terms.html",
+      "ids": 3,
+      "canvases": []
+    },
+    {
+      "page": "solutions/bakeries.html",
+      "ids": 5,
+      "canvases": [
+        "solutionCanvas"
+      ]
+    },
+    {
+      "page": "solutions/burger-restaurants.html",
+      "ids": 5,
+      "canvases": [
+        "solutionCanvas"
+      ]
+    },
+    {
+      "page": "solutions/cafes.html",
+      "ids": 5,
+      "canvases": [
+        "solutionCanvas"
+      ]
+    },
+    {
+      "page": "solutions/cloud-kitchens.html",
+      "ids": 5,
+      "canvases": [
+        "solutionCanvas"
+      ]
+    },
+    {
+      "page": "solutions/fast-food.html",
+      "ids": 5,
+      "canvases": [
+        "solutionCanvas"
+      ]
+    },
+    {
+      "page": "solutions/multi-location.html",
+      "ids": 5,
+      "canvases": [
+        "solutionCanvas"
+      ]
+    },
+    {
+      "page": "solutions/pizza-restaurants.html",
+      "ids": 5,
+      "canvases": [
+        "solutionCanvas"
+      ]
+    },
+    {
+      "page": "solutions/takeaway.html",
+      "ids": 5,
+      "canvases": [
+        "solutionCanvas"
+      ]
+    }
+  ],
+  "all_automated_checks_passed": true
+}
