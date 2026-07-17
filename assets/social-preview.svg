@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="OrderRise social preview">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050608"/>
+      <stop offset="1" stop-color="#151920"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="80%" cy="20%" r="55%">
+      <stop offset="0" stop-color="#25D366" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#25D366" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <g opacity=".18" stroke="#F7F8FA">
+    <path d="M0 80H1200M0 160H1200M0 240H1200M0 320H1200M0 400H1200M0 480H1200M0 560H1200"/>
+    <path d="M80 0V630M160 0V630M240 0V630M320 0V630M400 0V630M480 0V630M560 0V630M640 0V630M720 0V630M800 0V630M880 0V630M960 0V630M1040 0V630M1120 0V630"/>
+  </g>
+  <g transform="translate(84 75)">
+    <rect width="98" height="98" rx="24" fill="#151920" stroke="#F7F8FA" stroke-opacity=".12"/>
+    <rect x="18" y="56" width="13" height="22" rx="6.5" fill="#25D366"/>
+    <rect x="42" y="41" width="13" height="37" rx="6.5" fill="#25D366"/>
+    <rect x="66" y="24" width="13" height="54" rx="6.5" fill="#68FF9B"/>
+    <path d="M20 44L44 29L59 34L78 16" fill="none" stroke="#F7F8FA" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M65 16H78V29" fill="none" stroke="#F7F8FA" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="205" y="142" fill="#F7F8FA" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="700">Order<tspan fill="#25D366">Rise</tspan></text>
+  <text x="84" y="286" fill="#F7F8FA" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="700">Turn WhatsApp messages</text>
+  <text x="84" y="367" fill="#F7F8FA" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="700">into restaurant growth.</text>
+  <text x="84" y="441" fill="#9BA3AF" font-family="Arial, Helvetica, sans-serif" font-size="29">Ordering • Kitchen • Inventory • Delivery • Customers • Reports</text>
+  <rect x="84" y="494" width="242" height="66" rx="33" fill="#25D366"/>
+  <text x="124" y="537" fill="#050608" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="700">Book a Live Demo</text>
+</svg>
