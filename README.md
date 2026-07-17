@@ -1,68 +1,52 @@
-# OrderRise — Clear Colorful Real 3D Website
+# OrderRise Hybrid Sales + Guided 3D Website
 
-This is the clarity-focused real 3D version of OrderRise.
+This version combines:
 
-## What makes the process easy to understand
+- Clear restaurant-focused sales messaging
+- Guided Three.js restaurant scenes
+- An interactive WhatsApp order demonstration
+- Kitchen, inventory, delivery and owner explanations
+- Responsive desktop and mobile layouts
+- Separate product, feature, solution, pricing and company pages
 
-The complete workflow uses one consistent color language:
+## Website purpose
 
-- Green: WhatsApp message
-- Purple: AI understanding
-- Orange: cart and checkout
-- Amber: kitchen
-- Blue: inventory
-- Pink: delivery
-- Cyan: owner reporting
+OrderRise turns customer messages on WhatsApp into structured restaurant operations:
 
-Every main scene contains visible labels, numbered process stages and written explanations.
+WhatsApp → AI → Cart → Kitchen → Inventory → Delivery → Owner reporting
 
-## Start on Windows
+## Start locally
 
 Double-click:
 
-```text
-start-website.bat
-```
+`start-website.bat`
 
 Or run:
 
 ```powershell
-cd "PATH-TO-THIS-FOLDER"
 python -m http.server 8080
 ```
 
 Then open:
 
-```text
-http://localhost:8080/
-```
-
-## Test 3D support
-
-Open:
-
-```text
-http://localhost:8080/diagnostics.html
-```
-
-The diagnostics page tests WebGL, the local Three.js module, renderer creation and animation.
-
-## No CDN required for Three.js
-
-Three.js, OrbitControls and RoundedBoxGeometry are stored in `vendor/`, so the 3D scenes do not depend on a remote Three.js CDN.
+`http://localhost:8080/`
 
 ## Main files
 
-- `index.html`
-- `style.css`
-- `script.js`
-- `three-scene.js`
-- `page-scene.js`
-- `diagnostics.html`
-- `vendor/`
-- `solutions/`
-- `docs/`
+- `index.html` — hybrid sales homepage
+- `style.css` — complete responsive design
+- `script.js` — UI and product-demo interactions
+- `three-scene.js` — homepage Three.js scenes
+- `page-scene.js` — subpage Three.js scenes
+- `diagnostics.html` — WebGL browser test
+- `vendor/` — local Three.js modules
 
-## GitHub Pages
+## Upload to GitHub
 
-The project is a static website and can be deployed directly from the repository `main` branch and root folder.
+```powershell
+git add .
+git commit -m "Build OrderRise hybrid sales and guided 3D website"
+git push origin main
+```
+
+The demonstration uses fictional information and does not connect to the production restaurant backend.

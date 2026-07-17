@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OrderRise | 3D WhatsApp Restaurant Operating System</title>
-  <meta name="description" content="OrderRise connects WhatsApp ordering, kitchen operations, inventory, delivery, customers and restaurant intelligence in one cinematic operating system.">
+  <title>OrderRise | WhatsApp Ordering, Kitchen, Delivery & Restaurant Operations</title>
+  <meta name="description" content="OrderRise turns WhatsApp customer orders into structured carts, kitchen tickets, inventory updates, delivery workflows and owner reporting.">
   <meta name="theme-color" content="#050608">
   <meta property="og:type" content="website">
   <meta property="og:title" content="OrderRise — One WhatsApp Message. Your Entire Restaurant in Motion.">
@@ -40,7 +40,7 @@
         <a href="features.html">Features</a>
         <a href="how-it-works.html">How It Works</a>
         <a href="solutions.html">Solutions</a>
-        <a href="demo.html">3D Demo</a>
+        <a href="#interactive-demo">Try the Order</a>
         <a href="pricing.html">Pricing</a>
         <a class="button button-small" href="contact.html">Book a Live Demo</a>
       </nav>
@@ -48,60 +48,143 @@
   </header>
 
   <main>
-    <section class="hero section">
+    <section class="hero section" id="home">
       <div class="hero-grid-lines" aria-hidden="true"></div>
-      <div class="container hero-layout">
+
+      <div class="container hero-layout hybrid-hero-layout">
         <div class="hero-copy reveal">
-          <div class="status-pill"><span></span>Real-time restaurant order orchestration</div>
-          <p class="eyebrow">Intelligent restaurant operating system</p>
-          <h1>Turn WhatsApp Messages Into <span class="gradient-text">Completed Restaurant Orders.</span></h1>
-          <p class="lead">One intelligent system for ordering, kitchen operations, inventory, customers, deliveries, staff and restaurant growth.</p>
-          <div class="button-row">
-            <a class="button" href="contact.html">Book a Live Demo <span>↗</span></a>
-            <a class="button button-secondary" href="#journey">See How It Works <span>↓</span></a>
+          <div class="status-pill">
+            <span></span>
+            For restaurants taking orders through WhatsApp
           </div>
-          <div class="trust-grid">
-            <span>Official Meta WhatsApp API</span>
-            <span>AI-Powered Ordering</span>
-            <span>Real-Time Kitchen Operations</span>
-            <span>Secure Restaurant Data</span>
+
+          <p class="eyebrow">Restaurant ordering and operations automation</p>
+
+          <h1>
+            From a WhatsApp order to
+            <span class="gradient-text">kitchen, delivery and owner reporting.</span>
+          </h1>
+
+          <p class="lead hero-purpose-copy">
+            OrderRise is a restaurant operating system that receives customer
+            orders on WhatsApp, understands the request, prepares the cart,
+            sends a clear ticket to the kitchen, updates stock, coordinates
+            delivery and records the sale for the owner.
+          </p>
+
+          <div class="hero-outcomes" aria-label="Main OrderRise benefits">
+            <article>
+              <span>For customers</span>
+              <strong>Order naturally on WhatsApp</strong>
+            </article>
+            <article>
+              <span>For restaurant teams</span>
+              <strong>Receive clear operational tasks</strong>
+            </article>
+            <article>
+              <span>For owners</span>
+              <strong>See orders, customers and revenue</strong>
+            </article>
+          </div>
+
+          <div class="button-row">
+            <a class="button" href="#interactive-demo">
+              Try a Customer Order <span>↓</span>
+            </a>
+
+            <a class="button button-secondary" href="contact.html">
+              Book a Live Demo <span>↗</span>
+            </a>
+          </div>
+
+          <div class="hero-plain-summary">
+            <strong>In one sentence:</strong>
+            <span>
+              One customer message activates the complete restaurant workflow.
+            </span>
           </div>
         </div>
 
-        <div class="hero-3d-shell reveal" data-delay="100">
+        <div class="hero-3d-shell reveal hybrid-hero-scene" data-delay="100">
           <div class="scene-topbar">
-            <div><span class="live-dot"></span> Live 3D restaurant scene</div>
-            <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="false">Sound off</button>
+            <div>
+              <span class="live-dot"></span>
+              Guided 3D order process
+            </div>
+
+            <button
+              class="sound-toggle"
+              id="soundToggle"
+              type="button"
+              aria-pressed="false"
+            >
+              Sound off
+            </button>
           </div>
-          <canvas id="hero3dCanvas" aria-label="Interactive 3D OrderRise restaurant command center"></canvas>
+
+          <canvas
+            id="hero3dCanvas"
+            aria-label="A guided 3D restaurant workflow showing a WhatsApp order moving through AI, cart, kitchen, inventory, delivery and owner reporting"
+          ></canvas>
+
           <div class="webgl-fallback" data-fallback-for="hero3dCanvas">
             <strong>3D preview unavailable</strong>
-            <span>Your browser can still explore every website section.</span>
+            <span>
+              The written seven-step process below explains the same workflow.
+            </span>
           </div>
-          <div class="canvas-instructions"><span>↔ Drag to rotate</span><span>⌁ Scroll to zoom</span><span>● Follow the glowing order</span></div>
-          <div class="hero-process-map" id="heroProcessMap" aria-label="Order process stages">
-            <div class="process-stage stage-whatsapp active" data-hero-stage="0"><b>1</b><span>WhatsApp</span><small>Message arrives</small></div>
-            <div class="process-stage stage-ai" data-hero-stage="1"><b>2</b><span>AI</span><small>Understands order</small></div>
-            <div class="process-stage stage-cart" data-hero-stage="2"><b>3</b><span>Cart</span><small>Builds checkout</small></div>
-            <div class="process-stage stage-kitchen" data-hero-stage="3"><b>4</b><span>Kitchen</span><small>Creates ticket</small></div>
-            <div class="process-stage stage-inventory" data-hero-stage="4"><b>5</b><span>Inventory</span><small>Reserves stock</small></div>
-            <div class="process-stage stage-delivery" data-hero-stage="5"><b>6</b><span>Delivery</span><small>Assigns driver</small></div>
-            <div class="process-stage stage-owner" data-hero-stage="6"><b>7</b><span>Owner</span><small>Updates revenue</small></div>
+
+          <div class="scene-purpose-card hero-purpose-card">
+            <span>WHAT YOU ARE SEEING</span>
+            <strong id="heroStatusText">WhatsApp message received</strong>
+            <p>
+              The glowing order moves between real restaurant departments.
+              The highlighted model is the department currently doing work.
+            </p>
           </div>
-          <div class="scene-hud hero-hud">
-            <div class="hud-card"><span>Order</span><strong>#1042</strong></div>
-            <div class="hud-card"><span>Active process</span><strong id="heroStatusText">WhatsApp message received</strong></div>
-            <div class="hud-card"><span>Value</span><strong>PKR 1,588</strong></div>
+
+          <div class="canvas-instructions">
+            <span>↔ Drag to inspect the restaurant</span>
+            <span>Click a department below to focus</span>
           </div>
-          <div class="scene-controls" aria-label="Focus the 3D camera">
-            <button type="button" data-hero-focus="overview" class="active">Full view</button>
-            <button type="button" data-hero-focus="phone">1 · Phone</button>
-            <button type="button" data-hero-focus="ai">2 · AI</button>
+
+          <div
+            class="hero-process-map"
+            id="heroProcessMap"
+            aria-label="Seven stages in the OrderRise restaurant workflow"
+          >
+            <div class="process-stage stage-whatsapp active" data-hero-stage="0">
+              <b>1</b><span>WhatsApp</span><small>Customer orders</small>
+            </div>
+            <div class="process-stage stage-ai" data-hero-stage="1">
+              <b>2</b><span>AI</span><small>Understands request</small>
+            </div>
+            <div class="process-stage stage-cart" data-hero-stage="2">
+              <b>3</b><span>Cart</span><small>Builds checkout</small>
+            </div>
+            <div class="process-stage stage-kitchen" data-hero-stage="3">
+              <b>4</b><span>Kitchen</span><small>Receives ticket</small>
+            </div>
+            <div class="process-stage stage-inventory" data-hero-stage="4">
+              <b>5</b><span>Inventory</span><small>Reserves stock</small>
+            </div>
+            <div class="process-stage stage-delivery" data-hero-stage="5">
+              <b>6</b><span>Delivery</span><small>Assigns driver</small>
+            </div>
+            <div class="process-stage stage-owner" data-hero-stage="6">
+              <b>7</b><span>Owner</span><small>Records result</small>
+            </div>
+          </div>
+
+          <div class="scene-controls hybrid-scene-controls" aria-label="Focus the 3D camera on a restaurant department">
+            <button type="button" data-hero-focus="overview" class="active">Full process</button>
+            <button type="button" data-hero-focus="phone">1 · Customer phone</button>
+            <button type="button" data-hero-focus="ai">2 · AI understanding</button>
             <button type="button" data-hero-focus="cart">3 · Cart</button>
             <button type="button" data-hero-focus="kitchen">4 · Kitchen</button>
             <button type="button" data-hero-focus="inventory">5 · Inventory</button>
             <button type="button" data-hero-focus="delivery">6 · Delivery</button>
-            <button type="button" data-hero-focus="owner">7 · Owner</button>
+            <button type="button" data-hero-focus="owner">7 · Owner report</button>
           </div>
         </div>
       </div>
@@ -126,11 +209,94 @@
       </div>
     </section>
 
+    <section class="section purpose-section" id="what-it-does">
+      <div class="container">
+        <div class="section-intro purpose-intro reveal">
+          <p class="eyebrow">What OrderRise actually does</p>
+          <h2>It turns one customer conversation into coordinated restaurant work.</h2>
+          <p class="section-copy">
+            The website is selling a restaurant operating system—not a 3D
+            animation. Every model below represents a real operational job that
+            begins after the customer sends a message.
+          </p>
+        </div>
+
+        <div class="audience-value-grid">
+          <article class="audience-value-card reveal">
+            <div class="audience-icon customer-icon">01</div>
+            <span>Customer experience</span>
+            <h3>Customers order without learning another app.</h3>
+            <p>
+              They browse the menu, customize food, choose pickup or delivery,
+              confirm payment details and receive order updates inside WhatsApp.
+            </p>
+          </article>
+
+          <article class="audience-value-card reveal" data-delay="80">
+            <div class="audience-icon team-icon">02</div>
+            <span>Restaurant execution</span>
+            <h3>Staff receive clear tasks instead of messy chat messages.</h3>
+            <p>
+              The system creates the cart, validates stock, prepares a kitchen
+              ticket and sends the right information to delivery staff.
+            </p>
+          </article>
+
+          <article class="audience-value-card reveal" data-delay="160">
+            <div class="audience-icon owner-icon">03</div>
+            <span>Owner visibility</span>
+            <h3>Owners see what was ordered and what happened next.</h3>
+            <p>
+              Orders, customer history, product performance, discounts,
+              delivery results and revenue are recorded in one place.
+            </p>
+          </article>
+        </div>
+
+        <div class="purpose-process reveal">
+          <div class="purpose-process-heading">
+            <span>THE COMPLETE PROCESS</span>
+            <strong>Every 3D model has one operational meaning</strong>
+          </div>
+
+          <div class="purpose-process-grid">
+            <article class="purpose-step purpose-whatsapp">
+              <b>1</b><span>WhatsApp</span><small>Receives the customer message</small>
+            </article>
+            <i>→</i>
+            <article class="purpose-step purpose-ai">
+              <b>2</b><span>AI Agent</span><small>Finds product, quantity and instructions</small>
+            </article>
+            <i>→</i>
+            <article class="purpose-step purpose-cart">
+              <b>3</b><span>Cart</span><small>Calculates items, extras and total</small>
+            </article>
+            <i>→</i>
+            <article class="purpose-step purpose-kitchen">
+              <b>4</b><span>Kitchen</span><small>Receives a structured preparation ticket</small>
+            </article>
+            <i>→</i>
+            <article class="purpose-step purpose-inventory">
+              <b>5</b><span>Inventory</span><small>Reserves or reduces available stock</small>
+            </article>
+            <i>→</i>
+            <article class="purpose-step purpose-delivery">
+              <b>6</b><span>Delivery</span><small>Assigns fulfillment and order status</small>
+            </article>
+            <i>→</i>
+            <article class="purpose-step purpose-owner">
+              <b>7</b><span>Owner</span><small>Updates customer records and revenue</small>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="problems">
       <div class="container">
         <div class="section-intro reveal">
-          <p class="eyebrow">Restaurant problems</p>
-          <h2>Your Restaurant Is Losing Orders in the Gaps.</h2>
+          <p class="eyebrow">Why restaurants need it</p>
+          <h2>WhatsApp orders fail when staff must manually move information.</h2>
           <p class="section-copy">When orders are spread across calls, WhatsApp chats, notebooks and staff members, mistakes become unavoidable. Your restaurant needs one connected operating system.</p>
         </div>
         <div class="problem-grid">
@@ -146,9 +312,9 @@
     <section class="section section-alt" id="interactive-demo">
       <div class="container">
         <div class="section-intro reveal">
-          <p class="eyebrow">Interactive WhatsApp order demo</p>
-          <h2>Place an Order and Watch the Restaurant React.</h2>
-          <p class="section-copy">Every action updates the 3D cart, inventory, kitchen ticket, delivery station and owner revenue.</p>
+          <p class="eyebrow">Product proof</p>
+          <h2>Try one customer order and see every business result.</h2>
+          <p class="section-copy">Choose a customer message. The matching 3D object activates, and the cards show exactly what changed in the cart, stock, kitchen, delivery and revenue.</p>
         </div>
         <div class="demo-3d-layout">
           <div class="order-actions reveal">
@@ -210,8 +376,8 @@
         </div>
         <div class="journey-steps">
           <div class="journey-heading reveal">
-            <p class="eyebrow">Cinematic order journey</p>
-            <h2>From First Message to Final Delivery.</h2>
+            <p class="eyebrow">Guided system walkthrough</p>
+            <h2>Follow the same order from message to completed sale.</h2>
           </div>
           <article class="journey-step active" data-journey-stage="0"><span>Scene 1</span><h3>Capture</h3><p>A WhatsApp message arrives: “I need two burgers.”</p></article>
           <article class="journey-step" data-journey-stage="1"><span>Scene 2</span><h3>Understand</h3><p>The AI structures product, quantity, modifiers and confidence.</p></article>
@@ -227,9 +393,9 @@
     <section class="section section-alt" id="pillars">
       <div class="container">
         <div class="section-intro reveal">
-          <p class="eyebrow">Five product pillars</p>
-          <h2>Every Order. One Intelligent System.</h2>
-          <p class="section-copy">Switch the real-time 3D scene to explore each major system.</p>
+          <p class="eyebrow">What the product includes</p>
+          <h2>Five systems that support the complete restaurant journey.</h2>
+          <p class="section-copy">Select a system to see what it does, who uses it and which 3D objects represent its work.</p>
         </div>
         <div class="pillar-experience">
           <div class="pillar-tabs reveal">
