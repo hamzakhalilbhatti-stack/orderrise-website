@@ -40,7 +40,7 @@
         <a href="features.html">Features</a>
         <a href="how-it-works.html">How It Works</a>
         <a href="solutions.html">Solutions</a>
-        <a href="#interactive-demo">Try the Order</a>
+        <a href="#quick-demo">Quick Demo</a>
         <a href="pricing.html">Pricing</a>
         <a class="button button-small" href="contact.html">Book a Live Demo</a>
       </nav>
@@ -308,6 +308,123 @@
         <div class="reconnect-line reveal" aria-hidden="true"><span></span><span></span><span></span><span></span><strong>One connected operating system</strong></div>
       </div>
     </section>
+
+
+    <section class="section quick-demo-section" id="quick-demo">
+      <div class="container">
+        <div class="section-intro reveal">
+          <p class="eyebrow">Understand OrderRise in 60 seconds</p>
+          <h2>Chat like a customer. Watch the restaurant update live.</h2>
+          <p class="section-copy">
+            This fictional Taco Heat demo shows the simplest version of the
+            OrderRise process. Use the quick replies and watch the cart,
+            kitchen ticket, stock, driver and revenue change immediately.
+          </p>
+        </div>
+
+        <div class="quick-demo-layout reveal">
+          <section class="mini-chat-window" aria-label="Fictional Taco Heat WhatsApp order chat">
+            <div class="mini-chat-header">
+              <div class="mini-chat-avatar">TH</div>
+              <div>
+                <strong>Taco Heat — powered by OrderRise</strong>
+                <span><i></i> Online · fictional demo</span>
+              </div>
+              <button class="mini-reset-button" id="miniResetDemo" type="button">
+                Reset
+              </button>
+            </div>
+
+            <div class="mini-chat-log" id="miniChatLog" aria-live="polite">
+              <div class="mini-bubble mini-bot">
+                Hey! 👋 Welcome to Taco Heat. What can I get started for you?
+              </div>
+            </div>
+
+            <div class="mini-typing" id="miniTyping" hidden aria-label="OrderRise is typing">
+              <span></span><span></span><span></span>
+            </div>
+
+            <div class="mini-quick-replies" id="miniQuickReplies"></div>
+          </section>
+
+          <section class="mini-order-state" aria-label="Simulated live restaurant order state">
+            <div class="mini-state-heading">
+              <div>
+                <span>LIVE RESTAURANT STATE</span>
+                <h3>What OrderRise changed</h3>
+              </div>
+              <div class="mini-order-progress">
+                <span id="miniProgressLabel">Waiting for customer</span>
+                <strong id="miniProgressValue">0%</strong>
+              </div>
+            </div>
+
+            <div class="mini-process-explanation" id="miniProcessExplanation" aria-live="polite">
+              <span>CUSTOMER INPUT</span>
+              <strong>Choose “Show me the menu” to begin.</strong>
+              <p>
+                Each reply demonstrates how one WhatsApp message becomes
+                structured restaurant work.
+              </p>
+            </div>
+
+            <div class="mini-cart-panel">
+              <div class="mini-cart-heading">
+                <span>Customer cart</span>
+                <small id="miniDeliveryMode">Pickup or delivery not selected</small>
+              </div>
+
+              <div id="miniCartLines">
+                <div class="mini-cart-empty">
+                  No items yet — try “Show me the menu”.
+                </div>
+              </div>
+
+              <div class="mini-cart-total" id="miniCartTotal" hidden>
+                <span>Total</span>
+                <strong id="miniCartTotalValue">Rs 0</strong>
+              </div>
+            </div>
+
+            <div class="mini-status-grid">
+              <article class="mini-status-chip mini-ticket-chip">
+                <span>Kitchen ticket</span>
+                <strong id="miniStatTicket">Not created</strong>
+                <small>Created after confirmation</small>
+              </article>
+
+              <article class="mini-status-chip mini-stock-chip">
+                <span>Stock</span>
+                <strong id="miniStatStock">Normal</strong>
+                <small>Reserved from inventory</small>
+              </article>
+
+              <article class="mini-status-chip mini-driver-chip">
+                <span>Driver</span>
+                <strong id="miniStatDriver">Unassigned</strong>
+                <small>Only needed for delivery</small>
+              </article>
+
+              <article class="mini-status-chip mini-revenue-chip">
+                <span>Revenue today</span>
+                <strong id="miniStatRevenue">Rs 18,400</strong>
+                <small>Updates after confirmation</small>
+              </article>
+            </div>
+
+            <div class="mini-purpose-summary">
+              <b>What this proves:</b>
+              <span>
+                OrderRise does not only reply to customers. It turns their
+                messages into an organized order that every restaurant team can use.
+              </span>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
 
     <section class="section section-alt" id="interactive-demo">
       <div class="container">

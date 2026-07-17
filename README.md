@@ -50,3 +50,24 @@ git push origin main
 ```
 
 The demonstration uses fictional information and does not connect to the production restaurant backend.
+
+## Compact WhatsApp demonstration
+
+The homepage now includes a fictional Taco Heat order simulation before the
+larger 3D demonstration.
+
+It demonstrates:
+
+- Menu discovery
+- Adding two Zinger Burgers
+- Natural-language modifiers
+- SAVE10 discount
+- Delivery selection
+- Kitchen-ticket creation
+- Inventory updates
+- Driver assignment
+- Revenue updates
+- Order tracking
+- Complete reset
+
+The compact demo synchronizes with the larger 3D order scene.
