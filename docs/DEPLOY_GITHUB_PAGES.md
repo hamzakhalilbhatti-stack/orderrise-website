@@ -1,14 +1,53 @@
-# Deploy to GitHub Pages
+# Deploy the Real 3D OrderRise Website
 
-1. Create a public GitHub repository named `orderrise-website`.
-2. Upload every file and folder from this project.
-3. Make sure `index.html` is at the repository root.
-4. Open repository **Settings**.
-5. Open **Pages**.
-6. Under **Build and deployment**, choose **Deploy from a branch**.
-7. Select branch **main** and folder **/(root)**.
-8. Click **Save**.
+## Local test
 
-Your address will be similar to:
+Open PowerShell in the project folder:
 
-`https://YOUR-USERNAME.github.io/orderrise-website/`
+```powershell
+python -m http.server 8080
+```
+
+Open:
+
+```text
+http://localhost:8080/
+```
+
+Do not test the 3D module by double-clicking `index.html`.
+
+## Update existing GitHub repository
+
+Copy all files into:
+
+```text
+D:\orderrise-static-website\orderrise-static
+```
+
+Then run:
+
+```powershell
+cd "D:\orderrise-static-website\orderrise-static"
+
+git add .
+git commit -m "Build complete OrderRise real 3D website"
+
+git pull origin main --no-rebase
+git push origin main
+```
+
+If a merge conflict appears, do not force-push immediately. Review `git status`, keep the new website versions, complete the merge, and push.
+
+## GitHub Pages settings
+
+- Source: Deploy from a branch
+- Branch: main
+- Folder: /(root)
+
+Website:
+
+```text
+https://hamzakhalilbhatti-stack.github.io/orderrise-website/
+```
+
+After deployment press `Ctrl + F5`.

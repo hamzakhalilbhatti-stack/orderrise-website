@@ -7,7 +7,5 @@
     <path d="M17 36 L36 25 L49 29 L64 14" fill="none" stroke="#F7F8FA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M54 14 H64 V24" fill="none" stroke="#F7F8FA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
-  <text x="110" y="60" fill="#F7F8FA" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700" letter-spacing="-1.5">
-    Order<tspan fill="#25D366">Rise</tspan>
-  </text>
+  <text x="110" y="60" fill="#F7F8FA" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700" letter-spacing="-1.5">Order<tspan fill="#25D366">Rise</tspan></text>
 </svg>
