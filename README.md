@@ -1,8 +1,12 @@
-# OrderRise Static Website
+# OrderRise Stage 5 Static Website
 
-This project uses only HTML, CSS and JavaScript.
+A premium static marketing website built with:
 
-No Node.js, npm, Python, PowerShell, Next.js or installation is required.
+- HTML
+- CSS
+- JavaScript
+
+No Node.js, npm, framework, Python or PowerShell setup is required.
 
 ## Open locally
 
@@ -10,13 +14,21 @@ Double-click `index.html`.
 
 ## Main files
 
-- `index.html` — website structure and text
-- `style.css` — complete design and mobile responsiveness
-- `script.js` — menu, interactive demo, dashboard, ROI calculator and form
-- `privacy.html` — privacy foundation
-- `terms.html` — terms foundation
-- `404.html` — not-found page
-- `assets/` — logo and favicon
-- `docs/` — Stages 0–3 and GitHub deployment guide
+- `index.html` — Stage 5 page structure
+- `style.css` — premium responsive design and motion
+- `script.js` — interactive demo, dashboard, ROI, FAQ and animations
+- `assets/` — logo, favicon and social preview
+- `docs/` — project stage documentation
+- `.nojekyll` — direct GitHub Pages static publishing
 
-The demo form does not send or save information.
+## GitHub update
+
+Copy these Stage 5 files into your existing repository folder, then run:
+
+```powershell
+git add .
+git commit -m "Complete OrderRise Stage 5 design polish"
+git push origin main
+```
+
+The contact form remains a browser-only demonstration and does not transmit data.
