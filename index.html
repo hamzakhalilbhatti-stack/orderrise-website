@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="OrderRise turns WhatsApp messages into completed restaurant orders.">
+  <title>OrderRise | WhatsApp Restaurant Ordering</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="OrderRise homepage">
+        <img src="assets/orderrise-logo.svg" alt="OrderRise">
+      </a>
+
+      <button class="menu-button" id="menuButton" type="button" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="main-nav" id="mainNavigation">
+        <a href="#product">Product</a>
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#solutions">Solutions</a>
+        <a href="#demo">Demo</a>
+        <a href="#pricing">Pricing</a>
+        <a class="button button-small" href="#contact">Book a Live Demo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero section">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Intelligent restaurant operating system</p>
+          <h1>Turn WhatsApp messages into completed restaurant orders</h1>
+          <p class="lead">
+            One intelligent system for ordering, kitchen operations, inventory,
+            customers, deliveries, staff and restaurant growth.
+          </p>
+
+          <div class="button-row">
+            <a class="button" href="#contact">Book a Live Demo</a>
+            <a class="button button-secondary" href="#how-it-works">See How It Works</a>
+          </div>
+
+          <div class="trust-grid">
+            <span>Official Meta WhatsApp API</span>
+            <span>AI-powered ordering</span>
+            <span>Real-time kitchen operations</span>
+            <span>Secure fictional demo data</span>
+          </div>
+        </div>
+
+        <div class="command-center" aria-label="OrderRise command center illustration">
+          <div class="phone-card">
+            <div class="phone-notch"></div>
+            <small>Customer WhatsApp</small>
+            <div class="mini-message customer-mini">Two burgers, fries and a Coke.</div>
+            <div class="mini-message agent-mini">Great. Your cart is ready.</div>
+          </div>
+
+          <div class="flow-line"></div>
+
+          <div class="restaurant-card">
+            <div class="room"><span>Kitchen</span><i></i></div>
+            <div class="room"><span>Inventory</span><i></i></div>
+            <div class="room"><span>Delivery</span><i></i></div>
+            <div class="room"><span>Owner</span><i></i></div>
+          </div>
+
+          <div class="growth-bars"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <div class="container trust-strip-grid">
+        <span>WhatsApp Ordering</span><span>Kitchen Operations</span>
+        <span>Inventory</span><span>Customer CRM</span>
+        <span>Delivery</span><span>Reports</span>
+      </div>
+    </section>
+
+    <section class="section" id="product">
+      <div class="container">
+        <p class="eyebrow">The operational problem</p>
+        <h2>Your restaurant is losing orders in the gaps</h2>
+        <p class="section-copy">
+          Scattered calls, chats, notebooks and staff handoffs create delays and mistakes.
+          OrderRise connects the complete order journey.
+        </p>
+
+        <div class="problem-grid">
+          <article class="card"><span>01</span><b>↘</b><h3>Missed WhatsApp messages</h3><p>Orders disappear inside busy chats and delayed replies.</p></article>
+          <article class="card"><span>02</span><b>✎</b><h3>Incorrect handwritten orders</h3><p>Copying requests into notebooks creates mistakes.</p></article>
+          <article class="card"><span>03</span><b>◷</b><h3>Kitchen communication delays</h3><p>Kitchen teams receive incomplete information too late.</p></article>
+          <article class="card"><span>04</span><b>◌</b><h3>No operational visibility</h3><p>Owners cannot easily see deliveries or sales performance.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="demo">
+      <div class="container">
+        <p class="eyebrow">Interactive demonstration</p>
+        <h2>Watch one order move through the restaurant</h2>
+        <p class="section-copy">
+          Select a customer action and see the cart, kitchen, delivery and revenue change.
+        </p>
+
+        <div class="demo-layout">
+          <section class="demo-panel">
+            <div class="panel-heading"><div><strong>Customer WhatsApp</strong><small>Fictional demonstration</small></div><em>Online</em></div>
+            <div class="chat-window">
+              <div class="bubble incoming">Welcome to the OrderRise demo restaurant.</div>
+              <div class="bubble outgoing" id="customerBubble">Show me the menu</div>
+              <div class="bubble incoming" id="agentBubble">Here are the most popular items.</div>
+            </div>
+          </section>
+
+          <section class="demo-panel">
+            <div class="panel-heading"><div><strong>Restaurant workflow</strong><small>Select an action</small></div><span id="demoStep">Step 1/6</span></div>
+            <div class="demo-actions" id="demoActions"></div>
+          </section>
+
+          <section class="demo-panel">
+            <div class="panel-heading"><div><strong>Live updates</strong><small>Connected departments</small></div></div>
+            <div class="status-list">
+              <div><span>Cart</span><strong id="cartStatus">Empty</strong></div>
+              <div><span>Kitchen</span><strong id="kitchenStatus">Waiting</strong></div>
+              <div><span>Delivery</span><strong id="deliveryStatus">Not required</strong></div>
+              <div><span>Revenue</span><strong id="revenueStatus">PKR 0</strong></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how-it-works">
+      <div class="container">
+        <p class="eyebrow">Complete order journey</p>
+        <h2>From first message to final delivery</h2>
+
+        <div class="journey-grid">
+          <article><span>01</span><h3>Capture</h3><p>Receive the customer message through WhatsApp.</p></article>
+          <article><span>02</span><h3>Understand</h3><p>Identify products, quantities and instructions.</p></article>
+          <article><span>03</span><h3>Validate</h3><p>Check menu items, prices, stock and promotions.</p></article>
+          <article><span>04</span><h3>Checkout</h3><p>Collect fulfillment, address and payment details.</p></article>
+          <article><span>05</span><h3>Kitchen</h3><p>Create a clear ticket for restaurant staff.</p></article>
+          <article><span>06</span><h3>Delivery</h3><p>Assign the order and communicate its status.</p></article>
+          <article><span>07</span><h3>Intelligence</h3><p>Update customers, loyalty and business reports.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="features">
+      <div class="container">
+        <p class="eyebrow">Five connected systems</p>
+        <h2>One platform for the complete restaurant operation</h2>
+
+        <div class="pillar-list">
+          <article><div><span>01 · Intelligent Ordering</span><h3>Customers order naturally. Your system handles the complexity.</h3></div><p>Natural language, cart actions, modifiers, coupons and checkout.</p></article>
+          <article><div><span>02 · Restaurant Operations</span><h3>Every team sees exactly what they need.</h3></div><p>Owner, kitchen, inventory, menu and receipt workspaces.</p></article>
+          <article><div><span>03 · Customer Growth</span><h3>Turn every order into a customer relationship.</h3></div><p>CRM, loyalty, saved orders, promotions and customer history.</p></article>
+          <article><div><span>04 · Delivery Management</span><h3>Control every delivery from dispatch to completion.</h3></div><p>Driver assignment, delivery states and customer updates.</p></article>
+          <article><div><span>05 · Owner Intelligence</span><h3>Know what is happening without standing at the counter.</h3></div><p>Sales, products, customers and delivery performance.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="dashboard">
+      <div class="container">
+        <p class="eyebrow">Product workspaces</p>
+        <h2>Every team gets the right workspace</h2>
+        <div class="tab-buttons" id="dashboardTabs"></div>
+
+        <div class="dashboard-card">
+          <div class="dashboard-copy">
+            <p class="eyebrow" id="dashboardEyebrow">Owner workspace</p>
+            <h3 id="dashboardTitle">Owner Admin Hub</h3>
+            <p id="dashboardDescription">See active orders, customer information, alerts and restaurant status.</p>
+            <div class="metric-grid" id="dashboardMetrics"></div>
+          </div>
+
+          <div class="dashboard-preview">
+            <div class="preview-topbar"><strong id="previewTitle">Owner Admin Hub</strong><span>Live demo</span></div>
+            <div class="preview-metrics" id="previewMetrics"></div>
+            <div class="chart"><span style="height:34%"></span><span style="height:54%"></span><span style="height:43%"></span><span style="height:70%"></span><span style="height:64%"></span><span style="height:86%"></span><span style="height:76%"></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="solutions">
+      <div class="container">
+        <p class="eyebrow">Restaurant solutions</p>
+        <h2>Built around the way your restaurant works</h2>
+        <div class="solution-grid">
+          <article><b>◇</b><h3>Fast Food</h3><p>High-volume ordering without message chaos.</p></article>
+          <article><b>◇</b><h3>Burger Restaurants</h3><p>Meals, extras, sauces and modifiers.</p></article>
+          <article><b>◇</b><h3>Pizza Restaurants</h3><p>Sizes, crusts, toppings and delivery.</p></article>
+          <article><b>◇</b><h3>Cafes</h3><p>Drink customization, pickup and loyalty.</p></article>
+          <article><b>◇</b><h3>Cloud Kitchens</h3><p>Digital orders connected to kitchen workflows.</p></article>
+          <article><b>◇</b><h3>Bakeries</h3><p>Availability, pre-orders and pickup requests.</p></article>
+          <article><b>◇</b><h3>Takeaway</h3><p>Faster pickup and customer updates.</p></article>
+          <article><b>◇</b><h3>Multi-Location</h3><p>Future platform direction for restaurant groups.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="container">
+        <p class="eyebrow">Restaurant opportunity calculator</p>
+        <h2>See what missed orders could be costing your restaurant</h2>
+
+        <div class="roi-layout">
+          <form class="roi-form" id="roiForm">
+            <label>Average orders per day<input id="dailyOrders" type="number" min="0" value="80"></label>
+            <label>Average order value<input id="averageOrderValue" type="number" min="0" value="1500"></label>
+            <label>Estimated missed orders (%)<input id="missedPercentage" type="number" min="0" max="100" value="5"></label>
+            <label>Restaurant locations<input id="locations" type="number" min="1" value="1"></label>
+          </form>
+
+          <div class="roi-results">
+            <p class="eyebrow">Estimated monthly opportunity</p>
+            <div><span>Potential recovered orders</span><strong id="recoveredOrders">120</strong></div>
+            <div><span>Potential revenue</span><strong id="recoveredRevenue">PKR 180,000</strong></div>
+            <div><span>Estimated staff time saved</span><strong id="hoursSaved">8 hours</strong></div>
+            <small>These figures are estimates and are not guaranteed financial outcomes.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="contact">
+      <div class="container contact-layout">
+        <div>
+          <p class="eyebrow">Private product demonstration</p>
+          <h2>See your restaurant running through WhatsApp</h2>
+          <p class="section-copy">Complete this local test form. No information is sent anywhere.</p>
+          <ul class="benefit-list">
+            <li>Understand the customer order journey</li>
+            <li>See kitchen and delivery workspaces</li>
+            <li>Review relevant restaurant features</li>
+            <li>Discuss a safe restaurant pilot</li>
+          </ul>
+        </div>
+
+        <form class="contact-form" id="demoForm">
+          <div class="form-grid">
+            <label>Full name<input name="fullName" required></label>
+            <label>Restaurant name<input name="restaurantName" required></label>
+            <label>Country<input name="country" required></label>
+            <label>WhatsApp number<input name="whatsapp" type="tel" required></label>
+            <label>Restaurant category<select name="category" required><option value="">Select a category</option><option>Fast food</option><option>Burger restaurant</option><option>Pizza restaurant</option><option>Cafe</option><option>Cloud kitchen</option><option>Bakery</option><option>Takeaway</option><option>Other</option></select></label>
+            <label>Approximate daily orders<input name="dailyOrders" type="number" min="0" required></label>
+          </div>
+          <label>Main ordering problem<textarea name="problem" rows="5" placeholder="Tell us how orders are currently managed."></textarea></label>
+          <button class="button full-width" type="submit">Book My Demo</button>
+          <p class="form-note">Static Stage 4 form. No information is transmitted.</p>
+          <div class="success-message" id="successMessage" role="status">Demo request prepared. No information was sent.</div>
+        </form>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="container">
+        <p class="eyebrow">Restaurant growth starts here</p>
+        <h2>Your customers already use WhatsApp. Now your restaurant can run through it.</h2>
+        <p>Connect ordering, kitchen operations, inventory, customers, delivery and reporting through one intelligent restaurant system.</p>
+        <div class="button-row center"><a class="button" href="#contact">Start a Restaurant Pilot</a><a class="button button-secondary" href="#contact">Book a Private Demo</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><img src="assets/orderrise-logo.svg" alt="OrderRise"><p>Turn WhatsApp messages into restaurant growth.</p></div>
+      <div><strong>Product</strong><a href="#product">Product</a><a href="#features">Features</a><a href="#demo">Demo</a></div>
+      <div><strong>Solutions</strong><a href="#solutions">Fast Food</a><a href="#solutions">Pizza</a><a href="#solutions">Cafes</a></div>
+      <div><strong>Company</strong><a href="#contact">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+    </div>
+    <div class="footer-bottom"><div class="container"><span>© <span id="currentYear"></span> OrderRise.</span><span>One WhatsApp message. Your entire restaurant in motion.</span></div></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
