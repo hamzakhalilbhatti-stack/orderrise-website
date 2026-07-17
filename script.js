@@ -1,382 +1,622 @@
 
-const orderStates = [
-  { customer:"Show me the menu", reply:"Here are the most popular items.", cart:"Empty", inventory:"24 burgers", kitchen:"Waiting", driver:"Not required", revenue:"PKR 0", step:"STEP 1 · MENU", title:"The customer asks for the menu.", explanation:"The WhatsApp phone and menu area glow green. No kitchen or stock action is needed yet.", accent:"#25d366" },
-  { customer:"Add two chicken burgers", reply:"Two chicken burgers were added to your cart.", cart:"2 burgers", inventory:"22 burgers", kitchen:"Ticket drafted", driver:"Not required", revenue:"PKR 1,598", step:"STEP 2 · CART", title:"Two burgers fly into the cart.", explanation:"The cart turns orange, the burger count changes and inventory reserves two burger items.", accent:"#ff9f43" },
-  { customer:"Make one spicy", reply:"One burger is now spicy.", cart:"2 customized burgers", inventory:"22 burgers", kitchen:"Modifier updated", driver:"Not required", revenue:"PKR 1,598", step:"STEP 3 · MODIFIER", title:"The spicy instruction is attached.", explanation:"A red modifier marker appears on one burger and the kitchen ticket receives the change.", accent:"#ff5a67" },
-  { customer:"Add extra cheese", reply:"Extra cheese was added to both burgers.", cart:"2 burgers + cheese", inventory:"20 cheese slices", kitchen:"Ticket updated", driver:"Not required", revenue:"PKR 1,798", step:"STEP 4 · ADD-ON", title:"Cheese is added and stock decreases.", explanation:"The cheese layers glow yellow while the inventory shelf removes the reserved slices.", accent:"#ffca5c" },
-  { customer:"Apply SAVE10", reply:"SAVE10 applied successfully.", cart:"10% discount", inventory:"Validated", kitchen:"Ticket ready", driver:"Not required", revenue:"PKR 1,618", step:"STEP 5 · COUPON", title:"The coupon changes the final total.", explanation:"The purple promotion badge activates, validates SAVE10 and recalculates the order value.", accent:"#a47cff" },
-  { customer:"I want delivery", reply:"Delivery selected. Please confirm your address.", cart:"Delivery order", inventory:"Reserved", kitchen:"Awaiting confirmation", driver:"Available", revenue:"PKR 1,768", step:"STEP 6 · DELIVERY", title:"The delivery station becomes active.", explanation:"The pink delivery zone lights up and an available driver and scooter appear.", accent:"#ff63b8" },
-  { customer:"Confirm my order", reply:"Order #1042 is confirmed and sent to the kitchen.", cart:"Confirmed", inventory:"Reserved", kitchen:"Preparing", driver:"Assigned", revenue:"PKR 1,768", step:"STEP 7 · KITCHEN", title:"A real kitchen ticket is created.", explanation:"The amber kitchen screen displays Order #1042 and preparation begins.", accent:"#ffca5c" },
-  { customer:"Track my order", reply:"Your order is out for delivery.", cart:"Completed", inventory:"Updated", kitchen:"Ready", driver:"Out for delivery", revenue:"PKR 1,768", step:"STEP 8 · TRACKING", title:"The driver moves along the delivery route.", explanation:"The blue route animates, the customer receives an update and owner revenue is finalized.", accent:"#43c6ff" }
-];
-
 const pillarData = {
   ordering: {
-    eyebrow:"Pillar 1",
-    title:"Customers Order Naturally. Your System Handles the Complexity.",
-    description:"A floating phone, interactive cart and order bubbles orbit around an AI core.",
-    features:["Natural-language ordering","Menu discovery","Product modifiers","Cart management","Pickup and delivery","Payment selection","Coupons","Confirmation and tracking"]
+    eyebrow: "System 1",
+    title: "Customers Order Naturally. Your System Handles the Complexity.",
+    description:
+      "WhatsApp messages become structured carts, modifiers, checkout details and tracking updates.",
+    features: [
+      "Natural-language ordering",
+      "Menu discovery",
+      "Product modifiers",
+      "Cart management",
+      "Pickup and delivery",
+      "Payment selection",
+      "Coupons",
+      "Confirmation and tracking"
+    ],
+    name: "INTELLIGENT ORDERING",
+    purpose: "Phone → AI → cart → checkout"
   },
   operations: {
-    eyebrow:"Pillar 2",
-    title:"Every Team Sees Exactly What They Need.",
-    description:"A cutaway restaurant floor connects the counter, kitchen, inventory room and management office.",
-    features:["Owner dashboard","Kitchen display","Menu administration","Inventory management","Receipts","Kitchen tickets","Open and close controls"]
+    eyebrow: "System 2",
+    title: "Every Team Sees Exactly What They Need.",
+    description:
+      "Kitchen, inventory and owner workspaces stay connected to the same order record.",
+    features: [
+      "Kitchen display",
+      "Structured tickets",
+      "Menu administration",
+      "Inventory updates",
+      "Receipts",
+      "Open and close controls",
+      "Staff workspaces"
+    ],
+    name: "RESTAURANT OPERATIONS",
+    purpose: "Kitchen → inventory → owner control"
   },
   growth: {
-    eyebrow:"Pillar 3",
-    title:"Turn Every Order Into a Long-Term Customer Relationship.",
-    description:"Customer cards orbit a glowing loyalty core while points and order history update.",
-    features:["Customer CRM","Order history","Favorite products","Customer levels","Loyalty points","Saved orders","Promotions and coupons","BOGO and first-order offers"]
+    eyebrow: "System 3",
+    title: "Turn Every Order Into a Customer Relationship.",
+    description:
+      "Customer profiles, order history, loyalty and promotions update after each completed order.",
+    features: [
+      "Customer CRM",
+      "Order history",
+      "Favorite products",
+      "Customer levels",
+      "Loyalty points",
+      "Saved orders",
+      "Promotions and coupons",
+      "Repeat-order campaigns"
+    ],
+    name: "CUSTOMERS & GROWTH",
+    purpose: "Profile → history → loyalty → reorder"
   },
   delivery: {
-    eyebrow:"Pillar 4",
-    title:"Control Every Delivery From Dispatch to Completion.",
-    description:"A delivery scooter moves between the restaurant and customer through a simplified animated route.",
-    features:["Driver accounts","Secure driver login","Order assignment","Delivery statuses","Cash-on-delivery records","Delivery zones","Failed and returned deliveries","Customer notifications"]
+    eyebrow: "System 4",
+    title: "Control Every Delivery From Dispatch to Completion.",
+    description:
+      "Drivers receive assignments and update the restaurant and customer as the order progresses.",
+    features: [
+      "Driver accounts",
+      "Order assignment",
+      "Delivery statuses",
+      "Cash-on-delivery records",
+      "Delivery zones",
+      "Failed deliveries",
+      "Returned deliveries",
+      "Customer updates"
+    ],
+    name: "DELIVERY MANAGEMENT",
+    purpose: "Assignment → status → completion"
   },
   intelligence: {
-    eyebrow:"Pillar 5",
-    title:"Know What Is Happening Without Standing at the Counter.",
-    description:"A floating glass dashboard displays sample metrics and animated charts.",
-    features:["Daily sales","Order totals","Average order value","Top products","Customer performance","Delivery performance","Discounts","CSV and PDF exports","WhatsApp owner reports"]
+    eyebrow: "System 5",
+    title: "Know What Is Happening Without Standing at the Counter.",
+    description:
+      "Owners review sales, products, customers, discounts and delivery performance.",
+    features: [
+      "Daily sales",
+      "Order totals",
+      "Average order value",
+      "Top products",
+      "Customer performance",
+      "Delivery performance",
+      "Discount reporting",
+      "CSV and PDF exports"
+    ],
+    name: "OWNER INTELLIGENCE",
+    purpose: "Orders → metrics → decisions"
   }
-};
-
-const adminData = {
-  orders:["See every order from message to completion.","The camera focuses on active orders, status, value and fulfillment."],
-  kitchen:["Move directly into kitchen execution.","View new, preparing, ready and delayed kitchen tickets."],
-  receipts:["Keep receipts connected to every order.","Review print status, order totals and payment information."],
-  promotions:["Launch promotions without losing control.","Manage coupons, BOGO offers, first-order offers and targeted campaigns."],
-  customers:["Expand customer profiles and history.","Review order history, favorites, loyalty and saved orders."],
-  deliveries:["Activate the delivery operations area.","Assign drivers and manage delivery statuses and cash collection."],
-  reports:["Reveal restaurant intelligence.","Review sales, top products, customers, discounts and delivery performance."],
-  staff:["Give each team member the correct workspace.","Control staff access and restaurant responsibilities."],
-  inventory:["Open the stock room.","Review item availability, low stock and product usage."],
-  menu:["Control products, prices and modifiers.","Manage categories, availability, add-ons and restaurant menus."],
-  system:["Manage the restaurant operating system.","Review opening status, integrations, settings and system health."]
-};
-
-const journeyFlow = [
-  {input:"Customer message", action:"Capture WhatsApp text", output:"Raw order request"},
-  {input:"Raw message", action:"Extract product, quantity and intent", output:"Structured order data"},
-  {input:"Structured order", action:"Check price, stock and promotions", output:"Validated cart"},
-  {input:"Validated cart", action:"Collect address, payment and coupon", output:"Confirmed checkout"},
-  {input:"Confirmed order", action:"Create kitchen ticket #1042", output:"Preparing status"},
-  {input:"Ready order", action:"Assign driver and dispatch", output:"Customer tracking update"},
-  {input:"Completed delivery", action:"Update CRM, loyalty and analytics", output:"Owner intelligence"}
-];
-
-const pillarPurpose = {
-  ordering:["INTELLIGENT ORDERING","Phone → AI → cart → checkout"],
-  operations:["RESTAURANT OPERATIONS","Kitchen + inventory + owner + delivery"],
-  growth:["CUSTOMERS & GROWTH","Profiles → loyalty → campaigns → reorder"],
-  delivery:["DELIVERY MANAGEMENT","Dispatch → driver → status → completion"],
-  intelligence:["OWNER INTELLIGENCE","Orders → metrics → reports → decisions"]
-};
-
-const devicePurpose = {
-  owner:["OWNER LAPTOP","Orders, revenue, customers and alerts"],
-  kitchen:["KITCHEN TABLET","New → preparing → ready kitchen tickets"],
-  driver:["DRIVER PHONE","Assignments, status and cash collection"],
-  customer:["CUSTOMER WHATSAPP","Menu, cart, checkout and tracking"],
-  reports:["REPORTS DESKTOP","Sales, products, customers and delivery"]
-};
-
-const adminPurpose = {
-  orders:"Message → status → fulfillment",
-  kitchen:"Ticket → preparation → ready",
-  receipts:"Order → payment → receipt",
-  promotions:"Audience → offer → conversion",
-  customers:"Profile → history → loyalty",
-  deliveries:"Assignment → route → completion",
-  reports:"Data → metrics → decisions",
-  staff:"Role → access → responsibility",
-  inventory:"Usage → stock → alert",
-  menu:"Product → price → availability",
-  system:"Integration → health → control"
 };
 
 function call3D(method, ...args) {
-  if (window.OrderRise3D && typeof window.OrderRise3D[method] === "function") {
+  if (
+    window.OrderRise3D &&
+    typeof window.OrderRise3D[method] === "function"
+  ) {
     window.OrderRise3D[method](...args);
     return;
   }
-  window.__orderRisePending3D = window.__orderRisePending3D || {};
+
+  window.__orderRisePending3D =
+    window.__orderRisePending3D || {};
+
   window.__orderRisePending3D[method] = args;
 }
 
 function initMenu() {
   const button = document.getElementById("menuButton");
-  const nav = document.getElementById("mainNavigation");
-  if (!button || !nav) return;
+  const navigation = document.getElementById("mainNavigation");
+
+  if (!button || !navigation) {
+    return;
+  }
+
   button.addEventListener("click", () => {
-    const open = nav.classList.toggle("open");
+    const open = navigation.classList.toggle("open");
+
     document.body.classList.toggle("menu-open", open);
     button.setAttribute("aria-expanded", String(open));
-    button.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    button.setAttribute(
+      "aria-label",
+      open ? "Close menu" : "Open menu"
+    );
   });
-  nav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
-    nav.classList.remove("open");
-    document.body.classList.remove("menu-open");
-    button.setAttribute("aria-expanded","false");
-  }));
+
+  navigation.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      navigation.classList.remove("open");
+      document.body.classList.remove("menu-open");
+      button.setAttribute("aria-expanded", "false");
+      button.setAttribute("aria-label", "Open menu");
+    });
+  });
 }
 
 function initProgress() {
   const bar = document.getElementById("scrollProgress");
-  if (!bar) return;
-  const update = () => {
-    const max = document.documentElement.scrollHeight - innerHeight;
-    bar.style.width = `${max > 0 ? Math.min(100, scrollY / max * 100) : 0}%`;
-  };
+
+  if (!bar) {
+    return;
+  }
+
+  function update() {
+    const maximum =
+      document.documentElement.scrollHeight -
+      window.innerHeight;
+
+    const percentage =
+      maximum > 0
+        ? Math.min(100, (window.scrollY / maximum) * 100)
+        : 0;
+
+    bar.style.width = `${percentage}%`;
+  }
+
   update();
-  addEventListener("scroll", update, {passive:true});
-  addEventListener("resize", update);
+
+  window.addEventListener("scroll", update, {
+    passive: true
+  });
+
+  window.addEventListener("resize", update);
 }
 
 function initReveal() {
-  const els = document.querySelectorAll(".reveal");
-  els.forEach(el => el.style.setProperty("--reveal-delay", `${Number(el.dataset.delay || 0)}ms`));
-  if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    els.forEach(el => el.classList.add("visible"));
+  const elements = document.querySelectorAll(".reveal");
+
+  elements.forEach((element) => {
+    element.style.setProperty(
+      "--reveal-delay",
+      `${Number(element.dataset.delay || 0)}ms`
+    );
+  });
+
+  if (
+    window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches ||
+    !("IntersectionObserver" in window)
+  ) {
+    elements.forEach((element) => {
+      element.classList.add("visible");
+    });
+
     return;
   }
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add("visible");
-      observer.unobserve(entry.target);
-    });
-  }, {threshold:.1, rootMargin:"0px 0px -40px"});
-  els.forEach(el => observer.observe(el));
+
+  const observer = new IntersectionObserver(
+    (entries, revealObserver) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        entry.target.classList.add("visible");
+        revealObserver.unobserve(entry.target);
+      });
+    },
+    {
+      threshold: 0.1,
+      rootMargin: "0px 0px -45px"
+    }
+  );
+
+  elements.forEach((element) => observer.observe(element));
 }
 
 function initTilt() {
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches || matchMedia("(pointer: coarse)").matches) return;
-  document.querySelectorAll(".tilt-card").forEach(card => {
-    card.addEventListener("pointermove", event => {
-      const rect = card.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - .5;
-      const y = (event.clientY - rect.top) / rect.height - .5;
-      card.style.transform = `perspective(850px) rotateX(${-y * 7}deg) rotateY(${x * 9}deg) translateY(-3px)`;
+  if (
+    window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches ||
+    window.matchMedia("(pointer: coarse)").matches
+  ) {
+    return;
+  }
+
+  document
+    .querySelectorAll(".tilt-card")
+    .forEach((card) => {
+      card.addEventListener("pointermove", (event) => {
+        const rectangle =
+          card.getBoundingClientRect();
+
+        const x =
+          (event.clientX - rectangle.left) /
+            rectangle.width -
+          0.5;
+
+        const y =
+          (event.clientY - rectangle.top) /
+            rectangle.height -
+          0.5;
+
+        card.style.transform =
+          `perspective(850px) ` +
+          `rotateX(${-y * 7}deg) ` +
+          `rotateY(${x * 9}deg) ` +
+          "translateY(-3px)";
+      });
+
+      card.addEventListener("pointerleave", () => {
+        card.style.transform = "";
+      });
     });
-    card.addEventListener("pointerleave", () => card.style.transform = "");
-  });
 }
 
 function initHeroControls() {
-  document.querySelectorAll("[data-hero-focus]").forEach(button => {
+  const controls =
+    document.querySelectorAll("[data-hero-focus]");
+
+  controls.forEach((button) => {
     button.addEventListener("click", () => {
-      document.querySelectorAll("[data-hero-focus]").forEach(item => item.classList.toggle("active", item === button));
-      call3D("focusHero", button.dataset.heroFocus);
+      controls.forEach((item) => {
+        item.classList.toggle(
+          "active",
+          item === button
+        );
+      });
+
+      call3D(
+        "focusHero",
+        button.dataset.heroFocus
+      );
     });
   });
-  const sound = document.getElementById("soundToggle");
-  if (sound) {
-    sound.addEventListener("click", () => {
-      const enabled = sound.getAttribute("aria-pressed") !== "true";
-      sound.setAttribute("aria-pressed", String(enabled));
-      sound.textContent = enabled ? "Sound on" : "Sound off";
-      call3D("setSound", enabled);
-    });
+
+  const sound =
+    document.getElementById("soundToggle");
+
+  if (!sound) {
+    return;
   }
-}
 
-function updateOrderDemo(index) {
-  const state = orderStates[index];
-  document.getElementById("orderDemoCustomer").textContent = state.customer;
-  document.getElementById("orderDemoReply").textContent = state.reply;
-  document.getElementById("cartStatus").textContent = state.cart;
-  document.getElementById("inventoryStatus").textContent = state.inventory;
-  document.getElementById("kitchenStatus").textContent = state.kitchen;
-  document.getElementById("driverStatus").textContent = state.driver;
-  document.getElementById("revenueStatus").textContent = state.revenue;
-  document.getElementById("demoExplanationStep").textContent = state.step;
-  document.getElementById("demoExplanationTitle").textContent = state.title;
-  document.getElementById("demoExplanationText").textContent = state.explanation;
-  const explanation = document.getElementById("demoExplanation");
-  explanation.style.borderLeftColor = state.accent;
-  explanation.style.boxShadow = `0 0 30px ${state.accent}22`;
-  document.querySelectorAll("[data-order-step]").forEach((button, i) => button.classList.toggle("active", i === index));
-  call3D("setOrderStage", index);
-}
-function initOrderDemo() {
-  if (!document.querySelector("[data-order-step]")) return;
-  document.querySelectorAll("[data-order-step]").forEach(button => {
-    button.addEventListener("click", () => updateOrderDemo(Number(button.dataset.orderStep)));
+  sound.addEventListener("click", () => {
+    const enabled =
+      sound.getAttribute("aria-pressed") !==
+      "true";
+
+    sound.setAttribute(
+      "aria-pressed",
+      String(enabled)
+    );
+
+    sound.textContent =
+      enabled ? "Sound on" : "Sound off";
+
+    call3D("setSound", enabled);
   });
-  updateOrderDemo(0);
-}
-
-function setJourneyStage(index) {
-  document.querySelectorAll(".journey-step").forEach((step, i) => step.classList.toggle("active", i === index));
-  const titles = ["Capture","Understand","Validate","Checkout","Kitchen","Delivery","Owner Intelligence"];
-  const visual = [
-    "“I need two burgers.”",
-    "Product: Chicken Burger · Quantity: 2 · Confidence: High",
-    "Price, availability, modifiers, inventory and promotions checked",
-    "Name, address, payment and confirmation collected",
-    "Order #1042 · 2 × Chicken Burger · Status: Accepted",
-    "Driver assigned · Customer notified",
-    "Sales, loyalty, product and delivery performance updated"
-  ];
-  const label = document.getElementById("journeyLabel");
-  const text = document.getElementById("journeyVisualText");
-  const counter = document.getElementById("journeyCounter");
-  if (label) label.textContent = titles[index];
-  if (text) text.textContent = visual[index];
-  if (counter) counter.textContent = `Scene ${index + 1} / 7`;
-  const flow = journeyFlow[index];
-  document.getElementById("journeyInput").textContent = flow.input;
-  document.getElementById("journeyAction").textContent = flow.action;
-  document.getElementById("journeyOutput").textContent = flow.output;
-  call3D("setJourneyStage", index);
-}
-function initJourney() {
-  const steps = document.querySelectorAll(".journey-step");
-  if (!steps.length) return;
-  if (!("IntersectionObserver" in window)) return;
-  const observer = new IntersectionObserver(entries => {
-    const visible = entries.filter(entry => entry.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
-    if (visible) setJourneyStage(Number(visible.target.dataset.journeyStage));
-  }, {threshold:[.25,.5,.75], rootMargin:"-20% 0px -45%"});
-  steps.forEach(step => observer.observe(step));
-  setJourneyStage(0);
 }
 
 function updatePillar(key) {
   const data = pillarData[key];
-  document.getElementById("pillarEyebrow").textContent = data.eyebrow;
-  document.getElementById("pillarTitle").textContent = data.title;
-  document.getElementById("pillarDescription").textContent = data.description;
-  document.getElementById("pillarFeatures").innerHTML = data.features.map(item => `<li>${item}</li>`).join("");
-  document.querySelectorAll("[data-pillar]").forEach(button => button.classList.toggle("active", button.dataset.pillar === key));
-  const purpose = pillarPurpose[key];
-  document.getElementById("pillarSceneName").textContent = purpose[0];
-  document.getElementById("pillarScenePurpose").textContent = purpose[1];
-  call3D("setPillar", key);
+
+  if (!data) {
+    return;
+  }
+
+  const eyebrow =
+    document.getElementById("pillarEyebrow");
+
+  const title =
+    document.getElementById("pillarTitle");
+
+  const description =
+    document.getElementById(
+      "pillarDescription"
+    );
+
+  const features =
+    document.getElementById("pillarFeatures");
+
+  const sceneName =
+    document.getElementById("pillarSceneName");
+
+  const scenePurpose =
+    document.getElementById(
+      "pillarScenePurpose"
+    );
+
+  if (eyebrow) {
+    eyebrow.textContent = data.eyebrow;
+  }
+
+  if (title) {
+    title.textContent = data.title;
+  }
+
+  if (description) {
+    description.textContent = data.description;
+  }
+
+  if (features) {
+    features.innerHTML = data.features
+      .map((feature) => `<li>${feature}</li>`)
+      .join("");
+  }
+
+  if (sceneName) {
+    sceneName.textContent = data.name;
+  }
+
+  if (scenePurpose) {
+    scenePurpose.textContent = data.purpose;
+  }
+
+  document
+    .querySelectorAll("[data-pillar]")
+    .forEach((button) => {
+      button.classList.toggle(
+        "active",
+        button.dataset.pillar === key
+      );
+    });
 }
+
 function initPillars() {
-  if (!document.querySelector("[data-pillar]")) return;
-  document.querySelectorAll("[data-pillar]").forEach(button => button.addEventListener("click", () => updatePillar(button.dataset.pillar)));
+  const buttons =
+    document.querySelectorAll("[data-pillar]");
+
+  if (!buttons.length) {
+    return;
+  }
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      updatePillar(button.dataset.pillar);
+    });
+  });
+
   updatePillar("ordering");
 }
 
-function initDevices() {
-  document.querySelectorAll("[data-device]").forEach(button => button.addEventListener("click", () => {
-    const key = button.dataset.device;
-    document.querySelectorAll("[data-device]").forEach(item => item.classList.toggle("active", item === button));
-    const purpose = devicePurpose[key];
-    document.getElementById("deviceSceneName").textContent = purpose[0];
-    document.getElementById("deviceScenePurpose").textContent = purpose[1];
-    call3D("focusDevice", key);
-  }));
+function numberValue(id, fallback = 0) {
+  const value = Number(
+    document.getElementById(id)?.value
+  );
+
+  return Number.isFinite(value)
+    ? value
+    : fallback;
 }
 
-function updateAdmin(key) {
-  const data = adminData[key];
-  document.getElementById("adminModuleLabel").textContent = key;
-  document.getElementById("adminModuleTitle").textContent = data[0];
-  document.getElementById("adminModuleText").textContent = data[1];
-  document.getElementById("adminSceneName").textContent = `${key.toUpperCase()} MODULE`;
-  document.getElementById("adminScenePurpose").textContent = adminPurpose[key];
-  document.querySelectorAll("[data-admin-module]").forEach(button => button.classList.toggle("active", button.dataset.adminModule === key));
-  call3D("focusAdmin", key);
-}
-function initAdmin() {
-  if (!document.querySelector("[data-admin-module]")) return;
-  document.querySelectorAll("[data-admin-module]").forEach(button => button.addEventListener("click", () => updateAdmin(button.dataset.adminModule)));
-  updateAdmin("orders");
-}
-
-function numberValue(id, fallback=0) {
-  const value = Number(document.getElementById(id)?.value);
-  return Number.isFinite(value) ? value : fallback;
-}
 function calculateRoi() {
-  const daily = Math.max(0, numberValue("dailyOrders"));
-  const average = Math.max(0, numberValue("averageOrderValue"));
-  const missed = Math.min(100, Math.max(0, numberValue("missedPercentage")));
-  const locations = Math.max(1, numberValue("locations",1));
-  const orders = daily * 30 * locations * missed / 100;
-  const revenue = orders * average;
-  const hours = orders * 4 / 60;
-  document.getElementById("recoveredOrders").textContent = Math.round(orders).toLocaleString();
-  document.getElementById("recoveredRevenue").textContent = `PKR ${Math.round(revenue).toLocaleString()}`;
-  document.getElementById("hoursSaved").textContent = `${Math.round(hours).toLocaleString()} hours`;
+  const dailyOrders = Math.max(
+    0,
+    numberValue("dailyOrders")
+  );
+
+  const averageOrderValue = Math.max(
+    0,
+    numberValue("averageOrderValue")
+  );
+
+  const missedPercentage = Math.min(
+    100,
+    Math.max(
+      0,
+      numberValue("missedPercentage")
+    )
+  );
+
+  const locations = Math.max(
+    1,
+    numberValue("locations", 1)
+  );
+
+  const recoveredOrders =
+    dailyOrders *
+    30 *
+    locations *
+    (missedPercentage / 100);
+
+  const recoveredRevenue =
+    recoveredOrders * averageOrderValue;
+
+  const savedHours =
+    (recoveredOrders * 4) / 60;
+
+  const ordersElement =
+    document.getElementById(
+      "recoveredOrders"
+    );
+
+  const revenueElement =
+    document.getElementById(
+      "recoveredRevenue"
+    );
+
+  const hoursElement =
+    document.getElementById("hoursSaved");
+
+  if (ordersElement) {
+    ordersElement.textContent =
+      Math.round(
+        recoveredOrders
+      ).toLocaleString();
+  }
+
+  if (revenueElement) {
+    revenueElement.textContent =
+      `PKR ${Math.round(
+        recoveredRevenue
+      ).toLocaleString()}`;
+  }
+
+  if (hoursElement) {
+    hoursElement.textContent =
+      `${Math.round(
+        savedHours
+      ).toLocaleString()} hours`;
+  }
 }
+
 function initRoi() {
-  ["dailyOrders","averageOrderValue","missedPercentage","locations"].forEach(id => document.getElementById(id)?.addEventListener("input", calculateRoi));
-  if (document.getElementById("recoveredOrders")) calculateRoi();
+  const ids = [
+    "dailyOrders",
+    "averageOrderValue",
+    "missedPercentage",
+    "locations"
+  ];
+
+  ids.forEach((id) => {
+    document
+      .getElementById(id)
+      ?.addEventListener(
+        "input",
+        calculateRoi
+      );
+  });
+
+  if (
+    document.getElementById(
+      "recoveredOrders"
+    )
+  ) {
+    calculateRoi();
+  }
 }
 
 function initFaq() {
-  document.querySelectorAll(".faq-item button").forEach(button => {
-    button.addEventListener("click", () => {
-      const answer = button.parentElement.querySelector(".faq-answer");
-      const open = button.getAttribute("aria-expanded") === "true";
-      document.querySelectorAll(".faq-item button").forEach(other => {
-        other.setAttribute("aria-expanded","false");
-        other.querySelector("span").textContent = "+";
-        other.parentElement.querySelector(".faq-answer").hidden = true;
+  document
+    .querySelectorAll(".faq-item button")
+    .forEach((button) => {
+      button.addEventListener("click", () => {
+        const currentItem =
+          button.closest(".faq-item");
+
+        const currentAnswer =
+          currentItem?.querySelector(
+            ".faq-answer"
+          );
+
+        const currentlyOpen =
+          button.getAttribute(
+            "aria-expanded"
+          ) === "true";
+
+        document
+          .querySelectorAll(
+            ".faq-item button"
+          )
+          .forEach((otherButton) => {
+            const otherItem =
+              otherButton.closest(
+                ".faq-item"
+              );
+
+            const otherAnswer =
+              otherItem?.querySelector(
+                ".faq-answer"
+              );
+
+            const icon =
+              otherButton.querySelector("span");
+
+            otherButton.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+
+            if (otherAnswer) {
+              otherAnswer.hidden = true;
+            }
+
+            if (icon) {
+              icon.textContent = "+";
+            }
+          });
+
+        if (
+          !currentlyOpen &&
+          currentAnswer
+        ) {
+          button.setAttribute(
+            "aria-expanded",
+            "true"
+          );
+
+          currentAnswer.hidden = false;
+
+          const icon =
+            button.querySelector("span");
+
+          if (icon) {
+            icon.textContent = "−";
+          }
+        }
       });
-      if (!open) {
-        button.setAttribute("aria-expanded","true");
-        button.querySelector("span").textContent = "−";
-        answer.hidden = false;
-      }
     });
-  });
 }
 
 function initForm() {
-  const form = document.getElementById("demoForm");
-  const success = document.getElementById("successMessage");
-  if (!form || !success) return;
-  form.addEventListener("submit", event => {
-    event.preventDefault();
-    success.classList.add("show");
-    success.scrollIntoView({behavior:"smooth", block:"nearest"});
-    form.reset();
-  });
+  const form =
+    document.getElementById("demoForm");
+
+  const success =
+    document.getElementById(
+      "successMessage"
+    );
+
+  if (!form || !success) {
+    return;
+  }
+
+  form.addEventListener(
+    "submit",
+    (event) => {
+      event.preventDefault();
+
+      success.classList.add("show");
+
+      success.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
+
+      form.reset();
+    }
+  );
 }
 
-
-/* ==========================================================
-   Compact WhatsApp order demonstration
-   ========================================================== */
-
 function initMiniWhatsAppDemo() {
-  const chatLog = document.getElementById("miniChatLog");
-  const quickReplies = document.getElementById("miniQuickReplies");
-  const typing = document.getElementById("miniTyping");
-  const resetButton = document.getElementById("miniResetDemo");
+  const chatLog =
+    document.getElementById("miniChatLog");
 
-  if (!chatLog || !quickReplies || !typing || !resetButton) {
+  const quickReplies =
+    document.getElementById(
+      "miniQuickReplies"
+    );
+
+  const typing =
+    document.getElementById("miniTyping");
+
+  const resetButton =
+    document.getElementById(
+      "miniResetDemo"
+    );
+
+  if (
+    !chatLog ||
+    !quickReplies ||
+    !typing ||
+    !resetButton
+  ) {
     return;
   }
 
   const menu = {
-    "chicken burger": {
-      name: "Chicken Burger",
-      price: 650
-    },
     "zinger burger": {
       name: "Zinger Burger",
       price: 700
-    },
-    "fries": {
-      name: "Fries",
-      price: 250
-    },
-    "coke": {
-      name: "Coke",
-      price: 150
     }
   };
 
   const initialRevenue = 18400;
+
   let cart = [];
   let couponRate = 0;
   let deliveryMode = "";
@@ -385,74 +625,88 @@ function initMiniWhatsAppDemo() {
   let orderConfirmed = false;
   let isResponding = false;
 
-  const flowDefinitions = [
+  const flows = [
     {
       label: "Show me the menu",
-      threeDStage: 0,
       progress: 12,
       progressLabel: "Menu displayed",
       category: "MENU DISCOVERY",
-      title: "OrderRise presents a structured restaurant menu.",
+      title:
+        "OrderRise presents a structured menu inside WhatsApp.",
       explanation:
-        "The customer remains inside WhatsApp while OrderRise converts the restaurant menu into an easy conversation.",
+        "The customer can browse without downloading another application.",
       response:
-        "Here’s today’s menu: 🍔 Chicken Burger — Rs 650 · 🌶️ Zinger Burger — Rs 700 · 🍟 Fries — Rs 250 · 🥤 Coke — Rs 150. What would you like?",
+        "Here’s today’s menu: 🍔 Chicken Burger — Rs 650 · 🌶️ Zinger Burger — Rs 700 · 🍟 Fries — Rs 250 · 🥤 Coke — Rs 150.",
       action() {}
     },
     {
       label: "Add two zinger burgers",
-      threeDStage: 1,
       progress: 34,
       progressLabel: "Cart created",
       category: "CART MANAGEMENT",
-      title: "Two products are converted into a structured cart.",
+      title:
+        "Two products become a structured cart.",
       explanation:
-        "OrderRise understands the product and quantity, calculates the subtotal and reserves two burgers from available stock.",
+        "OrderRise understands the product and quantity, calculates the subtotal and reserves stock.",
       response:
-        "Added 2× Zinger Burger to your cart. The estimated subtotal is Rs 1,400.",
+        "Added 2× Zinger Burger. The estimated subtotal is Rs 1,400.",
       action() {
         addToCart("zinger burger", 2);
-        setStatus("miniStatStock", "22 burgers reserved");
+        setStatus(
+          "miniStatStock",
+          "22 burgers reserved"
+        );
       }
     },
     {
       label: "Make one spicy",
-      threeDStage: 2,
       progress: 45,
       progressLabel: "Modifier understood",
       category: "ORDER MODIFIER",
-      title: "A natural-language instruction is attached to one item.",
+      title:
+        "The instruction is attached to the correct item.",
       explanation:
-        "The customer does not need a complicated form. OrderRise adds the spicy instruction directly to the kitchen-ready order.",
+        "The kitchen-ready order now includes one extra-spicy burger.",
       response:
         "Got it — one Zinger Burger is marked extra spicy 🌶️.",
       action() {
-        const burger = cart.find((item) => item.key === "zinger burger");
+        const burger = cart.find(
+          (item) =>
+            item.key === "zinger burger"
+        );
 
         if (!burger) {
-          botSay("Add the burgers first, then I can make one spicy.");
+          botSay(
+            "Add the burgers first, then I can make one spicy."
+          );
+
           return false;
         }
 
-        burger.modifier = "1 burger: extra spicy";
+        burger.modifier =
+          "1 burger: extra spicy";
+
         renderCart();
         return true;
       }
     },
     {
       label: "Apply SAVE10",
-      threeDStage: 4,
       progress: 56,
       progressLabel: "Coupon validated",
       category: "PROMOTION",
-      title: "The coupon is validated and the order total changes.",
+      title:
+        "The discount is applied consistently.",
       explanation:
-        "OrderRise applies the restaurant promotion consistently and displays the discounted total before confirmation.",
+        "OrderRise validates SAVE10 and recalculates the final total.",
       response:
         "Coupon SAVE10 applied — you received 10% off 🎉.",
       action() {
-        if (cart.length === 0) {
-          botSay("Your cart is empty. Add an item before applying SAVE10.");
+        if (!cart.length) {
+          botSay(
+            "Your cart is empty. Add an item before applying SAVE10."
+          );
+
           return false;
         }
 
@@ -463,53 +717,72 @@ function initMiniWhatsAppDemo() {
     },
     {
       label: "I want delivery",
-      threeDStage: 5,
       progress: 68,
       progressLabel: "Delivery selected",
       category: "FULFILLMENT",
-      title: "The order changes from an unassigned cart to a delivery workflow.",
+      title:
+        "The order enters the delivery workflow.",
       explanation:
-        "OrderRise prepares to collect the address, adds the delivery fee and marks the driver stage as pending.",
+        "OrderRise prepares address collection, adds the delivery fee and marks driver assignment as pending.",
       response:
-        "Delivery selected. Please share your address and phone number. A Rs 150 delivery fee was added.",
+        "Delivery selected. A Rs 150 delivery fee was added.",
       action() {
         deliveryMode = "Delivery";
         deliveryFee = 150;
-        document.getElementById("miniDeliveryMode").textContent =
+
+        document.getElementById(
+          "miniDeliveryMode"
+        ).textContent =
           "Delivery selected · Rs 150 fee";
-        setStatus("miniStatDriver", "Pending address");
+
+        setStatus(
+          "miniStatDriver",
+          "Pending address"
+        );
+
         renderCart();
         return true;
       }
     },
     {
       label: "Confirm order",
-      threeDStage: 6,
       progress: 88,
       progressLabel: "Kitchen preparing",
       category: "ORDER CONFIRMATION",
-      title: "A kitchen ticket is created and operational work begins.",
+      title:
+        "A kitchen ticket is created and work begins.",
       explanation:
-        "The conversational cart becomes ticket #1042, inventory is finalized, the kitchen starts preparation and a driver is assigned.",
+        "The cart becomes ticket #1042, inventory is updated and a driver is assigned.",
       response:
-        "Order confirmed ✅ Ticket #1042 was sent to the kitchen. Estimated preparation time: 18 minutes.",
+        "Order confirmed ✅ Ticket #1042 was sent to the kitchen. Estimated time: 18 minutes.",
       action() {
-        if (cart.length === 0) {
-          botSay("Your cart is empty — add something before confirming.");
+        if (!cart.length) {
+          botSay(
+            "Your cart is empty — add something before confirming."
+          );
+
           return false;
         }
 
         ticketNumber = "1042";
         orderConfirmed = true;
 
-        setStatus("miniStatTicket", "#1042 · Preparing");
-        setStatus("miniStatStock", "Inventory updated");
+        setStatus(
+          "miniStatTicket",
+          "#1042 · Preparing"
+        );
 
-        if (deliveryMode) {
-          setStatus("miniStatDriver", "Assigned · Ali K.");
-        } else {
-          setStatus("miniStatDriver", "Pickup order");
-        }
+        setStatus(
+          "miniStatStock",
+          "Inventory updated"
+        );
+
+        setStatus(
+          "miniStatDriver",
+          deliveryMode
+            ? "Assigned · Ali K."
+            : "Pickup order"
+        );
 
         updateRevenue();
         return true;
@@ -517,24 +790,32 @@ function initMiniWhatsAppDemo() {
     },
     {
       label: "Track my order",
-      threeDStage: 7,
       progress: 100,
       progressLabel: "Order in progress",
       category: "CUSTOMER UPDATE",
-      title: "The customer receives a clear order status without calling staff.",
+      title:
+        "The customer receives status without calling staff.",
       explanation:
-        "OrderRise reads the active ticket and returns its current kitchen or delivery status through WhatsApp.",
+        "OrderRise reads the active ticket and returns the current preparation or delivery status.",
       response:
-        "Order #1042 is being prepared. Estimated time: 18 minutes. We’ll message you again when it leaves the restaurant.",
+        "Order #1042 is being prepared. Estimated time: 18 minutes. We’ll message you when it leaves the restaurant.",
       action() {
-        if (!ticketNumber || !orderConfirmed) {
-          botSay("There is no active order yet. Confirm your order first.");
+        if (
+          !ticketNumber ||
+          !orderConfirmed
+        ) {
+          botSay(
+            "There is no active order yet. Confirm your order first."
+          );
+
           return false;
         }
 
         setStatus(
           "miniStatDriver",
-          deliveryMode ? "Ali K. · Ready soon" : "Pickup · Ready soon"
+          deliveryMode
+            ? "Ali K. · Ready soon"
+            : "Pickup · Ready soon"
         );
 
         return true;
@@ -543,40 +824,50 @@ function initMiniWhatsAppDemo() {
   ];
 
   function formatMoney(value) {
-    return `Rs ${Math.round(value).toLocaleString()}`;
+    return `Rs ${Math.round(
+      value
+    ).toLocaleString()}`;
   }
 
-  function getSubtotal() {
+  function subtotal() {
     return cart.reduce(
-      (total, item) => total + item.price * item.qty,
+      (total, item) =>
+        total + item.price * item.qty,
       0
     );
   }
 
-  function getDiscount() {
-    return getSubtotal() * couponRate;
+  function discount() {
+    return subtotal() * couponRate;
   }
 
-  function getOrderTotal() {
-    return getSubtotal() - getDiscount() + deliveryFee;
+  function orderTotal() {
+    return (
+      subtotal() -
+      discount() +
+      deliveryFee
+    );
   }
 
-  function addToCart(key, qty) {
+  function addToCart(key, quantity) {
     const product = menu[key];
-    const existing = cart.find((item) => item.key === key);
+
+    const existing = cart.find(
+      (item) => item.key === key
+    );
 
     if (!product) {
       return;
     }
 
     if (existing) {
-      existing.qty += qty;
+      existing.qty += quantity;
     } else {
       cart.push({
         key,
         name: product.name,
         price: product.price,
-        qty,
+        qty: quantity,
         modifier: ""
       });
     }
@@ -585,18 +876,30 @@ function initMiniWhatsAppDemo() {
   }
 
   function renderCart() {
-    const container = document.getElementById("miniCartLines");
-    const totalElement = document.getElementById("miniCartTotal");
-    const totalValue = document.getElementById("miniCartTotalValue");
+    const lines =
+      document.getElementById(
+        "miniCartLines"
+      );
 
-    if (!container || !totalElement || !totalValue) {
+    const total =
+      document.getElementById(
+        "miniCartTotal"
+      );
+
+    const value =
+      document.getElementById(
+        "miniCartTotalValue"
+      );
+
+    if (!lines || !total || !value) {
       return;
     }
 
-    if (cart.length === 0) {
-      container.innerHTML =
+    if (!cart.length) {
+      lines.innerHTML =
         '<div class="mini-cart-empty">No items yet — try “Show me the menu”.</div>';
-      totalElement.hidden = true;
+
+      total.hidden = true;
       return;
     }
 
@@ -611,36 +914,47 @@ function initMiniWhatsAppDemo() {
             ${item.qty}× ${item.name}
             ${modifier}
           </span>
-          <strong>${formatMoney(item.price * item.qty)}</strong>
+          <strong>
+            ${formatMoney(
+              item.price * item.qty
+            )}
+          </strong>
         </div>
       `;
     });
 
-    if (couponRate > 0) {
+    if (couponRate) {
       rows.push(`
         <div class="mini-cart-line">
           <span>SAVE10 discount</span>
-          <strong>−${formatMoney(getDiscount())}</strong>
+          <strong>
+            −${formatMoney(discount())}
+          </strong>
         </div>
       `);
     }
 
-    if (deliveryFee > 0) {
+    if (deliveryFee) {
       rows.push(`
         <div class="mini-cart-line">
           <span>Delivery fee</span>
-          <strong>${formatMoney(deliveryFee)}</strong>
+          <strong>
+            ${formatMoney(deliveryFee)}
+          </strong>
         </div>
       `);
     }
 
-    container.innerHTML = rows.join("");
-    totalElement.hidden = false;
-    totalValue.textContent = formatMoney(getOrderTotal());
+    lines.innerHTML = rows.join("");
+    total.hidden = false;
+    value.textContent =
+      formatMoney(orderTotal());
   }
 
-  function createBubble(text, sender) {
-    const bubble = document.createElement("div");
+  function addBubble(text, sender) {
+    const bubble =
+      document.createElement("div");
+
     bubble.className =
       sender === "user"
         ? "mini-bubble mini-user"
@@ -648,19 +962,21 @@ function initMiniWhatsAppDemo() {
 
     bubble.textContent = text;
     chatLog.appendChild(bubble);
-    chatLog.scrollTop = chatLog.scrollHeight;
+    chatLog.scrollTop =
+      chatLog.scrollHeight;
   }
 
   function botSay(text) {
-    createBubble(text, "bot");
+    addBubble(text, "bot");
   }
 
   function userSay(text) {
-    createBubble(text, "user");
+    addBubble(text, "user");
   }
 
   function setStatus(id, value) {
-    const element = document.getElementById(id);
+    const element =
+      document.getElementById(id);
 
     if (!element) {
       return;
@@ -671,57 +987,72 @@ function initMiniWhatsAppDemo() {
   }
 
   function updateRevenue() {
-    const revenue = orderConfirmed
-      ? initialRevenue + getOrderTotal()
-      : initialRevenue;
+    const revenue =
+      orderConfirmed
+        ? initialRevenue + orderTotal()
+        : initialRevenue;
 
-    setStatus("miniStatRevenue", formatMoney(revenue));
+    setStatus(
+      "miniStatRevenue",
+      formatMoney(revenue)
+    );
   }
 
   function updateExplanation(flow) {
-    const explanation = document.getElementById("miniProcessExplanation");
-    const category = explanation?.querySelector("span");
-    const title = explanation?.querySelector("strong");
-    const body = explanation?.querySelector("p");
+    const container =
+      document.getElementById(
+        "miniProcessExplanation"
+      );
 
-    if (!explanation || !category || !title || !body) {
+    if (!container) {
       return;
     }
 
-    category.textContent = flow.category;
-    title.textContent = flow.title;
-    body.textContent = flow.explanation;
+    const category =
+      container.querySelector("span");
 
-    const colorByStage = {
-      0: "#25d366",
-      1: "#ff9f43",
-      2: "#ff5a67",
-      4: "#a47cff",
-      5: "#ff63b8",
-      6: "#ffca5c",
-      7: "#43c6ff"
-    };
+    const title =
+      container.querySelector("strong");
 
-    const color = colorByStage[flow.threeDStage] || "#25d366";
-    explanation.style.borderLeftColor = color;
-    explanation.style.boxShadow = `0 0 28px ${color}1f`;
-    category.style.color = color;
+    const body =
+      container.querySelector("p");
+
+    if (category) {
+      category.textContent = flow.category;
+    }
+
+    if (title) {
+      title.textContent = flow.title;
+    }
+
+    if (body) {
+      body.textContent = flow.explanation;
+    }
   }
 
   function updateProgress(flow) {
-    const label = document.getElementById("miniProgressLabel");
-    const value = document.getElementById("miniProgressValue");
+    const label =
+      document.getElementById(
+        "miniProgressLabel"
+      );
+
+    const value =
+      document.getElementById(
+        "miniProgressValue"
+      );
 
     if (label) {
-      label.textContent = flow.progressLabel;
+      label.textContent =
+        flow.progressLabel;
     }
 
     if (value) {
-      value.textContent = `${flow.progress}%`;
+      value.textContent =
+        `${flow.progress}%`;
     }
   }
 
-  function setButtonsDisabled(disabled) {
+  function disableButtons(disabled) {
     quickReplies
       .querySelectorAll("button")
       .forEach((button) => {
@@ -729,42 +1060,37 @@ function initMiniWhatsAppDemo() {
       });
   }
 
-  function synchronizeLargeDemo(flow) {
-    if (
-      typeof updateOrderDemo === "function" &&
-      document.getElementById("orderDemoCanvas")
-    ) {
-      updateOrderDemo(flow.threeDStage);
-    }
-  }
-
-  function runFlow(flow, button) {
+  function runFlow(flow, activeButton) {
     if (isResponding) {
       return;
     }
 
     isResponding = true;
-    setButtonsDisabled(true);
+    disableButtons(true);
 
     quickReplies
       .querySelectorAll("button")
-      .forEach((item) => item.classList.toggle("active", item === button));
+      .forEach((button) => {
+        button.classList.toggle(
+          "active",
+          button === activeButton
+        );
+      });
 
     userSay(flow.label);
     typing.hidden = false;
 
     window.setTimeout(() => {
-      const actionResult = flow.action();
+      const result = flow.action();
 
-      if (actionResult !== false) {
+      if (result !== false) {
         botSay(flow.response);
         updateExplanation(flow);
         updateProgress(flow);
-        synchronizeLargeDemo(flow);
       }
 
       typing.hidden = true;
-      setButtonsDisabled(false);
+      disableButtons(false);
       isResponding = false;
     }, 360);
   }
@@ -772,12 +1098,21 @@ function initMiniWhatsAppDemo() {
   function renderQuickReplies() {
     quickReplies.innerHTML = "";
 
-    flowDefinitions.forEach((flow) => {
-      const button = document.createElement("button");
+    flows.forEach((flow) => {
+      const button =
+        document.createElement("button");
+
       button.type = "button";
-      button.className = "mini-qr-button";
+      button.className =
+        "mini-qr-button";
+
       button.textContent = flow.label;
-      button.addEventListener("click", () => runFlow(flow, button));
+
+      button.addEventListener(
+        "click",
+        () => runFlow(flow, button)
+      );
+
       quickReplies.appendChild(button);
     });
   }
@@ -797,39 +1132,59 @@ function initMiniWhatsAppDemo() {
       </div>
     `;
 
-    document.getElementById("miniDeliveryMode").textContent =
+    document.getElementById(
+      "miniDeliveryMode"
+    ).textContent =
       "Pickup or delivery not selected";
 
-    document.getElementById("miniStatTicket").textContent = "Not created";
-    document.getElementById("miniStatStock").textContent = "Normal";
-    document.getElementById("miniStatDriver").textContent = "Unassigned";
-    document.getElementById("miniStatRevenue").textContent =
-      formatMoney(initialRevenue);
+    const initialValues = {
+      miniStatTicket: "Not created",
+      miniStatStock: "Normal",
+      miniStatDriver: "Unassigned",
+      miniStatRevenue:
+        formatMoney(initialRevenue)
+    };
 
-    document
-      .querySelectorAll(
-        "#miniStatTicket, #miniStatStock, #miniStatDriver, #miniStatRevenue"
-      )
-      .forEach((element) => element.classList.remove("on"));
+    Object.entries(initialValues)
+      .forEach(([id, value]) => {
+        const element =
+          document.getElementById(id);
 
-    document.getElementById("miniProgressLabel").textContent =
+        if (element) {
+          element.textContent = value;
+          element.classList.remove("on");
+        }
+      });
+
+    document.getElementById(
+      "miniProgressLabel"
+    ).textContent =
       "Waiting for customer";
 
-    document.getElementById("miniProgressValue").textContent = "0%";
+    document.getElementById(
+      "miniProgressValue"
+    ).textContent = "0%";
 
-    const explanation = document.getElementById("miniProcessExplanation");
-    const category = explanation.querySelector("span");
-    const title = explanation.querySelector("strong");
-    const body = explanation.querySelector("p");
+    const explanation =
+      document.getElementById(
+        "miniProcessExplanation"
+      );
 
-    category.textContent = "CUSTOMER INPUT";
-    category.style.color = "#68ff9b";
-    title.textContent = "Choose “Show me the menu” to begin.";
-    body.textContent =
-      "Each reply demonstrates how one WhatsApp message becomes structured restaurant work.";
+    if (explanation) {
+      explanation.querySelector(
+        "span"
+      ).textContent = "CUSTOMER INPUT";
 
-    explanation.style.borderLeftColor = "#25d366";
-    explanation.style.boxShadow = "none";
+      explanation.querySelector(
+        "strong"
+      ).textContent =
+        "Choose “Show me the menu” to begin.";
+
+      explanation.querySelector(
+        "p"
+      ).textContent =
+        "Each quick reply demonstrates one practical restaurant action.";
+    }
 
     quickReplies
       .querySelectorAll("button")
@@ -840,30 +1195,56 @@ function initMiniWhatsAppDemo() {
 
     typing.hidden = true;
     renderCart();
-
-    if (
-      typeof updateOrderDemo === "function" &&
-      document.getElementById("orderDemoCanvas")
-    ) {
-      updateOrderDemo(0);
-    }
   }
 
   renderQuickReplies();
   renderCart();
-  resetButton.addEventListener("click", resetDemo);
+
+  resetButton.addEventListener(
+    "click",
+    resetDemo
+  );
 }
 
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+    initMenu();
+    initProgress();
+    initReveal();
+    initTilt();
+    initHeroControls();
+    initMiniWhatsAppDemo();
+    initPillars();
+    initRoi();
+    initFaq();
+    initForm();
 
-document.addEventListener("DOMContentLoaded", () => {
-  initMenu();initProgress();initReveal();initTilt();initHeroControls();initMiniWhatsAppDemo();initOrderDemo();
-  initJourney();initPillars();initDevices();initAdmin();initRoi();initFaq();initForm();
-  const year = document.getElementById("currentYear");
-  if (year) year.textContent = new Date().getFullYear();
-});
+    const year =
+      document.getElementById(
+        "currentYear"
+      );
 
+    if (year) {
+      year.textContent =
+        new Date().getFullYear();
+    }
+  }
+);
 
 window.setTimeout(() => {
-  if (window.OrderRise3D || window.OrderRisePage3D) return;
-  document.querySelectorAll(".webgl-fallback").forEach(fallback => fallback.classList.add("show"));
+  if (
+    window.OrderRise3D ||
+    window.OrderRisePage3D
+  ) {
+    return;
+  }
+
+  document
+    .querySelectorAll(
+      ".webgl-fallback"
+    )
+    .forEach((fallback) => {
+      fallback.classList.add("show");
+    });
 }, 6500);

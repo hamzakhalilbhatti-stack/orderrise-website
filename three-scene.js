@@ -1502,29 +1502,30 @@ function buildFinal() {
 }
 
 const hero = buildHero();
-const orderDemo = buildOrderDemo();
-const journey = buildJourney();
-const pillars = buildPillars();
-const devices = buildDevices();
-const admin = buildAdmin();
-buildFinal();
 
+/*
+ * The homepage intentionally creates only one WebGL renderer.
+ * Product proof is handled by the lightweight HTML/JavaScript Taco Heat demo.
+ * This keeps the sales page clearer and significantly reduces GPU load.
+ */
 window.OrderRise3D = {
   focusHero: key => hero?.focus(key),
-  setOrderStage: stage => orderDemo?.setStage(stage),
-  setJourneyStage: stage => journey?.setStage(stage),
-  setPillar: key => pillars?.setPillar(key),
-  focusDevice: key => devices?.focus(key),
-  focusAdmin: key => admin?.focus(key),
+  setOrderStage: () => {},
+  setJourneyStage: () => {},
+  setPillar: () => {},
+  focusDevice: () => {},
+  focusAdmin: () => {},
   setSound: enabled => {
     soundEnabled = Boolean(enabled);
-    if (soundEnabled) beep(660,.07,.022);
+    if (soundEnabled) beep(660, .07, .022);
   }
 };
 
 if (window.__orderRisePending3D) {
-  for (const [method,args] of Object.entries(window.__orderRisePending3D)) {
-    if (typeof window.OrderRise3D[method] === "function") window.OrderRise3D[method](...(args || []));
+  for (const [method, args] of Object.entries(window.__orderRisePending3D)) {
+    if (typeof window.OrderRise3D[method] === "function") {
+      window.OrderRise3D[method](...(args || []));
+    }
   }
   delete window.__orderRisePending3D;
 }

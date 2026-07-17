@@ -1,21 +1,30 @@
-# OrderRise Hybrid Sales + Guided 3D Website
+# OrderRise — Streamlined 3D Sales Website
 
-This version combines:
+OrderRise is a restaurant automation website that explains one clear promise:
 
-- Clear restaurant-focused sales messaging
-- Guided Three.js restaurant scenes
-- An interactive WhatsApp order demonstration
-- Kitchen, inventory, delivery and owner explanations
-- Responsive desktop and mobile layouts
-- Separate product, feature, solution, pricing and company pages
+**One WhatsApp message becomes a connected restaurant workflow.**
 
-## Website purpose
+The homepage now contains:
 
-OrderRise turns customer messages on WhatsApp into structured restaurant operations:
+1. One concise value-focused hero
+2. One lightweight Three.js restaurant scene
+3. Four restaurant pain points
+4. One interactive Taco Heat order demo
+5. One combined product workspace
+6. Restaurant-specific solutions
+7. Pricing and ROI calculator
+8. FAQ and demo-booking conversion section
 
-WhatsApp → AI → Cart → Kitchen → Inventory → Delivery → Owner reporting
+## Performance decisions
 
-## Start locally
+- Only one WebGL renderer runs on the homepage.
+- Repeated 3D journey, device and command-center canvases were removed.
+- The practical order demo uses lightweight HTML, CSS and JavaScript.
+- Three.js is included locally.
+- The website works on GitHub Pages without npm or a build command.
+- A text fallback appears only when WebGL genuinely cannot start.
+
+## Run locally
 
 Double-click:
 
@@ -27,47 +36,20 @@ Or run:
 python -m http.server 8080
 ```
 
-Then open:
+Open:
 
 `http://localhost:8080/`
-
-## Main files
-
-- `index.html` — hybrid sales homepage
-- `style.css` — complete responsive design
-- `script.js` — UI and product-demo interactions
-- `three-scene.js` — homepage Three.js scenes
-- `page-scene.js` — subpage Three.js scenes
-- `diagnostics.html` — WebGL browser test
-- `vendor/` — local Three.js modules
 
 ## Upload to GitHub
 
 ```powershell
 git add .
-git commit -m "Build OrderRise hybrid sales and guided 3D website"
+git commit -m "Launch streamlined OrderRise 3D sales website"
 git push origin main
 ```
 
-The demonstration uses fictional information and does not connect to the production restaurant backend.
+## Important
 
-## Compact WhatsApp demonstration
-
-The homepage now includes a fictional Taco Heat order simulation before the
-larger 3D demonstration.
-
-It demonstrates:
-
-- Menu discovery
-- Adding two Zinger Burgers
-- Natural-language modifiers
-- SAVE10 discount
-- Delivery selection
-- Kitchen-ticket creation
-- Inventory updates
-- Driver assignment
-- Revenue updates
-- Order tracking
-- Complete reset
-
-The compact demo synchronizes with the larger 3D order scene.
+The Taco Heat demonstration uses fictional data. The static contact form does
+not transmit information and is not connected to a production restaurant
+backend.

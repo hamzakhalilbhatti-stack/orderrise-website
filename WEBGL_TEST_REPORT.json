@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "errors": [],
+  "canvas_count": 1,
+  "fallback_visible": false,
+  "ready": true,
+  "context": {
+    "available": true,
+    "renderer": "WebKit WebGL",
+    "size": [
+      653,
+      680
+    ]
+  },
+  "rect": {
+    "x": 679,
+    "y": 374.171875,
+    "w": 652.5,
+    "h": 680
+  },
+  "canvas_mean": [
+    21.33,
+    32.61,
+    46.53
+  ],
+  "canvas_stddev": [
+    38.62,
+    41.6,
+    38.83
+  ],
+  "canvas_visual_nonblank": true
+}

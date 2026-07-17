@@ -1,0 +1,240 @@
+{
+  "status": "passed",
+  "homepage": {
+    "top_level_sections": 8,
+    "canvas_count": 1,
+    "webgl_fallback_count": 1,
+    "faq_item_count": 5,
+    "quick_demo_container": true,
+    "old_interactive_demo_links": 0,
+    "old_3d_demo_labels": 0
+  },
+  "html_pages_checked": 21,
+  "html_reports": {
+    "404.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "about.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "contact.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "demo.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "diagnostics.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "features.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "how-it-works.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "index.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "pricing.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "privacy.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "product.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "solutions/bakeries.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "solutions/burger-restaurants.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "solutions/cafes.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "solutions/cloud-kitchens.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "solutions/fast-food.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "solutions/multi-location.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "solutions/pizza-restaurants.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "solutions/takeaway.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "solutions.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    },
+    "terms.html": {
+      "duplicate_ids": [],
+      "missing_references": [],
+      "h1_count": 1
+    }
+  },
+  "javascript_syntax": {
+    "script.js": {
+      "passed": true,
+      "error": ""
+    },
+    "three-scene.js": {
+      "passed": true,
+      "error": ""
+    },
+    "page-scene.js": {
+      "passed": true,
+      "error": ""
+    }
+  },
+  "http_files_checked": 28,
+  "http_results": {
+    "about.html": 200,
+    "assets/favicon.svg": 200,
+    "assets/orderrise-logo.svg": 200,
+    "contact.html": 200,
+    "demo.html": 200,
+    "diagnostics.html": 200,
+    "features.html": 200,
+    "how-it-works.html": 200,
+    "index.html": 200,
+    "page-scene.js": 200,
+    "pricing.html": 200,
+    "privacy.html": 200,
+    "product.html": 200,
+    "script.js": 200,
+    "solutions/bakeries.html": 200,
+    "solutions/burger-restaurants.html": 200,
+    "solutions/cafes.html": 200,
+    "solutions/cloud-kitchens.html": 200,
+    "solutions/fast-food.html": 200,
+    "solutions/multi-location.html": 200,
+    "solutions/pizza-restaurants.html": 200,
+    "solutions/takeaway.html": 200,
+    "solutions.html": 200,
+    "style.css": 200,
+    "terms.html": 200,
+    "three-scene.js": 200,
+    "vendor/three.core.js": 200,
+    "vendor/three.module.js": 200
+  },
+  "browser_ui_test": {
+    "status": "passed",
+    "desktop": {
+      "sections": 8,
+      "demo_buttons": 7,
+      "faq_items": 5,
+      "canvas_count": 1,
+      "total": "Rs 1,410",
+      "ticket": "#1042 \u00b7 Preparing",
+      "driver": "Ali K. \u00b7 Ready soon",
+      "revenue": "Rs 19,810",
+      "progress": "100%",
+      "product_active": true,
+      "roi_orders": "240",
+      "roi_revenue": "PKR 480,000",
+      "faq_visible": true,
+      "form_success": true
+    },
+    "mobile": {
+      "widths": [
+        375,
+        375
+      ],
+      "menu_visible": true,
+      "nav_open": true,
+      "demo_buttons": 7,
+      "faq_items": 5,
+      "price_visible": true
+    },
+    "errors": []
+  },
+  "browser_webgl_test": {
+    "status": "passed",
+    "errors": [],
+    "canvas_count": 1,
+    "fallback_visible": false,
+    "ready": true,
+    "context": {
+      "available": true,
+      "renderer": "WebKit WebGL",
+      "size": [
+        653,
+        680
+      ]
+    },
+    "rect": {
+      "x": 679,
+      "y": 374.171875,
+      "w": 652.5,
+      "h": 680
+    },
+    "canvas_mean": [
+      21.33,
+      32.61,
+      46.53
+    ],
+    "canvas_stddev": [
+      38.62,
+      41.6,
+      38.83
+    ],
+    "canvas_visual_nonblank": true
+  },
+  "file_sizes_bytes": {
+    "index.html": 28016,
+    "style.css": 67699,
+    "script.js": 26189,
+    "three-scene.js": 62286
+  },
+  "reduction": {
+    "previous_top_level_sections": 16,
+    "final_top_level_sections": 8,
+    "previous_homepage_canvases": 7,
+    "final_homepage_canvases": 1
+  }
+}
