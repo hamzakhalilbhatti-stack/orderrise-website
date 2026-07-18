@@ -110,3 +110,7 @@ When a contact value is empty or still contains placeholder text, the site handl
 ## Future 404 page
 
 For a custom GitHub Pages 404 experience, duplicate the main header and footer into a new `404.html` file and add a clear button linking back to `index.html`.
+
+## Color Theme
+
+The current build uses the **Caper & Copper** palette. The central color variables are at the top of `style.css` and are reinforced in the `CAPER & COPPER THEME` block near the end of the file.
