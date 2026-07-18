@@ -1,63 +1,80 @@
-# OrderRise — Conversion-Clean Website
+# OrderRise — Consolidated Landing Page Revision
 
-OrderRise explains one promise:
+This build implements the final consolidation specification for OrderRise.
 
-**One WhatsApp message becomes organized restaurant work.**
+## Core product message
 
-## Final homepage structure
+OrderRise turns a WhatsApp customer order into coordinated kitchen, inventory,
+delivery and owner workflows.
 
-1. Short value-focused hero
-2. Four restaurant problems
-3. Three audience outcomes
-4. Interactive Taco Heat order demo
-5. One concrete Admin Hub section
-6. Restaurant-specific solutions
-7. Founder and founding-pilot trust
-8. Tiered pricing and ROI
-9. Complete FAQ
-10. WhatsApp-first conversion section
+## Process explanations kept
 
-## What was removed
+Only two detailed process experiences remain:
 
-- Seven-step hero icon row
+1. The hero's interactive seven-stage 3D flow
+2. The Taco Heat chat and live restaurant-state demo
+
+## Duplicate content removed
+
 - Complete-process arrow list
-- Scroll-based seven-scene walkthrough
-- Separate product-pillar showcase
-- Separate device showcase
-- Separate command-center showcase
-- Subpage 3D canvases
-- Repeated WebGL fallback messages
-- Old `3D Demo`, `#interactive-demo` and `#quick-demo` paths
+- Seven-scene scroll walkthrough
+- Five-system product-pillar section
+- Floating device showcase
+- Separate 3D demo destination
+- Repeated subpage WebGL canvases
 - Defensive meta-narration
+
+## Product section
+
+The product is consolidated into one Admin Hub with these modules:
+
+- Orders
+- Kitchen
+- Receipts
+- Promotions
+- Customers
+- Deliveries
+- Reports
+- Inventory
+- Menu
+- System
+
+Useful capabilities from the former product-pillar section now appear under the
+relevant Admin Hub module.
 
 ## CTA hierarchy
 
-Primary:
+Primary action:
 
 - Message Hamza on WhatsApp
 
-Secondary:
+Secondary action:
 
-- Book a restaurant workflow call
+- Book a call through `contact.html`
 
-The current WhatsApp link uses:
-
-`923001794940`
-
-Confirm that this is the number you want published before launch.
+The published WhatsApp link currently uses `923001794940`. Confirm this is the
+number you want public before deployment.
 
 ## Pricing
 
-- Starter: from $50/month
-- Growth: custom quote
-- Multi-location: custom quote
+- Starter — from $50/month
+- Growth — custom quote
+- Multi-location — custom quote
 
-## 3D strategy
+## Trust and proof
 
-- Static workflow is the default experience.
-- The homepage WebGL scene is an optional desktop enhancement.
-- Mobile and reduced-motion visitors use the static workflow.
-- Subpages contain no WebGL.
+The About page names Hamza Khalil and states that OrderRise is based in Lahore,
+Pakistan. No client logo, testimonial, response-time statistic or result has
+been invented. Use `docs/REAL_PROOF_CHECKLIST.md` after the first approved pilot.
+
+## 3D reliability
+
+- Static workflow content is visible by default.
+- Homepage WebGL is a progressive desktop enhancement.
+- Mobile and reduced-motion visitors retain the static workflow.
+- Unused order-demo, journey, pillar, device and command-center WebGL builders
+  were removed from `three-scene.js`.
+- Subpages do not load WebGL.
 
 ## Run locally
 
@@ -65,17 +82,12 @@ Confirm that this is the number you want published before launch.
 python -m http.server 8080
 ```
 
-Then open:
-
-`http://localhost:8080/`
+Open `http://localhost:8080/`.
 
 ## Deploy
 
 ```powershell
 git add .
-git commit -m "Apply OrderRise conversion and content cleanup"
+git commit -m "Consolidate OrderRise landing page content and CTAs"
 git push origin main
 ```
-
-The Taco Heat demo uses demonstration data. No real client proof or performance
-statistics have been invented.

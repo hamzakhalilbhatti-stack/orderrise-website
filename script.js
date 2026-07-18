@@ -5,6 +5,7 @@ const adminHubData = {
     title: "See every active order and its current state.",
     description:
       "Review customer details, items, totals, fulfillment method, payment status and the next restaurant action.",
+    features: ['Natural-language ordering', 'Menu discovery', 'Product modifiers', 'Cart management', 'Pickup and delivery'],
     metrics: [["New", "8"], ["Preparing", "12"], ["Ready", "5"]],
     headers: ["Order", "Customer", "Status", "Total"],
     rows: [
@@ -18,6 +19,7 @@ const adminHubData = {
     title: "Give the kitchen a clear preparation queue.",
     description:
       "Tickets contain items, quantities, modifiers, priority and preparation status without requiring staff to read customer chat history.",
+    features: ['Structured kitchen tickets', 'Preparation status', 'Priority handling', 'Modifier visibility'],
     metrics: [["Waiting", "6"], ["Avg. prep", "14 min"], ["Delayed", "1"]],
     headers: ["Ticket", "Items", "Priority", "Status"],
     rows: [
@@ -31,6 +33,7 @@ const adminHubData = {
     title: "Keep a consistent record of every completed sale.",
     description:
       "Generate order summaries containing items, discounts, delivery fees, payment method and final total.",
+    features: ['Itemized order summary', 'Discount and fee breakdown', 'Payment method record', 'Printable receipt data'],
     metrics: [["Today", "128"], ["Paid", "116"], ["COD", "12"]],
     headers: ["Receipt", "Method", "Discount", "Total"],
     rows: [
@@ -44,6 +47,7 @@ const adminHubData = {
     title: "Control offers without changing order calculations manually.",
     description:
       "Create coupons and customer campaigns while keeping eligibility, limits and discount reporting visible.",
+    features: ['Coupons', 'First-order offers', 'BOGO campaigns', 'Redemption reporting'],
     metrics: [["Active", "4"], ["Redemptions", "37"], ["Revenue", "PKR 42K"]],
     headers: ["Campaign", "Offer", "Used", "Status"],
     rows: [
@@ -57,6 +61,7 @@ const adminHubData = {
     title: "Turn completed orders into useful customer history.",
     description:
       "Store order history, favorite products, loyalty status and permission-based promotion activity.",
+    features: ['Customer CRM', 'Order history', 'Favorite products', 'Loyalty points and levels'],
     metrics: [["Customers", "1,842"], ["Repeat rate", "42%"], ["VIP", "86"]],
     headers: ["Customer", "Orders", "Favorite", "Level"],
     rows: [
@@ -70,6 +75,7 @@ const adminHubData = {
     title: "Assign orders and track delivery status clearly.",
     description:
       "Manage driver assignment, order state, cash collection and failed or returned deliveries without claiming unsupported live GPS.",
+    features: ['Driver accounts', 'Order assignment', 'Delivery statuses', 'Cash-on-delivery records'],
     metrics: [["Assigned", "4"], ["Delivered", "18"], ["COD pending", "PKR 8K"]],
     headers: ["Order", "Driver", "Status", "Cash"],
     rows: [
@@ -83,6 +89,7 @@ const adminHubData = {
     title: "Understand sales and operations without combining spreadsheets.",
     description:
       "Review order totals, average order value, product performance, customer activity, discounts and delivery results.",
+    features: ['Daily sales', 'Average order value', 'Top products', 'Customer and delivery performance'],
     metrics: [["Revenue", "PKR 184K"], ["AOV", "PKR 1,438"], ["Growth", "+18%"]],
     headers: ["Report", "Today", "Previous", "Change"],
     rows: [
@@ -96,6 +103,7 @@ const adminHubData = {
     title: "Connect sold items with available restaurant stock.",
     description:
       "Reserve ingredients when orders are confirmed and highlight products approaching a low-stock threshold.",
+    features: ['Automatic stock reservation', 'Low-stock alerts', 'Product availability', 'Reserved quantity visibility'],
     metrics: [["Products", "64"], ["Low stock", "5"], ["Unavailable", "2"]],
     headers: ["Item", "Available", "Reserved", "State"],
     rows: [
@@ -109,6 +117,7 @@ const adminHubData = {
     title: "Keep prices, products and modifiers controlled in one place.",
     description:
       "Manage availability, categories, prices, extras, sizes and customer-facing product descriptions.",
+    features: ['Menu categories', 'Prices and availability', 'Sizes and extras', 'Customer-facing descriptions'],
     metrics: [["Products", "48"], ["Categories", "7"], ["Hidden", "3"]],
     headers: ["Product", "Price", "Category", "State"],
     rows: [
@@ -122,6 +131,7 @@ const adminHubData = {
     title: "Control restaurant settings and connected services.",
     description:
       "Manage restaurant status, roles, notification rules, integrations and operational safeguards.",
+    features: ['Restaurant open and close controls', 'Roles and permissions', 'Notification rules', 'Integration settings'],
     metrics: [["Restaurant", "Open"], ["WhatsApp", "Connected"], ["Alerts", "2"]],
     headers: ["Setting", "Value", "Owner", "State"],
     rows: [
@@ -301,6 +311,24 @@ function initHeroControls() {
         );
       });
 
+      const stageStatuses = {
+        phone: "WhatsApp message received",
+        ai: "AI extracted product, quantity and instructions",
+        cart: "Cart, modifiers and checkout prepared",
+        kitchen: "Kitchen ticket created",
+        inventory: "Inventory reserved automatically",
+        delivery: "Delivery workflow and driver assignment prepared",
+        owner: "Owner reports and customer history updated",
+        overview: "One order moving through the complete restaurant"
+      };
+
+      const status = document.getElementById("heroStatusText");
+      if (status) {
+        status.textContent =
+          stageStatuses[button.dataset.heroFocus] ||
+          stageStatuses.overview;
+      }
+
       call3D(
         "focusHero",
         button.dataset.heroFocus
@@ -342,6 +370,7 @@ function updateAdminHub(key) {
   const eyebrow = document.getElementById("adminModuleEyebrow");
   const title = document.getElementById("adminModuleTitle");
   const description = document.getElementById("adminModuleDescription");
+  const features = document.getElementById("adminModuleFeatures");
   const metrics = document.getElementById("adminModuleMetrics");
   const table = document.getElementById("adminSampleTable");
 
@@ -355,6 +384,12 @@ function updateAdminHub(key) {
 
   if (description) {
     description.textContent = data.description;
+  }
+
+  if (features) {
+    features.innerHTML = data.features
+      .map((feature) => `<li>${feature}</li>`)
+      .join("");
   }
 
   if (metrics) {

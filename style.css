@@ -3162,3 +3162,147 @@ html.webgl-ready .hero-static-visual {
     flex-direction: column;
   }
 }
+
+/* ==========================================================
+   Spec revision — keep one hero flow and one detailed demo
+   ========================================================== */
+
+.streamlined-hero-scene {
+  min-height: 720px;
+}
+
+.streamlined-hero-scene #hero3dCanvas {
+  height: 720px;
+}
+
+.streamlined-hero-scene .hero-static-visual {
+  padding-bottom: 165px;
+}
+
+.streamlined-hero-scene .hero-scene-caption {
+  top: 80px;
+}
+
+.streamlined-hero-scene .compact-hero-process {
+  right: 14px;
+  bottom: 16px;
+  left: 14px;
+  z-index: 18;
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  pointer-events: auto;
+}
+
+.streamlined-hero-scene .compact-hero-process .process-stage {
+  min-width: 0;
+  min-height: 62px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-top: 3px solid var(--stage-color);
+  border-radius: 14px;
+  background: rgba(4,8,17,.88);
+  padding: 8px;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  backdrop-filter: blur(12px);
+}
+
+.streamlined-hero-scene .compact-hero-process .process-stage:hover,
+.streamlined-hero-scene .compact-hero-process .process-stage.active {
+  border-color: var(--stage-color);
+  background: color-mix(in srgb, var(--stage-color) 12%, rgba(4,8,17,.94));
+  transform: translateY(-2px);
+}
+
+.streamlined-hero-scene .compact-hero-process .process-stage b {
+  display: grid;
+  float: none;
+  width: 22px;
+  height: 22px;
+  margin: 0 0 6px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--stage-color);
+  color: #041009;
+  font-size: .62rem;
+}
+
+.streamlined-hero-scene .compact-hero-process .process-stage span,
+.streamlined-hero-scene .compact-hero-process .process-stage small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.streamlined-hero-scene .compact-hero-process .process-stage span {
+  font-size: .66rem;
+  font-weight: 800;
+}
+
+.streamlined-hero-scene .compact-hero-process .process-stage small {
+  margin-top: 2px;
+  color: rgba(247,248,250,.43);
+  font-size: .55rem;
+}
+
+.admin-module-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.admin-module-features li {
+  border: 1px solid rgba(37,211,102,.18);
+  border-radius: 999px;
+  background: rgba(37,211,102,.055);
+  padding: 7px 10px;
+  color: rgba(247,248,250,.68);
+  font-size: .7rem;
+}
+
+@media (max-width: 760px) {
+  .streamlined-hero-scene {
+    min-height: 690px;
+  }
+
+  .streamlined-hero-scene #hero3dCanvas {
+    height: 690px;
+  }
+
+  .streamlined-hero-scene .hero-static-visual {
+    padding-bottom: 190px;
+  }
+
+  .streamlined-hero-scene .compact-hero-process {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 3px;
+    scrollbar-width: thin;
+  }
+
+  .streamlined-hero-scene .compact-hero-process .process-stage,
+  .streamlined-hero-scene .compact-hero-process .process-stage:nth-child(n+5) {
+    display: block;
+    flex: 0 0 105px;
+    min-height: 60px;
+  }
+}
+
+@media (max-width: 560px) {
+  .streamlined-hero-scene {
+    min-height: 750px;
+  }
+
+  .streamlined-hero-scene #hero3dCanvas {
+    height: 750px;
+  }
+
+  .streamlined-hero-scene .hero-static-visual {
+    padding-bottom: 185px;
+  }
+}
