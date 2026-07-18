@@ -1,763 +1,372 @@
-
-const orderStates = [
-  { customer:"Show me the menu", reply:"Here are the most popular items.", cart:"Empty", inventory:"24 burgers", kitchen:"Waiting", driver:"Not required", revenue:"PKR 0", step:"STEP 1 · MENU", title:"The customer asks for the menu.", explanation:"The WhatsApp phone and menu area glow green. No kitchen or stock action is needed yet.", accent:"#25d366" },
-  { customer:"Add two chicken burgers", reply:"Two chicken burgers were added to your cart.", cart:"2 burgers", inventory:"22 burgers", kitchen:"Ticket drafted", driver:"Not required", revenue:"PKR 1,598", step:"STEP 2 · CART", title:"Two burgers fly into the cart.", explanation:"The cart turns orange, the burger count changes and inventory reserves two burger items.", accent:"#ff9f43" },
-  { customer:"Make one spicy", reply:"One burger is now spicy.", cart:"2 customized burgers", inventory:"22 burgers", kitchen:"Modifier updated", driver:"Not required", revenue:"PKR 1,598", step:"STEP 3 · MODIFIER", title:"The spicy instruction is attached.", explanation:"A red modifier marker appears on one burger and the kitchen ticket receives the change.", accent:"#ff5a67" },
-  { customer:"Add extra cheese", reply:"Extra cheese was added to both burgers.", cart:"2 burgers + cheese", inventory:"20 cheese slices", kitchen:"Ticket updated", driver:"Not required", revenue:"PKR 1,798", step:"STEP 4 · ADD-ON", title:"Cheese is added and stock decreases.", explanation:"The cheese layers glow yellow while the inventory shelf removes the reserved slices.", accent:"#ffca5c" },
-  { customer:"Apply SAVE10", reply:"SAVE10 applied successfully.", cart:"10% discount", inventory:"Validated", kitchen:"Ticket ready", driver:"Not required", revenue:"PKR 1,618", step:"STEP 5 · COUPON", title:"The coupon changes the final total.", explanation:"The purple promotion badge activates, validates SAVE10 and recalculates the order value.", accent:"#a47cff" },
-  { customer:"I want delivery", reply:"Delivery selected. Please confirm your address.", cart:"Delivery order", inventory:"Reserved", kitchen:"Awaiting confirmation", driver:"Available", revenue:"PKR 1,768", step:"STEP 6 · DELIVERY", title:"The delivery station becomes active.", explanation:"The pink delivery zone lights up and an available driver and scooter appear.", accent:"#ff63b8" },
-  { customer:"Confirm my order", reply:"Order #1042 is confirmed and sent to the kitchen.", cart:"Confirmed", inventory:"Reserved", kitchen:"Preparing", driver:"Assigned", revenue:"PKR 1,768", step:"STEP 7 · KITCHEN", title:"A real kitchen ticket is created.", explanation:"The amber kitchen screen displays Order #1042 and preparation begins.", accent:"#ffca5c" },
-  { customer:"Track my order", reply:"Your order is out for delivery.", cart:"Completed", inventory:"Updated", kitchen:"Ready", driver:"Out for delivery", revenue:"PKR 1,768", step:"STEP 8 · TRACKING", title:"The driver moves along the delivery route.", explanation:"The blue route animates, the customer receives an update and owner revenue is finalized.", accent:"#43c6ff" }
-];
-
-const adminFeatures = {
-  orders:["Natural-language ordering","Cart management","Pickup and delivery","Payment selection","Confirmation and tracking"],
-  kitchen:["Kitchen display","Structured kitchen tickets","New, preparing, ready and delayed states","Modifier and add-on visibility"],
-  receipts:["Connected order receipts","Payment information","Order totals","Print and completion status"],
-  promotions:["Coupons","BOGO offers","First-order offers","Targeted campaigns"],
-  customers:["Customer CRM","Order history","Favorite products","Loyalty points and customer levels","Saved orders"],
-  deliveries:["Driver accounts","Order assignment","Delivery statuses","Cash-on-delivery records","Delivery zones and customer notifications"],
-  reports:["Daily sales and order totals","Average order value","Top products","Customer and delivery performance","Discount reporting and exports"],
-  staff:["Role-based access","Team responsibilities","Owner, kitchen and delivery workspaces"],
-  inventory:["Inventory management","Item availability","Low-stock alerts","Product usage"],
-  menu:["Menu discovery","Product modifiers","Category and price management","Availability and add-ons"],
-  system:["Restaurant open and close controls","Integrations","Settings","System health"]
-};
-
-const adminData = {
-  orders:["See every order from message to completion.","The camera focuses on active orders, status, value and fulfillment."],
-  kitchen:["Move directly into kitchen execution.","View new, preparing, ready and delayed kitchen tickets."],
-  receipts:["Keep receipts connected to every order.","Review print status, order totals and payment information."],
-  promotions:["Launch promotions without losing control.","Manage coupons, BOGO offers, first-order offers and targeted campaigns."],
-  customers:["Expand customer profiles and history.","Review order history, favorites, loyalty and saved orders."],
-  deliveries:["Activate the delivery operations area.","Assign drivers and manage delivery statuses and cash collection."],
-  reports:["Reveal restaurant intelligence.","Review sales, top products, customers, discounts and delivery performance."],
-  staff:["Give each team member the correct workspace.","Control staff access and restaurant responsibilities."],
-  inventory:["Open the stock room.","Review item availability, low stock and product usage."],
-  menu:["Control products, prices and modifiers.","Manage categories, availability, add-ons and restaurant menus."],
-  system:["Manage the restaurant operating system.","Review opening status, integrations, settings and system health."]
-};
-
-const adminPurpose = {
-  orders:"Message → status → fulfillment",
-  kitchen:"Ticket → preparation → ready",
-  receipts:"Order → payment → receipt",
-  promotions:"Audience → offer → conversion",
-  customers:"Profile → history → loyalty",
-  deliveries:"Assignment → route → completion",
-  reports:"Data → metrics → decisions",
-  staff:"Role → access → responsibility",
-  inventory:"Usage → stock → alert",
-  menu:"Product → price → availability",
-  system:"Integration → health → control"
-};
-
-function call3D(method, ...args) {
-  if (window.OrderRise3D && typeof window.OrderRise3D[method] === "function") {
-    window.OrderRise3D[method](...args);
-    return;
-  }
-  window.__orderRisePending3D = window.__orderRisePending3D || {};
-  window.__orderRisePending3D[method] = args;
-}
-
-function initMenu() {
-  const button = document.getElementById("menuButton");
-  const nav = document.getElementById("mainNavigation");
-  if (!button || !nav) return;
-  button.addEventListener("click", () => {
-    const open = nav.classList.toggle("open");
-    document.body.classList.toggle("menu-open", open);
-    button.setAttribute("aria-expanded", String(open));
-    button.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-  });
-  nav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
-    nav.classList.remove("open");
-    document.body.classList.remove("menu-open");
-    button.setAttribute("aria-expanded","false");
-  }));
-}
-
-function initProgress() {
-  const bar = document.getElementById("scrollProgress");
-  if (!bar) return;
-  const update = () => {
-    const max = document.documentElement.scrollHeight - innerHeight;
-    bar.style.width = `${max > 0 ? Math.min(100, scrollY / max * 100) : 0}%`;
-  };
-  update();
-  addEventListener("scroll", update, {passive:true});
-  addEventListener("resize", update);
-}
-
-function initReveal() {
-  const els = document.querySelectorAll(".reveal");
-  els.forEach(el => el.style.setProperty("--reveal-delay", `${Number(el.dataset.delay || 0)}ms`));
-  if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    els.forEach(el => el.classList.add("visible"));
-    return;
-  }
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add("visible");
-      observer.unobserve(entry.target);
-    });
-  }, {threshold:.1, rootMargin:"0px 0px -40px"});
-  els.forEach(el => observer.observe(el));
-}
-
-function initTilt() {
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches || matchMedia("(pointer: coarse)").matches) return;
-  document.querySelectorAll(".tilt-card").forEach(card => {
-    card.addEventListener("pointermove", event => {
-      const rect = card.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - .5;
-      const y = (event.clientY - rect.top) / rect.height - .5;
-      card.style.transform = `perspective(850px) rotateX(${-y * 7}deg) rotateY(${x * 9}deg) translateY(-3px)`;
-    });
-    card.addEventListener("pointerleave", () => card.style.transform = "");
-  });
-}
-
-function initHeroControls() {
-  document.querySelectorAll("[data-hero-focus]").forEach(button => {
-    button.addEventListener("click", () => {
-      document.querySelectorAll("[data-hero-focus]").forEach(item => item.classList.toggle("active", item === button));
-      call3D("focusHero", button.dataset.heroFocus);
-    });
-  });
-  const sound = document.getElementById("soundToggle");
-  if (sound) {
-    sound.addEventListener("click", () => {
-      const enabled = sound.getAttribute("aria-pressed") !== "true";
-      sound.setAttribute("aria-pressed", String(enabled));
-      sound.textContent = enabled ? "Sound on" : "Sound off";
-      call3D("setSound", enabled);
-    });
-  }
-}
-
-function updateOrderDemo(index) {
-  const state = orderStates[index];
-  document.getElementById("orderDemoCustomer").textContent = state.customer;
-  document.getElementById("orderDemoReply").textContent = state.reply;
-  document.getElementById("cartStatus").textContent = state.cart;
-  document.getElementById("inventoryStatus").textContent = state.inventory;
-  document.getElementById("kitchenStatus").textContent = state.kitchen;
-  document.getElementById("driverStatus").textContent = state.driver;
-  document.getElementById("revenueStatus").textContent = state.revenue;
-  document.getElementById("demoExplanationStep").textContent = state.step;
-  document.getElementById("demoExplanationTitle").textContent = state.title;
-  document.getElementById("demoExplanationText").textContent = state.explanation;
-  const explanation = document.getElementById("demoExplanation");
-  explanation.style.borderLeftColor = state.accent;
-  explanation.style.boxShadow = `0 0 30px ${state.accent}22`;
-  document.querySelectorAll("[data-order-step]").forEach((button, i) => button.classList.toggle("active", i === index));
-  call3D("setOrderStage", index);
-}
-function initOrderDemo() {
-  if (!document.querySelector("[data-order-step]")) return;
-  document.querySelectorAll("[data-order-step]").forEach(button => {
-    button.addEventListener("click", () => updateOrderDemo(Number(button.dataset.orderStep)));
-  });
-  updateOrderDemo(0);
-}
-
-function updateAdmin(key) {
-  const data = adminData[key];
-  document.getElementById("adminModuleLabel").textContent = key;
-  document.getElementById("adminModuleTitle").textContent = data[0];
-  document.getElementById("adminModuleText").textContent = data[1];
-  const featureList = document.getElementById("adminModuleFeatures");
-  if (featureList) {
-    featureList.innerHTML = (adminFeatures[key] || []).map(item => `<li>${item}</li>`).join("");
-  }
-  document.getElementById("adminSceneName").textContent = `${key.toUpperCase()} MODULE`;
-  document.getElementById("adminScenePurpose").textContent = adminPurpose[key];
-  document.querySelectorAll("[data-admin-module]").forEach(button => button.classList.toggle("active", button.dataset.adminModule === key));
-  call3D("focusAdmin", key);
-}
-function initAdmin() {
-  if (!document.querySelector("[data-admin-module]")) return;
-  document.querySelectorAll("[data-admin-module]").forEach(button => button.addEventListener("click", () => updateAdmin(button.dataset.adminModule)));
-  updateAdmin("orders");
-}
-
-function numberValue(id, fallback=0) {
-  const value = Number(document.getElementById(id)?.value);
-  return Number.isFinite(value) ? value : fallback;
-}
-function calculateRoi() {
-  const daily = Math.max(0, numberValue("dailyOrders"));
-  const average = Math.max(0, numberValue("averageOrderValue"));
-  const missed = Math.min(100, Math.max(0, numberValue("missedPercentage")));
-  const locations = Math.max(1, numberValue("locations",1));
-  const orders = daily * 30 * locations * missed / 100;
-  const revenue = orders * average;
-  const hours = orders * 4 / 60;
-  document.getElementById("recoveredOrders").textContent = Math.round(orders).toLocaleString();
-  document.getElementById("recoveredRevenue").textContent = `PKR ${Math.round(revenue).toLocaleString()}`;
-  document.getElementById("hoursSaved").textContent = `${Math.round(hours).toLocaleString()} hours`;
-}
-function initRoi() {
-  ["dailyOrders","averageOrderValue","missedPercentage","locations"].forEach(id => document.getElementById(id)?.addEventListener("input", calculateRoi));
-  if (document.getElementById("recoveredOrders")) calculateRoi();
-}
-
-function initFaq() {
-  document.querySelectorAll(".faq-item button").forEach(button => {
-    button.addEventListener("click", () => {
-      const answer = button.parentElement.querySelector(".faq-answer");
-      const open = button.getAttribute("aria-expanded") === "true";
-      document.querySelectorAll(".faq-item button").forEach(other => {
-        other.setAttribute("aria-expanded","false");
-        other.querySelector("span").textContent = "+";
-        other.parentElement.querySelector(".faq-answer").hidden = true;
-      });
-      if (!open) {
-        button.setAttribute("aria-expanded","true");
-        button.querySelector("span").textContent = "−";
-        answer.hidden = false;
-      }
-    });
-  });
-}
-
-function initForm() {
-  const form = document.getElementById("demoForm");
-  const success = document.getElementById("successMessage");
-  if (!form || !success) return;
-  form.addEventListener("submit", event => {
-    event.preventDefault();
-    success.classList.add("show");
-    success.scrollIntoView({behavior:"smooth", block:"nearest"});
-    form.reset();
-  });
-}
-
-
-/* ==========================================================
-   Compact WhatsApp order demonstration
-   ========================================================== */
-
-function initMiniWhatsAppDemo() {
-  const chatLog = document.getElementById("miniChatLog");
-  const quickReplies = document.getElementById("miniQuickReplies");
-  const typing = document.getElementById("miniTyping");
-  const resetButton = document.getElementById("miniResetDemo");
-
-  if (!chatLog || !quickReplies || !typing || !resetButton) {
-    return;
-  }
-
-  const menu = {
-    "chicken burger": {
-      name: "Chicken Burger",
-      price: 650
-    },
-    "zinger burger": {
-      name: "Zinger Burger",
-      price: 700
-    },
-    "fries": {
-      name: "Fries",
-      price: 250
-    },
-    "coke": {
-      name: "Coke",
-      price: 150
-    }
-  };
-
-  const initialRevenue = 18400;
-  let cart = [];
-  let couponRate = 0;
-  let deliveryMode = "";
-  let deliveryFee = 0;
-  let ticketNumber = "";
-  let orderConfirmed = false;
-  let isResponding = false;
-
-  const flowDefinitions = [
-    {
-      label: "Show me the menu",
-      threeDStage: 0,
-      progress: 12,
-      progressLabel: "Menu displayed",
-      category: "MENU DISCOVERY",
-      title: "OrderRise presents a structured restaurant menu.",
-      explanation:
-        "The customer remains inside WhatsApp while OrderRise converts the restaurant menu into an easy conversation.",
-      response:
-        "Here’s today’s menu: 🍔 Chicken Burger — Rs 650 · 🌶️ Zinger Burger — Rs 700 · 🍟 Fries — Rs 250 · 🥤 Coke — Rs 150. What would you like?",
-      action() {}
-    },
-    {
-      label: "Add two zinger burgers",
-      threeDStage: 1,
-      progress: 34,
-      progressLabel: "Cart created",
-      category: "CART MANAGEMENT",
-      title: "Two products are converted into a structured cart.",
-      explanation:
-        "OrderRise understands the product and quantity, calculates the subtotal and reserves two burgers from available stock.",
-      response:
-        "Added 2× Zinger Burger to your cart. The estimated subtotal is Rs 1,400.",
-      action() {
-        addToCart("zinger burger", 2);
-        setStatus("miniStatStock", "22 burgers reserved");
-      }
-    },
-    {
-      label: "Make one spicy",
-      threeDStage: 2,
-      progress: 45,
-      progressLabel: "Modifier understood",
-      category: "ORDER MODIFIER",
-      title: "A natural-language instruction is attached to one item.",
-      explanation:
-        "The customer does not need a complicated form. OrderRise adds the spicy instruction directly to the kitchen-ready order.",
-      response:
-        "Got it — one Zinger Burger is marked extra spicy 🌶️.",
-      action() {
-        const burger = cart.find((item) => item.key === "zinger burger");
-
-        if (!burger) {
-          botSay("Add the burgers first, then I can make one spicy.");
-          return false;
-        }
-
-        burger.modifier = "1 burger: extra spicy";
-        renderCart();
-        return true;
-      }
-    },
-    {
-      label: "Apply SAVE10",
-      threeDStage: 4,
-      progress: 56,
-      progressLabel: "Coupon validated",
-      category: "PROMOTION",
-      title: "The coupon is validated and the order total changes.",
-      explanation:
-        "OrderRise applies the restaurant promotion consistently and displays the discounted total before confirmation.",
-      response:
-        "Coupon SAVE10 applied — you received 10% off 🎉.",
-      action() {
-        if (cart.length === 0) {
-          botSay("Your cart is empty. Add an item before applying SAVE10.");
-          return false;
-        }
-
-        couponRate = 0.1;
-        renderCart();
-        return true;
-      }
-    },
-    {
-      label: "I want delivery",
-      threeDStage: 5,
-      progress: 68,
-      progressLabel: "Delivery selected",
-      category: "FULFILLMENT",
-      title: "The order changes from an unassigned cart to a delivery workflow.",
-      explanation:
-        "OrderRise prepares to collect the address, adds the delivery fee and marks the driver stage as pending.",
-      response:
-        "Delivery selected. Please share your address and phone number. A Rs 150 delivery fee was added.",
-      action() {
-        deliveryMode = "Delivery";
-        deliveryFee = 150;
-        document.getElementById("miniDeliveryMode").textContent =
-          "Delivery selected · Rs 150 fee";
-        setStatus("miniStatDriver", "Pending address");
-        renderCart();
-        return true;
-      }
-    },
-    {
-      label: "Confirm order",
-      threeDStage: 6,
-      progress: 88,
-      progressLabel: "Kitchen preparing",
-      category: "ORDER CONFIRMATION",
-      title: "A kitchen ticket is created and operational work begins.",
-      explanation:
-        "The conversational cart becomes ticket #1042, inventory is finalized, the kitchen starts preparation and a driver is assigned.",
-      response:
-        "Order confirmed ✅ Ticket #1042 was sent to the kitchen. Estimated preparation time: 18 minutes.",
-      action() {
-        if (cart.length === 0) {
-          botSay("Your cart is empty — add something before confirming.");
-          return false;
-        }
-
-        ticketNumber = "1042";
-        orderConfirmed = true;
-
-        setStatus("miniStatTicket", "#1042 · Preparing");
-        setStatus("miniStatStock", "Inventory updated");
-
-        if (deliveryMode) {
-          setStatus("miniStatDriver", "Assigned · Ali K.");
-        } else {
-          setStatus("miniStatDriver", "Pickup order");
-        }
-
-        updateRevenue();
-        return true;
-      }
-    },
-    {
-      label: "Track my order",
-      threeDStage: 7,
-      progress: 100,
-      progressLabel: "Order in progress",
-      category: "CUSTOMER UPDATE",
-      title: "The customer receives a clear order status without calling staff.",
-      explanation:
-        "OrderRise reads the active ticket and returns its current kitchen or delivery status through WhatsApp.",
-      response:
-        "Order #1042 is being prepared. Estimated time: 18 minutes. We’ll message you again when it leaves the restaurant.",
-      action() {
-        if (!ticketNumber || !orderConfirmed) {
-          botSay("There is no active order yet. Confirm your order first.");
-          return false;
-        }
-
-        setStatus(
-          "miniStatDriver",
-          deliveryMode ? "Ali K. · Ready soon" : "Pickup · Ready soon"
-        );
-
-        return true;
-      }
-    }
-  ];
-
-  function formatMoney(value) {
-    return `Rs ${Math.round(value).toLocaleString()}`;
-  }
-
-  function getSubtotal() {
-    return cart.reduce(
-      (total, item) => total + item.price * item.qty,
-      0
-    );
-  }
-
-  function getDiscount() {
-    return getSubtotal() * couponRate;
-  }
-
-  function getOrderTotal() {
-    return getSubtotal() - getDiscount() + deliveryFee;
-  }
-
-  function addToCart(key, qty) {
-    const product = menu[key];
-    const existing = cart.find((item) => item.key === key);
-
-    if (!product) {
-      return;
-    }
-
-    if (existing) {
-      existing.qty += qty;
-    } else {
-      cart.push({
-        key,
-        name: product.name,
-        price: product.price,
-        qty,
-        modifier: ""
-      });
-    }
-
-    renderCart();
-  }
-
-  function renderCart() {
-    const container = document.getElementById("miniCartLines");
-    const totalElement = document.getElementById("miniCartTotal");
-    const totalValue = document.getElementById("miniCartTotalValue");
-
-    if (!container || !totalElement || !totalValue) {
-      return;
-    }
-
-    if (cart.length === 0) {
-      container.innerHTML =
-        '<div class="mini-cart-empty">No items yet — try “Show me the menu”.</div>';
-      totalElement.hidden = true;
-      return;
-    }
-
-    const rows = cart.map((item) => {
-      const modifier = item.modifier
-        ? `<small class="mini-cart-modifier">${item.modifier}</small>`
-        : "";
-
-      return `
-        <div class="mini-cart-line">
-          <span>
-            ${item.qty}× ${item.name}
-            ${modifier}
-          </span>
-          <strong>${formatMoney(item.price * item.qty)}</strong>
-        </div>
-      `;
-    });
-
-    if (couponRate > 0) {
-      rows.push(`
-        <div class="mini-cart-line">
-          <span>SAVE10 discount</span>
-          <strong>−${formatMoney(getDiscount())}</strong>
-        </div>
-      `);
-    }
-
-    if (deliveryFee > 0) {
-      rows.push(`
-        <div class="mini-cart-line">
-          <span>Delivery fee</span>
-          <strong>${formatMoney(deliveryFee)}</strong>
-        </div>
-      `);
-    }
-
-    container.innerHTML = rows.join("");
-    totalElement.hidden = false;
-    totalValue.textContent = formatMoney(getOrderTotal());
-  }
-
-  function createBubble(text, sender) {
-    const bubble = document.createElement("div");
-    bubble.className =
-      sender === "user"
-        ? "mini-bubble mini-user"
-        : "mini-bubble mini-bot";
-
-    bubble.textContent = text;
-    chatLog.appendChild(bubble);
-    chatLog.scrollTop = chatLog.scrollHeight;
-  }
-
-  function botSay(text) {
-    createBubble(text, "bot");
-  }
-
-  function userSay(text) {
-    createBubble(text, "user");
-  }
-
-  function setStatus(id, value) {
-    const element = document.getElementById(id);
-
-    if (!element) {
-      return;
-    }
-
-    element.textContent = value;
-    element.classList.add("on");
-  }
-
-  function updateRevenue() {
-    const revenue = orderConfirmed
-      ? initialRevenue + getOrderTotal()
-      : initialRevenue;
-
-    setStatus("miniStatRevenue", formatMoney(revenue));
-  }
-
-  function updateExplanation(flow) {
-    const explanation = document.getElementById("miniProcessExplanation");
-    const category = explanation?.querySelector("span");
-    const title = explanation?.querySelector("strong");
-    const body = explanation?.querySelector("p");
-
-    if (!explanation || !category || !title || !body) {
-      return;
-    }
-
-    category.textContent = flow.category;
-    title.textContent = flow.title;
-    body.textContent = flow.explanation;
-
-    const colorByStage = {
-      0: "#25d366",
-      1: "#ff9f43",
-      2: "#ff5a67",
-      4: "#a47cff",
-      5: "#ff63b8",
-      6: "#ffca5c",
-      7: "#43c6ff"
-    };
-
-    const color = colorByStage[flow.threeDStage] || "#25d366";
-    explanation.style.borderLeftColor = color;
-    explanation.style.boxShadow = `0 0 28px ${color}1f`;
-    category.style.color = color;
-  }
-
-  function updateProgress(flow) {
-    const label = document.getElementById("miniProgressLabel");
-    const value = document.getElementById("miniProgressValue");
-
-    if (label) {
-      label.textContent = flow.progressLabel;
-    }
-
-    if (value) {
-      value.textContent = `${flow.progress}%`;
-    }
-  }
-
-  function setButtonsDisabled(disabled) {
-    quickReplies
-      .querySelectorAll("button")
-      .forEach((button) => {
-        button.disabled = disabled;
-      });
-  }
-
-  function synchronizeLargeDemo(flow) {
-    if (
-      typeof updateOrderDemo === "function" &&
-      document.getElementById("orderDemoCanvas")
-    ) {
-      updateOrderDemo(flow.threeDStage);
-    }
-  }
-
-  function runFlow(flow, button) {
-    if (isResponding) {
-      return;
-    }
-
-    isResponding = true;
-    setButtonsDisabled(true);
-
-    quickReplies
-      .querySelectorAll("button")
-      .forEach((item) => item.classList.toggle("active", item === button));
-
-    userSay(flow.label);
-    typing.hidden = false;
-
-    window.setTimeout(() => {
-      const actionResult = flow.action();
-
-      if (actionResult !== false) {
-        botSay(flow.response);
-        updateExplanation(flow);
-        updateProgress(flow);
-        synchronizeLargeDemo(flow);
-      }
-
-      typing.hidden = true;
-      setButtonsDisabled(false);
-      isResponding = false;
-    }, 360);
-  }
-
-  function renderQuickReplies() {
-    quickReplies.innerHTML = "";
-
-    flowDefinitions.forEach((flow) => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "mini-qr-button";
-      button.textContent = flow.label;
-      button.addEventListener("click", () => runFlow(flow, button));
-      quickReplies.appendChild(button);
-    });
-  }
-
-  function resetDemo() {
-    cart = [];
-    couponRate = 0;
-    deliveryMode = "";
-    deliveryFee = 0;
-    ticketNumber = "";
-    orderConfirmed = false;
-    isResponding = false;
-
-    chatLog.innerHTML = `
-      <div class="mini-bubble mini-bot">
-        Hey! 👋 Welcome to Taco Heat. What can I get started for you?
-      </div>
-    `;
-
-    document.getElementById("miniDeliveryMode").textContent =
-      "Pickup or delivery not selected";
-
-    document.getElementById("miniStatTicket").textContent = "Not created";
-    document.getElementById("miniStatStock").textContent = "Normal";
-    document.getElementById("miniStatDriver").textContent = "Unassigned";
-    document.getElementById("miniStatRevenue").textContent =
-      formatMoney(initialRevenue);
-
-    document
-      .querySelectorAll(
-        "#miniStatTicket, #miniStatStock, #miniStatDriver, #miniStatRevenue"
-      )
-      .forEach((element) => element.classList.remove("on"));
-
-    document.getElementById("miniProgressLabel").textContent =
-      "Waiting for customer";
-
-    document.getElementById("miniProgressValue").textContent = "0%";
-
-    const explanation = document.getElementById("miniProcessExplanation");
-    const category = explanation.querySelector("span");
-    const title = explanation.querySelector("strong");
-    const body = explanation.querySelector("p");
-
-    category.textContent = "CUSTOMER INPUT";
-    category.style.color = "#68ff9b";
-    title.textContent = "Choose “Show me the menu” to begin.";
-    body.textContent =
-      "Each reply demonstrates how one WhatsApp message becomes structured restaurant work.";
-
-    explanation.style.borderLeftColor = "#25d366";
-    explanation.style.boxShadow = "none";
-
-    quickReplies
-      .querySelectorAll("button")
-      .forEach((button) => {
-        button.disabled = false;
-        button.classList.remove("active");
-      });
-
-    typing.hidden = true;
-    renderCart();
-
-    if (
-      typeof updateOrderDemo === "function" &&
-      document.getElementById("orderDemoCanvas")
-    ) {
-      updateOrderDemo(0);
-    }
-  }
-
-  renderQuickReplies();
-  renderCart();
-  resetButton.addEventListener("click", resetDemo);
-}
-
-
-document.addEventListener("DOMContentLoaded", () => {
-  initMenu();initProgress();initReveal();initTilt();initHeroControls();initMiniWhatsAppDemo();initOrderDemo();
-  initAdmin();initRoi();initFaq();initForm();
-  const year = document.getElementById("currentYear");
-  if (year) year.textContent = new Date().getFullYear();
+/* ========================================================================
+   EDIT THESE VALUES BEFORE PUBLISHING
+   - WhatsApp number: international format, digits only, without + or spaces.
+   - Empty or placeholder contact values are handled safely by the interface.
+   ======================================================================== */
+const SITE_CONFIG = Object.freeze({
+  brandName: "OrderRise",
+  restaurantDemoName: "Taco Heat Demo",
+  whatsappNumber: "YOUR_NUMBER",
+  bookingUrl: "YOUR_BOOKING_LINK",
+  email: "YOUR_EMAIL",
+  linkedinUrl: "YOUR_LINKEDIN_URL",
+  fiverrUrl: "YOUR_FIVERR_URL",
+  monthlyPrice: 50,
+  currency: "USD"
 });
 
+(() => {
+  "use strict";
 
-window.setTimeout(() => {
-  if (window.OrderRise3D || window.OrderRisePage3D) return;
-  document.querySelectorAll(".webgl-fallback").forEach(fallback => fallback.classList.add("show"));
-}, 6500);
+  const doc = document;
+  const root = doc.documentElement;
+  root.classList.add("js");
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const currencySymbols = { USD: "$", EUR: "€", GBP: "£", PKR: "Rs", AED: "AED" };
+  let toastTimer = null;
+
+  const isPlaceholder = (value) => {
+    if (!value || typeof value !== "string") return true;
+    return /YOUR_|example\.com|REPLACE|PLACEHOLDER/i.test(value.trim());
+  };
+
+  const safeExternalUrl = (value) => {
+    if (isPlaceholder(value)) return null;
+    try {
+      const url = new URL(value);
+      return ["http:", "https:"].includes(url.protocol) ? url.toString() : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const validEmail = (value) => {
+    if (isPlaceholder(value)) return null;
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) ? value.trim() : null;
+  };
+
+  const getWhatsAppUrl = () => {
+    if (isPlaceholder(SITE_CONFIG.whatsappNumber)) return null;
+    const digits = String(SITE_CONFIG.whatsappNumber).replace(/\D/g, "");
+    if (digits.length < 8 || digits.length > 15) return null;
+    const message = encodeURIComponent("Hi, I would like to see the WhatsApp restaurant ordering demo.");
+    return `https://wa.me/${digits}?text=${message}`;
+  };
+
+  const showToast = (message) => {
+    const toast = doc.querySelector("[data-toast]");
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add("is-visible");
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 4200);
+  };
+
+  const applyConfiguration = () => {
+    const brand = SITE_CONFIG.brandName?.trim() || "OrderRise";
+    const demoName = SITE_CONFIG.restaurantDemoName?.trim() || "Restaurant Demo";
+    const whatsappUrl = getWhatsAppUrl();
+    const bookingUrl = safeExternalUrl(SITE_CONFIG.bookingUrl);
+    const email = validEmail(SITE_CONFIG.email);
+    const linkedin = safeExternalUrl(SITE_CONFIG.linkedinUrl);
+    const fiverr = safeExternalUrl(SITE_CONFIG.fiverrUrl);
+
+    doc.querySelectorAll("[data-brand-name]").forEach((element) => { element.textContent = brand; });
+    doc.querySelectorAll("[data-demo-name]").forEach((element) => { element.textContent = demoName; });
+    doc.querySelectorAll("[data-monthly-price]").forEach((element) => { element.textContent = String(SITE_CONFIG.monthlyPrice ?? 50); });
+    doc.querySelectorAll("[data-currency-symbol]").forEach((element) => {
+      element.textContent = currencySymbols[SITE_CONFIG.currency] || `${SITE_CONFIG.currency || "USD"} `;
+    });
+    doc.querySelectorAll("[data-current-year]").forEach((element) => { element.textContent = String(new Date().getFullYear()); });
+
+    doc.title = `WhatsApp AI Ordering Agent for Restaurants | ${brand}`;
+    const ogTitle = doc.querySelector('meta[property="og:title"]');
+    const twitterTitle = doc.querySelector('meta[name="twitter:title"]');
+    if (ogTitle) ogTitle.content = `WhatsApp AI Ordering Agent for Restaurants | ${brand}`;
+    if (twitterTitle) twitterTitle.content = `WhatsApp AI Ordering Agent for Restaurants | ${brand}`;
+
+    const links = { whatsapp: whatsappUrl, booking: bookingUrl };
+    doc.querySelectorAll("[data-action]").forEach((link) => {
+      const type = link.dataset.action;
+      const destination = links[type];
+      if (destination) {
+        link.href = destination;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.removeAttribute("aria-disabled");
+      } else {
+        link.href = "#contact";
+        link.setAttribute("aria-disabled", "true");
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          const field = type === "whatsapp" ? "whatsappNumber" : "bookingUrl";
+          showToast(`This demo link is ready for your details. Replace ${field} in SITE_CONFIG inside script.js.`);
+        });
+      }
+    });
+
+    const contactLinks = {
+      email: email ? `mailto:${email}` : null,
+      linkedin,
+      fiverr
+    };
+    Object.entries(contactLinks).forEach(([type, destination]) => {
+      const link = doc.querySelector(`[data-contact-link="${type}"]`);
+      if (!link || !destination) return;
+      link.href = destination;
+      link.hidden = false;
+      if (type !== "email") {
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+      }
+    });
+  };
+
+  const initHeader = () => {
+    const header = doc.querySelector("[data-header]");
+    const menuButton = doc.querySelector("[data-menu-button]");
+    const mobileMenu = doc.querySelector("[data-mobile-menu]");
+    if (!header) return;
+
+    const updateHeader = () => header.classList.toggle("is-scrolled", window.scrollY > 12);
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
+
+    if (!menuButton || !mobileMenu) return;
+    const closeMenu = () => {
+      menuButton.setAttribute("aria-expanded", "false");
+      menuButton.setAttribute("aria-label", "Open navigation");
+      mobileMenu.classList.remove("is-open");
+      doc.body.classList.remove("menu-open");
+    };
+    const openMenu = () => {
+      menuButton.setAttribute("aria-expanded", "true");
+      menuButton.setAttribute("aria-label", "Close navigation");
+      mobileMenu.classList.add("is-open");
+      doc.body.classList.add("menu-open");
+    };
+
+    menuButton.addEventListener("click", () => {
+      const open = menuButton.getAttribute("aria-expanded") === "true";
+      open ? closeMenu() : openMenu();
+    });
+    mobileMenu.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+    doc.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 900) closeMenu();
+    }, { passive: true });
+  };
+
+  const initFaq = () => {
+    const buttons = [...doc.querySelectorAll(".faq-item button")];
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const isOpen = button.getAttribute("aria-expanded") === "true";
+        const panelId = button.getAttribute("aria-controls");
+        const panel = panelId ? doc.getElementById(panelId) : null;
+        if (!panel) return;
+
+        buttons.forEach((otherButton) => {
+          if (otherButton === button) return;
+          otherButton.setAttribute("aria-expanded", "false");
+          const otherPanel = doc.getElementById(otherButton.getAttribute("aria-controls"));
+          if (otherPanel) otherPanel.hidden = true;
+        });
+
+        button.setAttribute("aria-expanded", String(!isOpen));
+        panel.hidden = isOpen;
+      });
+    });
+  };
+
+  const initRevealAnimations = () => {
+    const reveals = [...doc.querySelectorAll(".reveal")];
+    if (!reveals.length) return;
+    if (reducedMotion.matches || !("IntersectionObserver" in window)) {
+      reveals.forEach((item) => item.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries, currentObserver) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        currentObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -35px" });
+    reveals.forEach((item) => observer.observe(item));
+  };
+
+  const initWorkflow = () => {
+    const workflow = doc.querySelector("[data-workflow]");
+    if (!workflow) return;
+    const nodes = [...workflow.querySelectorAll("[data-workflow-node]")];
+    if (!nodes.length) return;
+
+    const animate = () => {
+      workflow.classList.add("is-animated");
+      if (reducedMotion.matches) {
+        nodes.forEach((node) => node.classList.add("is-active"));
+        return;
+      }
+      nodes.forEach((node, index) => {
+        window.setTimeout(() => node.classList.add("is-active"), index * 420);
+      });
+    };
+
+    if (!("IntersectionObserver" in window)) {
+      animate();
+      return;
+    }
+    const observer = new IntersectionObserver((entries, currentObserver) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        animate();
+        currentObserver.disconnect();
+      }
+    }, { threshold: 0.32 });
+    observer.observe(workflow);
+  };
+
+  const initActiveNavigation = () => {
+    if (!("IntersectionObserver" in window)) return;
+    const links = [...doc.querySelectorAll(".desktop-nav a")];
+    const map = new Map(links.map((link) => [link.getAttribute("href")?.slice(1), link]));
+    const sections = [...map.keys()].map((id) => doc.getElementById(id)).filter(Boolean);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        links.forEach((link) => link.classList.remove("is-active"));
+        map.get(entry.target.id)?.classList.add("is-active");
+      });
+    }, { rootMargin: "-35% 0px -58%", threshold: 0 });
+    sections.forEach((section) => observer.observe(section));
+  };
+
+  const wait = (duration) => new Promise((resolve) => window.setTimeout(resolve, duration));
+  const waitUntilVisible = () => {
+    if (!doc.hidden) return Promise.resolve();
+    return new Promise((resolve) => {
+      const onVisible = () => {
+        if (doc.hidden) return;
+        doc.removeEventListener("visibilitychange", onVisible);
+        resolve();
+      };
+      doc.addEventListener("visibilitychange", onVisible);
+    });
+  };
+
+  const initChatDemo = () => {
+    const log = doc.querySelector("[data-chat-log]");
+    if (!log) return;
+    log.classList.add("chat-enhanced");
+
+    const demoName = SITE_CONFIG.restaurantDemoName?.trim() || "Restaurant Demo";
+    const messages = [
+      { side: "customer", text: "Hi, what’s on the menu?", time: "11:02 PM", pause: 1100 },
+      { side: "assistant", text: `👋 Welcome to ${demoName}!\n\nToday’s popular choices:\n\n🌮 Chicken Tacos — $5.00\n🍔 Classic Burger — $6.50\n🍟 Loaded Fries — $4.00\n🥤 Soft Drinks — $2.00\n\nWhat would you like to order?`, time: "11:02 PM", typing: 1200, pause: 1450 },
+      { side: "customer", text: "2 chicken tacos and a coke", time: "11:03 PM", pause: 1150 },
+      { side: "assistant", text: "Added to your cart 🛒\n\n2× Chicken Tacos\n1× Coke\n\nWould you like pickup or delivery?", time: "11:03 PM", typing: 1000, pause: 1300 },
+      { side: "customer", text: "Delivery", time: "11:03 PM", pause: 1050 },
+      { side: "assistant", text: "Please send your delivery address.", time: "11:03 PM", typing: 850, pause: 1050 },
+      { side: "customer", text: "123 Main Street", time: "11:04 PM", pause: 1100 },
+      { side: "assistant", text: "Perfect. Your total is $12.00.\n\nWould you like to pay by cash or card on delivery?", time: "11:04 PM", typing: 1050, pause: 1300 },
+      { side: "customer", text: "Cash", time: "11:04 PM", pause: 1050 },
+      { side: "assistant", text: "✅ Order confirmed!\n\nEstimated delivery time: 25–30 minutes.\n\nType TRACK ORDER anytime for an update.", time: "11:04 PM", typing: 1200, pause: 3100, confirmed: true }
+    ];
+
+    const dateLabel = log.querySelector(".chat-date");
+    const fallback = log.querySelector(".chat-fallback");
+    const clearMessages = () => {
+      [...log.children].forEach((child) => {
+        if (child !== dateLabel && child !== fallback) child.remove();
+      });
+      log.scrollTop = 0;
+    };
+
+    const addTyping = () => {
+      const bubble = doc.createElement("div");
+      bubble.className = "message message-assistant typing-message is-entering";
+      const dots = doc.createElement("span");
+      dots.className = "typing-dots";
+      dots.innerHTML = "<i></i><i></i><i></i>";
+      bubble.appendChild(dots);
+      log.appendChild(bubble);
+      log.scrollTo({ top: log.scrollHeight, behavior: reducedMotion.matches ? "auto" : "smooth" });
+      return bubble;
+    };
+
+    const addMessage = (message) => {
+      const bubble = doc.createElement("div");
+      bubble.className = `message message-${message.side} is-entering${message.confirmed ? " confirmed" : ""}`;
+      bubble.appendChild(doc.createTextNode(message.text));
+      const time = doc.createElement("time");
+      time.textContent = message.time;
+      bubble.appendChild(time);
+      log.appendChild(bubble);
+      log.scrollTo({ top: log.scrollHeight, behavior: reducedMotion.matches ? "auto" : "smooth" });
+    };
+
+    if (reducedMotion.matches) {
+      clearMessages();
+      messages.forEach(addMessage);
+      log.scrollTop = log.scrollHeight;
+      return;
+    }
+
+    const run = async () => {
+      while (true) {
+        clearMessages();
+        await wait(450);
+        for (const message of messages) {
+          await waitUntilVisible();
+          if (message.side === "assistant") {
+            const typing = addTyping();
+            await wait(message.typing || 900);
+            typing.remove();
+          }
+          addMessage(message);
+          await wait(message.pause || 1100);
+        }
+        await wait(350);
+      }
+    };
+
+    run().catch(() => {
+      clearMessages();
+      messages.slice(-4).forEach(addMessage);
+    });
+  };
+
+  const initSmoothAnchors = () => {
+    doc.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const id = link.getAttribute("href");
+        if (!id || id === "#") return;
+        const target = doc.querySelector(id);
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: reducedMotion.matches ? "auto" : "smooth", block: "start" });
+      });
+    });
+  };
+
+  const init = () => {
+    applyConfiguration();
+    initHeader();
+    initFaq();
+    initRevealAnimations();
+    initWorkflow();
+    initActiveNavigation();
+    initChatDemo();
+    initSmoothAnchors();
+  };
+
+  if (doc.readyState === "loading") {
+    doc.addEventListener("DOMContentLoaded", init, { once: true });
+  } else {
+    init();
+  }
+})();

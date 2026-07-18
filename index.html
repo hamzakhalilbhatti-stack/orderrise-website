@@ -1,491 +1,618 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>OrderRise | WhatsApp Ordering, Kitchen, Delivery &amp; Restaurant Operations</title>
-<meta content="OrderRise turns WhatsApp customer orders into structured carts, kitchen tickets, inventory updates, delivery workflows and owner reporting." name="description"/>
-<meta content="#050608" name="theme-color"/>
-<meta content="website" property="og:type"/>
-<meta content="OrderRise — One WhatsApp Message. Your Entire Restaurant in Motion." property="og:title"/>
-<meta content="Explore the interactive 3D restaurant operating system for WhatsApp orders." property="og:description"/>
-<meta content="assets/social-preview.svg" property="og:image"/>
-<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="style.css" rel="stylesheet"/>
-<script type="importmap">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff9f2">
+  <meta name="robots" content="index,follow">
+  <meta name="description" content="Take restaurant orders automatically through WhatsApp. Reply instantly, build customer carts, collect delivery details, and send confirmed orders to your restaurant dashboard.">
+
+  <title>WhatsApp AI Ordering Agent for Restaurants | OrderRise</title>
+  <link rel="canonical" href="https://YOUR-DOMAIN.example/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="preload" href="style.css" as="style">
+  <link rel="stylesheet" href="style.css">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="WhatsApp AI Ordering Agent for Restaurants | OrderRise">
+  <meta property="og:description" content="Customers message. The assistant takes the order. Your restaurant receives everything in one clear view.">
+  <meta property="og:image" content="assets/og-image.webp">
+  <meta property="og:url" content="https://YOUR-DOMAIN.example/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="WhatsApp AI Ordering Agent for Restaurants | OrderRise">
+  <meta name="twitter:description" content="Take organized restaurant orders through WhatsApp—without adding pressure to your staff.">
+  <meta name="twitter:image" content="assets/og-image.webp">
+
+  <script type="application/ld+json">
   {
-    "imports": {
-      "three": "./vendor/three.module.js",
-      "three/addons/": "./vendor/"
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "OrderRise Restaurant WhatsApp Ordering",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "A WhatsApp ordering assistant for restaurants that collects order details and sends confirmed orders to a restaurant dashboard.",
+    "offers": {
+      "@type": "Offer",
+      "price": "50",
+      "priceCurrency": "USD",
+      "category": "monthly subscription"
     }
   }
   </script>
 </head>
 <body>
-<div aria-hidden="true" class="scroll-progress" id="scrollProgress"></div>
-<header class="site-header" id="top">
-<div class="container nav-wrap">
-<a aria-label="OrderRise homepage" class="brand" href="index.html">
-<img alt="OrderRise" src="assets/orderrise-logo.svg"/>
-</a>
-<button aria-controls="mainNavigation" aria-expanded="false" aria-label="Open menu" class="menu-button" id="menuButton" type="button">
-<span></span><span></span><span></span>
-</button>
-<nav aria-label="Main navigation" class="main-nav" id="mainNavigation"><a href="#admin-hub">Product</a><a href="#what-it-does">How It Works</a><a href="#solutions">Solutions</a><a href="#roi">Pricing</a><a href="contact.html">Book a call</a><a class="button button-small" href="https://wa.me/923001794940?text=Hello%2C%20I%20want%20to%20see%20how%20OrderRise%20can%20work%20for%20my%20restaurant." rel="noopener noreferrer" target="_blank">Message us on WhatsApp</a></nav>
-</div>
-</header>
-<main>
-<section class="hero section" id="home">
-<div aria-hidden="true" class="hero-grid-lines"></div>
-<div class="container hero-layout hybrid-hero-layout">
-<div class="hero-copy reveal">
-<div class="status-pill">
-<span></span>
-            For restaurants taking orders through WhatsApp
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- Reusable inline icon set. Decorative icons are hidden from assistive technology. -->
+  <svg class="svg-sprite" aria-hidden="true">
+    <symbol id="icon-logo" viewBox="0 0 48 48"><path d="M24 4C12.95 4 4 12.46 4 22.9c0 5.72 2.7 10.84 6.95 14.3L8.7 44l7.18-2.25A21 21 0 0 0 24 43.4c11.05 0 20-8.46 20-18.9S35.05 4 24 4Z" fill="currentColor"/><path d="m17.2 15.8 2.3-1.1 2.7 5.1-2 1.5c1.25 2.55 3.3 4.6 5.85 5.85l1.5-2 5.1 2.7-1.1 2.3c-.6 1.3-2 2-3.4 1.65-7.35-1.8-13.1-7.55-14.9-14.9-.35-1.4.35-2.8 1.65-3.4l2.3-1.1Z" fill="#fff"/></symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12.5 4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-chat" viewBox="0 0 24 24"><path d="M5 18.5 3.5 21l4-1A9 9 0 1 0 5 18.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 12h8M8 8.5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-cart" viewBox="0 0 24 24"><path d="M3 4h2l2.2 10h9.9l2-7H6.1M9 19.5h.01M17 19.5h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-dashboard" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 8h3v3H8zM14 8h3M14 11h3M8 15h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-kitchen" viewBox="0 0 24 24"><path d="M4 4h16v13H4zM8 21h8M12 17v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 9h8M8 12h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-location" viewBox="0 0 24 24"><path d="M12 21s7-5.1 7-12a7 7 0 1 0-14 0c0 6.9 7 12 7 12Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="9" r="2.2" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="icon-payment" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 9h18M7 15h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-bell" viewBox="0 0 24 24"><path d="M6 10a6 6 0 0 1 12 0c0 6 2 6 2 6H4s2 0 2-6ZM9.5 20h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8h6M9 12h6M9 16h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-report" viewBox="0 0 24 24"><path d="M5 20V10m7 10V4m7 16v-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-users" viewBox="0 0 24 24"><path d="M16 20v-1.5a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4V20M9.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM17 11a3 3 0 1 0 0-6m4 15v-1.5a3.5 3.5 0 0 0-2.6-3.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="m7 9.5 5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-send" viewBox="0 0 24 24"><path d="m3 11 18-8-8 18-2-8-8-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <header class="site-header" data-header>
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="OrderRise home">
+        <span class="brand-mark"><svg aria-hidden="true"><use href="#icon-logo"></use></svg></span>
+        <span data-brand-name>OrderRise</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="button button-primary button-sm config-link" data-action="whatsapp" href="#contact">
+          <span>Try the WhatsApp Demo</span>
+        </a>
+        <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-menu" data-menu-button>
+          <svg class="icon-open" aria-hidden="true"><use href="#icon-menu"></use></svg>
+          <svg class="icon-close" aria-hidden="true"><use href="#icon-close"></use></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu" data-mobile-menu>
+      <nav class="container" aria-label="Mobile navigation">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a class="button button-primary config-link" data-action="whatsapp" href="#contact">Chat With the Demo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- 1. Hero -->
+    <section class="hero" id="top">
+      <div class="hero-decoration hero-decoration-one" aria-hidden="true"></div>
+      <div class="hero-decoration hero-decoration-two" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span></span> WhatsApp ordering for restaurants</p>
+          <h1>Your restaurant’s WhatsApp, answered instantly—even at 11 PM on a Friday.</h1>
+          <p class="hero-lead">The ordering assistant that shows your menu, builds the customer’s cart, collects delivery and payment details, and sends the confirmed order directly to your restaurant.</p>
+
+          <div class="hero-actions">
+            <a class="button button-primary button-lg config-link" data-action="whatsapp" href="#contact">
+              <svg aria-hidden="true"><use href="#icon-logo"></use></svg>
+              <span>Chat With the Demo on WhatsApp</span>
+            </a>
+            <a class="button button-secondary button-lg config-link" data-action="booking" href="#contact">
+              <span>Book a 10-Minute Demo</span>
+              <svg aria-hidden="true"><use href="#icon-arrow"></use></svg>
+            </a>
           </div>
-<p class="eyebrow">Restaurant ordering and operations automation</p>
-<h1>
-            From a WhatsApp order to
-            <span class="gradient-text">kitchen, delivery and owner reporting.</span>
-</h1>
-<p class="lead hero-purpose-copy">
-            OrderRise is a restaurant operating system that receives customer
-            orders on WhatsApp, understands the request, prepares the cart,
-            sends a clear ticket to the kitchen, updates stock, coordinates
-            delivery and records the sale for the owner.
-          </p>
-<div aria-label="Main OrderRise benefits" class="hero-outcomes">
-<article>
-<span>For customers</span>
-<strong>Order naturally on WhatsApp</strong>
-</article>
-<article>
-<span>For restaurant teams</span>
-<strong>Receive clear operational tasks</strong>
-</article>
-<article>
-<span>For owners</span>
-<strong>See orders, customers and revenue</strong>
-</article>
-</div>
-<div class="button-row"><a class="button" href="https://wa.me/923001794940?text=Hello%2C%20I%20want%20to%20see%20how%20OrderRise%20can%20work%20for%20my%20restaurant." rel="noopener noreferrer" target="_blank">Message us on WhatsApp <span>↗</span></a><a class="button button-secondary" href="contact.html">Book a call</a></div>
-<div class="hero-plain-summary">
-<strong>In one sentence:</strong>
-<span>
-              One customer message activates the complete restaurant workflow.
-            </span>
-</div>
-</div>
-<div class="hero-3d-shell reveal hybrid-hero-scene" data-delay="100">
-<div class="scene-topbar">
-<div>
-<span class="live-dot"></span>
-              Guided 3D order process
+
+          <p class="hero-trust"><svg aria-hidden="true"><use href="#icon-check"></use></svg> No new app for your customers. They order through the WhatsApp they already use.</p>
+
+          <div class="mini-proof" aria-label="Product highlights">
+            <span><svg aria-hidden="true"><use href="#icon-check"></use></svg> Designed around your menu</span>
+            <span><svg aria-hidden="true"><use href="#icon-check"></use></svg> Pickup and delivery</span>
+            <span><svg aria-hidden="true"><use href="#icon-check"></use></svg> Staff stay in control</span>
+          </div>
+        </div>
+
+        <div class="hero-product reveal reveal-delay-1">
+          <div class="phone-stage">
+            <div class="floating-card floating-order" aria-hidden="true">
+              <span class="status-dot"></span>
+              <div><strong>New order</strong><small>Sent to kitchen</small></div>
+              <svg><use href="#icon-arrow"></use></svg>
             </div>
-<button aria-pressed="false" class="sound-toggle" id="soundToggle" type="button">
-              Sound off
-            </button>
-</div>
-<canvas aria-label="A guided 3D restaurant workflow showing a WhatsApp order moving through AI, cart, kitchen, inventory, delivery and owner reporting" id="hero3dCanvas"></canvas>
-<div class="webgl-fallback" data-fallback-for="hero3dCanvas">
-<strong>3D preview unavailable</strong>
-<span>
-              The written seven-step process below explains the same workflow.
-            </span>
-</div>
-<div class="scene-purpose-card hero-purpose-card">
-<span>WHAT YOU ARE SEEING</span>
-<strong id="heroStatusText">WhatsApp message received</strong>
-<p>
-              The glowing order moves between real restaurant departments.
-              The highlighted model is the department currently doing work.
-            </p>
-</div>
-<div class="canvas-instructions">
-<span>↔ Drag to inspect the restaurant</span>
-<span>Click a department below to focus</span>
-</div>
-<div aria-label="Seven stages in the OrderRise restaurant workflow" class="hero-process-map" id="heroProcessMap">
-<div class="process-stage stage-whatsapp active" data-hero-stage="0">
-<b>1</b><span>WhatsApp</span><small>Customer orders</small>
-</div>
-<div class="process-stage stage-ai" data-hero-stage="1">
-<b>2</b><span>AI</span><small>Understands request</small>
-</div>
-<div class="process-stage stage-cart" data-hero-stage="2">
-<b>3</b><span>Cart</span><small>Builds checkout</small>
-</div>
-<div class="process-stage stage-kitchen" data-hero-stage="3">
-<b>4</b><span>Kitchen</span><small>Receives ticket</small>
-</div>
-<div class="process-stage stage-inventory" data-hero-stage="4">
-<b>5</b><span>Inventory</span><small>Reserves stock</small>
-</div>
-<div class="process-stage stage-delivery" data-hero-stage="5">
-<b>6</b><span>Delivery</span><small>Assigns driver</small>
-</div>
-<div class="process-stage stage-owner" data-hero-stage="6">
-<b>7</b><span>Owner</span><small>Records result</small>
-</div>
-</div>
-<div aria-label="Focus the 3D camera on a restaurant department" class="scene-controls hybrid-scene-controls">
-<button class="active" data-hero-focus="overview" type="button">Full process</button>
-<button data-hero-focus="phone" type="button">1 · Customer phone</button>
-<button data-hero-focus="ai" type="button">2 · AI understanding</button>
-<button data-hero-focus="cart" type="button">3 · Cart</button>
-<button data-hero-focus="kitchen" type="button">4 · Kitchen</button>
-<button data-hero-focus="inventory" type="button">5 · Inventory</button>
-<button data-hero-focus="delivery" type="button">6 · Delivery</button>
-<button data-hero-focus="owner" type="button">7 · Owner report</button>
-</div>
-</div>
-</div>
-</section>
-<section aria-label="Connected OrderRise systems" class="trust-strip">
-<div class="container trust-strip-grid">
-<span>WhatsApp Ordering</span><span>Kitchen Operations</span><span>Inventory</span>
-<span>Customer CRM</span><span>Delivery</span><span>Owner Reports</span>
-</div>
-</section>
-<section aria-label="OrderRise process color legend" class="color-system-strip">
-<div class="container color-system-grid">
-<span class="legend-whatsapp"><b>1</b> WhatsApp</span>
-<span class="legend-ai"><b>2</b> AI understanding</span>
-<span class="legend-cart"><b>3</b> Cart &amp; checkout</span>
-<span class="legend-kitchen"><b>4</b> Kitchen</span>
-<span class="legend-inventory"><b>5</b> Inventory</span>
-<span class="legend-delivery"><b>6</b> Delivery</span>
-<span class="legend-owner"><b>7</b> Owner intelligence</span>
-</div>
-</section>
-<section class="section purpose-section" id="what-it-does">
-<div class="container">
-<div class="section-intro purpose-intro reveal">
-<p class="eyebrow">What OrderRise actually does</p>
-<h2>It turns one customer conversation into coordinated restaurant work.</h2>
-</div>
-<div class="audience-value-grid">
-<article class="audience-value-card reveal">
-<div class="audience-icon customer-icon">01</div>
-<span>Customer experience</span>
-<h3>Customers order without learning another app.</h3>
-<p>
-              They browse the menu, customize food, choose pickup or delivery,
-              confirm payment details and receive order updates inside WhatsApp.
-            </p>
-</article>
-<article class="audience-value-card reveal" data-delay="80">
-<div class="audience-icon team-icon">02</div>
-<span>Restaurant execution</span>
-<h3>Staff receive clear tasks instead of messy chat messages.</h3>
-<p>
-              The system creates the cart, validates stock, prepares a kitchen
-              ticket and sends the right information to delivery staff.
-            </p>
-</article>
-<article class="audience-value-card reveal" data-delay="160">
-<div class="audience-icon owner-icon">03</div>
-<span>Owner visibility</span>
-<h3>Owners see what was ordered and what happened next.</h3>
-<p>
-              Orders, customer history, product performance, discounts,
-              delivery results and revenue are recorded in one place.
-            </p>
-</article>
-</div>
-</div>
-</section>
-<section class="section" id="problems">
-<div class="container">
-<div class="section-intro reveal">
-<p class="eyebrow">Why restaurants need it</p>
-<h2>WhatsApp orders fail when staff must manually move information.</h2>
-<p class="section-copy">When orders are spread across calls, WhatsApp chats, notebooks and staff members, mistakes become unavoidable. Your restaurant needs one connected operating system.</p>
-</div>
-<div class="problem-grid">
-<article class="problem-card tilt-card reveal"><span>01</span><div class="problem-icon">↘</div><h3>Missed WhatsApp messages</h3><p>Orders disappear inside busy chats while customers wait for replies.</p></article>
-<article class="problem-card tilt-card reveal" data-delay="70"><span>02</span><div class="problem-icon">✎</div><h3>Incorrect handwritten orders</h3><p>Manual copying causes mistakes, duplicate work and delayed preparation.</p></article>
-<article class="problem-card tilt-card reveal" data-delay="140"><span>03</span><div class="problem-icon">◷</div><h3>Delayed kitchen communication</h3><p>Kitchen teams receive incomplete instructions after the customer has waited.</p></article>
-<article class="problem-card tilt-card reveal" data-delay="210"><span>04</span><div class="problem-icon">◌</div><h3>No customer or sales visibility</h3><p>Owners cannot easily understand customer history, delivery or performance.</p></article>
-</div>
-<div aria-hidden="true" class="reconnect-line reveal"><span></span><span></span><span></span><span></span><strong>One connected operating system</strong></div>
-</div>
-</section>
-<section class="section quick-demo-section" id="order-demo">
-<div class="container">
-<div class="section-intro reveal">
-<p class="eyebrow">Understand OrderRise in 60 seconds</p>
-<h2>Chat like a customer. Watch the restaurant update live.</h2>
-<p class="section-copy">
-            This fictional Taco Heat demo shows the simplest version of the
-            OrderRise process. Use the quick replies and watch the cart,
-            kitchen ticket, stock, driver and revenue change immediately.
-          </p>
-</div>
-<div class="quick-demo-layout reveal">
-<section aria-label="Fictional Taco Heat WhatsApp order chat" class="mini-chat-window">
-<div class="mini-chat-header">
-<div class="mini-chat-avatar">TH</div>
-<div>
-<strong>Taco Heat — powered by OrderRise</strong>
-<span><i></i> Online · fictional demo</span>
-</div>
-<button class="mini-reset-button" id="miniResetDemo" type="button">
-                Reset
-              </button>
-</div>
-<div aria-live="polite" class="mini-chat-log" id="miniChatLog">
-<div class="mini-bubble mini-bot">
-                Hey! 👋 Welcome to Taco Heat. What can I get started for you?
-              </div>
-</div>
-<div aria-label="OrderRise is typing" class="mini-typing" hidden="" id="miniTyping">
-<span></span><span></span><span></span>
-</div>
-<div class="mini-quick-replies" id="miniQuickReplies"></div>
-</section>
-<section aria-label="Simulated live restaurant order state" class="mini-order-state">
-<div class="mini-state-heading">
-<div>
-<span>LIVE RESTAURANT STATE</span>
-<h3>What OrderRise changed</h3>
-</div>
-<div class="mini-order-progress">
-<span id="miniProgressLabel">Waiting for customer</span>
-<strong id="miniProgressValue">0%</strong>
-</div>
-</div>
-<div aria-live="polite" class="mini-process-explanation" id="miniProcessExplanation">
-<span>CUSTOMER INPUT</span>
-<strong>Choose “Show me the menu” to begin.</strong>
-<p>
-                Each reply demonstrates how one WhatsApp message becomes
-                structured restaurant work.
-              </p>
-</div>
-<div class="mini-cart-panel">
-<div class="mini-cart-heading">
-<span>Customer cart</span>
-<small id="miniDeliveryMode">Pickup or delivery not selected</small>
-</div>
-<div id="miniCartLines">
-<div class="mini-cart-empty">
-                  No items yet — try “Show me the menu”.
+            <div class="floating-card floating-time" aria-hidden="true">
+              <svg><use href="#icon-clock"></use></svg>
+              <div><strong>25–30 min</strong><small>Delivery estimate</small></div>
+            </div>
+
+            <div class="phone" role="img" aria-label="Animated demonstration of a customer ordering tacos and a drink through a WhatsApp-style restaurant chat. The assistant confirms delivery details, payment method, total, and delivery estimate.">
+              <div class="phone-frame">
+                <div class="phone-camera" aria-hidden="true"></div>
+                <div class="phone-screen">
+                  <div class="chat-header">
+                    <div class="chat-back" aria-hidden="true">‹</div>
+                    <div class="restaurant-avatar">TH</div>
+                    <div class="chat-identity">
+                      <strong data-demo-name>Taco Heat Demo</strong>
+                      <span><i></i> online</span>
+                    </div>
+                    <div class="chat-header-dots" aria-hidden="true">•••</div>
+                  </div>
+
+                  <div class="chat-body" data-chat-log aria-live="off">
+                    <div class="chat-date">Today</div>
+                    <div class="chat-fallback">
+                      <div class="message message-customer">Hi, what’s on the menu?<time>11:02 PM</time></div>
+                      <div class="message message-assistant">👋 Welcome! Today’s popular choices include Chicken Tacos, a Classic Burger, Loaded Fries, and Soft Drinks.<time>11:02 PM</time></div>
+                      <div class="message message-customer">2 chicken tacos and a coke<time>11:03 PM</time></div>
+                      <div class="message message-assistant confirmed">✅ Order confirmed! Total: $12.00. Estimated delivery: 25–30 minutes.<time>11:03 PM</time></div>
+                    </div>
+                  </div>
+
+                  <div class="chat-input" aria-hidden="true">
+                    <span>Message</span>
+                    <button tabindex="-1"><svg><use href="#icon-send"></use></svg></button>
+                  </div>
                 </div>
-</div>
-<div class="mini-cart-total" hidden="" id="miniCartTotal">
-<span>Total</span>
-<strong id="miniCartTotalValue">Rs 0</strong>
-</div>
-</div>
-<div class="mini-status-grid">
-<article class="mini-status-chip mini-ticket-chip">
-<span>Kitchen ticket</span>
-<strong id="miniStatTicket">Not created</strong>
-<small>Created after confirmation</small>
-</article>
-<article class="mini-status-chip mini-stock-chip">
-<span>Stock</span>
-<strong id="miniStatStock">Normal</strong>
-<small>Reserved from inventory</small>
-</article>
-<article class="mini-status-chip mini-driver-chip">
-<span>Driver</span>
-<strong id="miniStatDriver">Unassigned</strong>
-<small>Only needed for delivery</small>
-</article>
-<article class="mini-status-chip mini-revenue-chip">
-<span>Revenue today</span>
-<strong id="miniStatRevenue">Rs 18,400</strong>
-<small>Updates after confirmation</small>
-</article>
-</div>
-</section>
-</div>
-</div>
-</section>
-<section class="section section-alt" id="product-proof">
-<div class="container">
-<div class="section-intro reveal">
-<p class="eyebrow">Product proof</p>
-<h2>Try one customer order and see every business result.</h2>
-<p class="section-copy">Choose a customer message. The matching 3D object activates, and the cards show exactly what changed in the cart, stock, kitchen, delivery and revenue.</p>
-</div>
-<div class="demo-3d-layout">
-<div class="order-actions reveal">
-<div class="panel-label">Customer actions</div>
-<button class="active" data-order-step="0" type="button"><span>01</span>Show me the menu</button>
-<button data-order-step="1" type="button"><span>02</span>Add two chicken burgers</button>
-<button data-order-step="2" type="button"><span>03</span>Make one spicy</button>
-<button data-order-step="3" type="button"><span>04</span>Add extra cheese</button>
-<button data-order-step="4" type="button"><span>05</span>Apply SAVE10</button>
-<button data-order-step="5" type="button"><span>06</span>I want delivery</button>
-<button data-order-step="6" type="button"><span>07</span>Confirm my order</button>
-<button data-order-step="7" type="button"><span>08</span>Track my order</button>
-</div>
-<div class="order-demo-scene reveal" data-delay="90">
-<canvas aria-label="Interactive 3D WhatsApp order simulation" id="orderDemoCanvas"></canvas>
-<div class="webgl-fallback" data-fallback-for="orderDemoCanvas"><strong>3D demo unavailable</strong><span>The order controls and data remain available.</span></div>
-<div class="canvas-instructions demo-instructions"><span>Click a step on the left</span><span>Watch the matching 3D object light up</span></div>
-<div class="order-message-card">
-<span id="orderDemoCustomer">Show me the menu</span>
-<strong id="orderDemoReply">Here are the most popular items.</strong>
-</div>
-<div aria-live="polite" class="demo-explanation" id="demoExplanation">
-<span id="demoExplanationStep">STEP 1 · MENU</span>
-<strong id="demoExplanationTitle">The customer asks for the menu.</strong>
-<p id="demoExplanationText">The phone and menu screen glow green. No kitchen or stock action is needed yet.</p>
-</div>
-</div>
-<div class="live-updates reveal" data-delay="150">
-<div class="panel-label">Live operational updates</div>
-<div class="update-card update-cart"><span>🛒 Cart</span><strong id="cartStatus">Empty</strong></div>
-<div class="update-card update-inventory"><span>📦 Inventory</span><strong id="inventoryStatus">24 burgers</strong></div>
-<div class="update-card update-kitchen"><span>🍳 Kitchen</span><strong id="kitchenStatus">Waiting</strong></div>
-<div class="update-card update-driver"><span>🛵 Driver</span><strong id="driverStatus">Not required</strong></div>
-<div class="update-card update-owner"><span>📈 Revenue</span><strong id="revenueStatus">PKR 0</strong></div>
-</div>
-</div>
-</div>
-</section>
-<section class="section section-alt" id="admin-hub">
-<div class="container">
-<div class="section-intro reveal">
-<p class="eyebrow">Admin Hub command center</p>
-<h2>One Command Center for Your Entire Restaurant.</h2>
-</div>
-<div class="admin-layout">
-<div class="admin-scene reveal">
-<canvas aria-label="3D restaurant admin command center" id="adminCanvas"></canvas>
-<div class="webgl-fallback" data-fallback-for="adminCanvas"><strong>3D command center unavailable</strong><span>Select a module to review its role.</span></div>
-<div class="scene-purpose admin-purpose"><span id="adminSceneName">ORDERS MODULE</span><strong id="adminScenePurpose">Message → status → fulfillment</strong></div>
-</div>
-<div class="admin-controls reveal" data-delay="100">
-<div class="module-grid">
-<button class="active" data-admin-module="orders" type="button">Orders</button>
-<button data-admin-module="kitchen" type="button">Kitchen</button>
-<button data-admin-module="receipts" type="button">Receipts</button>
-<button data-admin-module="promotions" type="button">Promotions</button>
-<button data-admin-module="customers" type="button">Customers</button>
-<button data-admin-module="deliveries" type="button">Deliveries</button>
-<button data-admin-module="reports" type="button">Reports</button>
-<button data-admin-module="staff" type="button">Staff</button>
-<button data-admin-module="inventory" type="button">Inventory</button>
-<button data-admin-module="menu" type="button">Menu</button>
-<button data-admin-module="system" type="button">System</button>
-</div>
-<div class="module-description">
-<span id="adminModuleLabel">Orders</span>
-<h3 id="adminModuleTitle">See every order from message to completion.</h3>
-<p id="adminModuleText">The camera focuses on active orders, status, value and fulfillment.</p>
-<ul class="admin-module-features" id="adminModuleFeatures">
-<li>Natural-language ordering</li>
-<li>Cart management</li>
-<li>Pickup and delivery</li>
-<li>Payment selection</li>
-<li>Confirmation and tracking</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="section" id="solutions">
-<div class="container">
-<div class="section-intro reveal">
-<p class="eyebrow">Restaurant-specific 3D solutions</p>
-<h2>Built Around the Way Your Restaurant Works.</h2>
-</div>
-<div class="solution-grid">
-<a class="solution-card tilt-card reveal" href="solutions/fast-food.html"><span>01</span><h3>Fast Food</h3><p>High-volume kitchen workflow and rapid dispatch.</p><strong>View 3D scene →</strong></a>
-<a class="solution-card tilt-card reveal" data-delay="60" href="solutions/pizza-restaurants.html"><span>02</span><h3>Pizza Restaurants</h3><p>Oven, crusts, toppings, sizes and delivery.</p><strong>View 3D scene →</strong></a>
-<a class="solution-card tilt-card reveal" data-delay="120" href="solutions/cafes.html"><span>03</span><h3>Cafes</h3><p>Coffee counter, barista station and loyalty.</p><strong>View 3D scene →</strong></a>
-<a class="solution-card tilt-card reveal" data-delay="180" href="solutions/cloud-kitchens.html"><span>04</span><h3>Cloud Kitchens</h3><p>Multiple digital order screens feeding one kitchen.</p><strong>View 3D scene →</strong></a>
-<a class="solution-card tilt-card reveal" href="solutions/burger-restaurants.html"><span>05</span><h3>Burger Restaurants</h3><p>Meals, sauces, modifiers and add-ons.</p><strong>View 3D scene →</strong></a>
-<a class="solution-card tilt-card reveal" data-delay="60" href="solutions/bakeries.html"><span>06</span><h3>Bakeries</h3><p>Cakes, packaging, availability and pre-orders.</p><strong>View 3D scene →</strong></a>
-<a class="solution-card tilt-card reveal" data-delay="120" href="solutions/takeaway.html"><span>07</span><h3>Takeaway</h3><p>Pickup timing and automatic customer updates.</p><strong>View 3D scene →</strong></a>
-<a class="solution-card tilt-card reveal" data-delay="180" href="solutions/multi-location.html"><span>08</span><h3>Multi-Location</h3><p>Connected reporting across restaurant locations.</p><strong>View 3D scene →</strong></a>
-</div>
-</div>
-</section>
-<section class="section section-alt" id="roi">
-<div class="container">
-<div class="section-intro reveal">
-<p class="eyebrow">ROI calculator</p>
-<h2>See What Missed Orders Could Be Costing Your Restaurant.</h2>
-</div>
-<div class="roi-layout reveal">
-<form class="roi-form" id="roiForm">
-<label>Average daily orders<input id="dailyOrders" min="0" type="number" value="80"/></label>
-<label>Average order value<input id="averageOrderValue" min="0" type="number" value="1500"/></label>
-<label>Estimated missed orders (%)<input id="missedPercentage" max="100" min="0" type="number" value="5"/></label>
-<label>Number of locations<input id="locations" min="1" type="number" value="1"/></label>
-</form>
-<div class="roi-results">
-<div><span>Orders potentially recovered</span><strong id="recoveredOrders">120</strong></div>
-<div><span>Possible additional monthly revenue</span><strong id="recoveredRevenue">PKR 180,000</strong></div>
-<div><span>Estimated staff time saved</span><strong id="hoursSaved">8 hours</strong></div>
-<small>These results are estimates based on the information provided and are not guaranteed financial outcomes.</small>
-</div>
-</div>
-</div>
-</section>
-<section class="section" id="faq">
-<div class="container faq-layout">
-<div class="reveal"><p class="eyebrow">Common questions</p><h2>What Restaurant Owners Ask First.</h2></div>
-<div class="faq-list reveal">
-<article class="faq-item"><button aria-expanded="true" type="button">Do customers download another app?<span>−</span></button><div class="faq-answer"><p>No. The customer-facing experience is designed around WhatsApp.</p></div></article>
-<article class="faq-item"><button aria-expanded="false" type="button">Is this connected to real restaurant data?<span>+</span></button><div class="faq-answer" hidden=""><p>No. This public demo runs on scripted sample data only — no live restaurant system is connected. A real pilot connects to your actual WhatsApp Business number, live menu, and current stock levels.</p></div></article>
-<article class="faq-item"><button aria-expanded="false" type="button">Does OrderRise claim live GPS tracking?<span>+</span></button><div class="faq-answer" hidden=""><p>No. This demo shows delivery status as assigned or unassigned, not live GPS location. Real-time driver tracking depends on the delivery method or driver app your restaurant uses, and can be integrated during setup.</p></div></article>
-<article class="faq-item"><button aria-expanded="false" type="button">Can each restaurant workflow be customized?<span>+</span></button><div class="faq-answer" hidden=""><p>Yes. Menu structure, modifiers, pricing rules, promotions, and kitchen ticket format are all configured specifically for your restaurant during onboarding — this demo shows one example configuration, not a fixed template.</p></div></article>
-</div>
-</div>
-</section>
-<section class="section section-alt" id="contact">
-<div class="container contact-layout">
-<div class="reveal">
-<p class="eyebrow">Demo booking system</p>
-<h2>See Your Restaurant Running Through WhatsApp.</h2>
-<p class="section-copy">This public version demonstrates the complete conversion flow without sending data. Stage 7 will connect lead storage, email and calendar booking.</p>
-<ul class="benefit-list"><li>Explore your restaurant order journey</li><li>Review the kitchen and delivery workflow</li><li>Identify automation opportunities</li><li>Plan a safe pilot</li></ul>
-</div>
-<form class="contact-form reveal" data-delay="100" id="demoForm">
-<div class="form-grid">
-<label>Full name<input name="fullName" required=""/></label>
-<label>Restaurant name<input name="restaurantName" required=""/></label>
-<label>Country<input name="country" required=""/></label>
-<label>WhatsApp number<input name="whatsapp" required="" type="tel"/></label>
-<label>Locations<input min="1" name="restaurantLocations" required="" type="number"/></label>
-<label>Approximate daily orders<input min="0" name="dailyOrderCount" required="" type="number"/></label>
-<label>Current ordering method<select name="orderingMethod" required=""><option value="">Select method</option><option>WhatsApp</option><option>Phone calls</option><option>Website</option><option>Delivery platforms</option><option>Mixed methods</option></select></label>
-<label>Preferred demo time<input name="preferredDemoTime" placeholder="Example: Weekday evening" required="" type="text"/></label>
-</div>
-<a class="button full-width" href="https://wa.me/923001794940?text=Hello%2C%20I%20want%20to%20see%20how%20OrderRise%20can%20work%20for%20my%20restaurant." rel="noopener noreferrer" target="_blank">Message us on WhatsApp</a><button class="button button-secondary full-width" type="submit">Book a call</button><p class="form-note">No form information is transmitted in this static version.</p>
-<div class="success-message" id="successMessage" role="status">Demo request prepared locally. No information was sent.</div>
-</form>
-</div>
-</section>
-<section class="final-cta">
-<div aria-hidden="true" class="final-cta-scene">
-<canvas id="finalCanvas"></canvas>
-</div>
-<div class="container reveal">
-<p class="eyebrow">The complete connected operating system</p>
-<h2>Your Customers Already Use WhatsApp. Now Your Restaurant Can Run Through It.</h2>
-<div class="button-row center"><a class="button" href="https://wa.me/923001794940?text=Hello%2C%20I%20want%20to%20see%20how%20OrderRise%20can%20work%20for%20my%20restaurant." rel="noopener noreferrer" target="_blank">Message us on WhatsApp</a><a class="button button-secondary" href="contact.html">Book a call</a></div>
-</div>
-</section>
-</main>
-<a class="floating-demo-button" href="https://wa.me/923001794940?text=Hello%2C%20I%20want%20to%20see%20how%20OrderRise%20can%20work%20for%20my%20restaurant." rel="noopener noreferrer" target="_blank"><span>WA</span><strong>WhatsApp</strong></a>
-<footer class="site-footer">
-<div class="container footer-grid"><div><img alt="OrderRise" src="assets/orderrise-logo.svg"/><p>One WhatsApp Message. Your Entire Restaurant in Motion.</p></div><div><strong>Product</strong><a href="#admin-hub">Product</a><a href="#what-it-does">How It Works</a><a href="#roi">Pricing</a></div><div><strong>Solutions</strong><a href="#solutions">All solutions</a><a href="solutions/fast-food.html">Fast food</a><a href="solutions/pizza-restaurants.html">Pizza restaurants</a></div><div><strong>Contact</strong><a href="https://wa.me/923001794940?text=Hello%2C%20I%20want%20to%20see%20how%20OrderRise%20can%20work%20for%20my%20restaurant." rel="noopener noreferrer" target="_blank">Message us on WhatsApp</a><a href="contact.html">Book a call</a><a href="about.html">About</a></div></div>
-<div class="footer-bottom"><div class="container"><span>© <span id="currentYear"></span> OrderRise.</span><span>Real 3D experience powered by WebGL.</span></div></div>
-</footer>
-<script src="script.js"></script>
-<script src="three-scene.js" type="module"></script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Trust strip -->
+    <section class="trust-strip" aria-label="Product capabilities">
+      <div class="container trust-items">
+        <span><svg aria-hidden="true"><use href="#icon-chat"></use></svg> Works inside WhatsApp</span>
+        <span><svg aria-hidden="true"><use href="#icon-menu"></use></svg> Built around your menu</span>
+        <span><svg aria-hidden="true"><use href="#icon-location"></use></svg> Pickup and delivery</span>
+        <span><svg aria-hidden="true"><use href="#icon-dashboard"></use></svg> Live order dashboard</span>
+        <span><svg aria-hidden="true"><use href="#icon-users"></use></svg> Staff remain in control</span>
+      </div>
+    </section>
+
+    <!-- 3. Problem cards -->
+    <section class="section" id="problems">
+      <div class="container">
+        <div class="section-heading centered reveal">
+          <p class="eyebrow">The daily problem</p>
+          <h2>WhatsApp orders should not depend on how fast one employee can type.</h2>
+          <p>During busy hours, messages pile up, replies slow down, and customers order from the restaurant that answers first.</p>
+        </div>
+
+        <div class="card-grid three-column problem-grid">
+          <article class="card problem-card reveal">
+            <div class="card-icon"><svg aria-hidden="true"><use href="#icon-bell"></use></svg></div>
+            <span class="problem-number">01</span>
+            <h3>Missed Orders During Rush Hour</h3>
+            <p>One staff member cannot serve the counter and answer several customer conversations at the same time.</p>
+          </article>
+          <article class="card problem-card reveal reveal-delay-1">
+            <div class="card-icon"><svg aria-hidden="true"><use href="#icon-clock"></use></svg></div>
+            <span class="problem-number">02</span>
+            <h3>Slow Replies Lose Customers</h3>
+            <p>Hungry customers rarely wait. They order from whichever restaurant responds first.</p>
+          </article>
+          <article class="card problem-card reveal reveal-delay-2">
+            <div class="card-icon"><svg aria-hidden="true"><use href="#icon-chat"></use></svg></div>
+            <span class="problem-number">03</span>
+            <h3>Unorganized Chats Create Mistakes</h3>
+            <p>Addresses, quantities, payment details, and instructions can disappear inside long message threads.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Before / after -->
+    <section class="section section-soft" id="transformation">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">A calmer order process</p>
+          <h2>From scattered messages to organized orders.</h2>
+          <p>Keep the customer experience familiar while giving your team a clearer way to receive and manage every order.</p>
+        </div>
+
+        <div class="comparison reveal">
+          <article class="comparison-panel comparison-before">
+            <div class="comparison-label"><span></span> Before</div>
+            <h3>Every order depends on manual replies.</h3>
+            <ul class="comparison-list">
+              <li><span>01</span>Staff answer several chats while serving customers.</li>
+              <li><span>02</span>Customers wait for menu and price information.</li>
+              <li><span>03</span>Orders are rewritten onto paper.</li>
+              <li><span>04</span>Address or payment details are missed.</li>
+              <li><span>05</span>The kitchen receives incomplete information.</li>
+            </ul>
+          </article>
+
+          <div class="comparison-arrow" aria-hidden="true"><svg><use href="#icon-arrow"></use></svg></div>
+
+          <article class="comparison-panel comparison-after">
+            <div class="comparison-label"><span></span> After</div>
+            <h3>Every conversation becomes a complete order.</h3>
+            <ul class="comparison-list">
+              <li><span><svg><use href="#icon-check"></use></svg></span>Customers receive fast, consistent replies.</li>
+              <li><span><svg><use href="#icon-check"></use></svg></span>The cart is confirmed before completion.</li>
+              <li><span><svg><use href="#icon-check"></use></svg></span>Delivery and payment details stay organized.</li>
+              <li><span><svg><use href="#icon-check"></use></svg></span>The order appears on the dashboard.</li>
+              <li><span><svg><use href="#icon-check"></use></svg></span>Kitchen staff see clear order information.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. How it works -->
+    <section class="section" id="how-it-works">
+      <div class="container">
+        <div class="section-heading centered reveal">
+          <p class="eyebrow">Simple from the first message</p>
+          <h2>From WhatsApp message to kitchen screen in four simple steps.</h2>
+        </div>
+
+        <div class="steps" role="list">
+          <article class="step reveal" role="listitem">
+            <div class="step-number">01</div>
+            <div class="step-icon"><svg aria-hidden="true"><use href="#icon-chat"></use></svg></div>
+            <h3>Customer Sends a Message</h3>
+            <p>The customer messages your restaurant’s WhatsApp number as they normally would.</p>
+          </article>
+          <article class="step reveal reveal-delay-1" role="listitem">
+            <div class="step-number">02</div>
+            <div class="step-icon"><svg aria-hidden="true"><use href="#icon-cart"></use></svg></div>
+            <h3>The Assistant Takes the Order</h3>
+            <p>It shows the menu, builds the cart, and collects the required order details.</p>
+          </article>
+          <article class="step reveal reveal-delay-2" role="listitem">
+            <div class="step-number">03</div>
+            <div class="step-icon"><svg aria-hidden="true"><use href="#icon-dashboard"></use></svg></div>
+            <h3>The Restaurant Receives It</h3>
+            <p>The complete order appears on the restaurant dashboard or kitchen display.</p>
+          </article>
+          <article class="step reveal reveal-delay-3" role="listitem">
+            <div class="step-number">04</div>
+            <div class="step-icon"><svg aria-hidden="true"><use href="#icon-bell"></use></svg></div>
+            <h3>Everyone Stays Updated</h3>
+            <p>Staff manage the order while the customer receives confirmation and status updates.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Product workflow demonstration -->
+    <section class="section workflow-section" id="demo">
+      <div class="container workflow-layout">
+        <div class="workflow-copy reveal">
+          <p class="eyebrow eyebrow-light">See an order happen</p>
+          <h2>One smooth path from “Hi” to “Order confirmed.”</h2>
+          <p>The assistant collects each required detail in the right order, then sends one clean order to your team.</p>
+          <a class="text-link config-link" data-action="whatsapp" href="#contact">See it take a real demo order <svg aria-hidden="true"><use href="#icon-arrow"></use></svg></a>
+        </div>
+
+        <div class="workflow" data-workflow>
+          <div class="workflow-line" aria-hidden="true"><span></span></div>
+          <article class="workflow-node is-active" data-workflow-node>
+            <div class="workflow-node-icon"><svg aria-hidden="true"><use href="#icon-chat"></use></svg></div>
+            <div><small>Step 1</small><strong>Customer Message</strong><span>“Two tacos and a Coke.”</span></div>
+          </article>
+          <article class="workflow-node" data-workflow-node>
+            <div class="workflow-node-icon"><svg aria-hidden="true"><use href="#icon-cart"></use></svg></div>
+            <div><small>Step 2</small><strong>Menu and Cart</strong><span>Items and quantities organized.</span></div>
+          </article>
+          <article class="workflow-node" data-workflow-node>
+            <div class="workflow-node-icon"><svg aria-hidden="true"><use href="#icon-location"></use></svg></div>
+            <div><small>Step 3</small><strong>Address and Payment</strong><span>Required delivery details collected.</span></div>
+          </article>
+          <article class="workflow-node" data-workflow-node>
+            <div class="workflow-node-icon"><svg aria-hidden="true"><use href="#icon-check"></use></svg></div>
+            <div><small>Step 4</small><strong>Order Confirmation</strong><span>Total and order summary confirmed.</span></div>
+          </article>
+          <article class="workflow-node" data-workflow-node>
+            <div class="workflow-node-icon"><svg aria-hidden="true"><use href="#icon-dashboard"></use></svg></div>
+            <div><small>Step 5</small><strong>Restaurant Dashboard</strong><span>The complete order appears instantly.</span></div>
+          </article>
+          <article class="workflow-node" data-workflow-node>
+            <div class="workflow-node-icon"><svg aria-hidden="true"><use href="#icon-kitchen"></use></svg></div>
+            <div><small>Step 6</small><strong>Kitchen Notification</strong><span>Your team can start preparing it.</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Feature grid -->
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-heading centered reveal">
+          <p class="eyebrow">Built around real restaurant work</p>
+          <h2>Everything needed to move an order from chat to kitchen.</h2>
+          <p>Useful features, presented in a way your team can understand from the first day.</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card reveal"><div class="card-icon"><svg><use href="#icon-clock"></use></svg></div><p class="feature-label">Instant Replies</p><h3>Orders answered in seconds</h3><p>Customers receive fast responses during rush hours, evenings, and weekends.</p></article>
+          <article class="feature-card reveal reveal-delay-1"><div class="card-icon"><svg><use href="#icon-dashboard"></use></svg></div><p class="feature-label">Live Dashboard</p><h3>Every order in one place</h3><p>See new, accepted, preparing, ready, and completed orders without searching chats.</p></article>
+          <article class="feature-card reveal reveal-delay-2"><div class="card-icon"><svg><use href="#icon-kitchen"></use></svg></div><p class="feature-label">Kitchen Display</p><h3>Clear orders for the kitchen</h3><p>Show items, quantities, instructions, customer details, and order alerts clearly.</p></article>
+          <article class="feature-card reveal"><div class="card-icon"><svg><use href="#icon-location"></use></svg></div><p class="feature-label">Order Tracking</p><h3>Fewer “Where is my food?” calls</h3><p>Customers can request their order status directly through WhatsApp.</p></article>
+          <article class="feature-card reveal reveal-delay-1"><div class="card-icon"><svg><use href="#icon-receipt"></use></svg></div><p class="feature-label">Receipts</p><h3>Clear confirmation every time</h3><p>Send an organized order summary or receipt through WhatsApp.</p></article>
+          <article class="feature-card reveal reveal-delay-2"><div class="card-icon"><svg><use href="#icon-users"></use></svg></div><p class="feature-label">Coupons & Loyalty</p><h3>Give customers a reason to return</h3><p>Support promotions, coupon codes, or repeat-customer rewards where available.</p></article>
+          <article class="feature-card reveal"><div class="card-icon"><svg><use href="#icon-payment"></use></svg></div><p class="feature-label">Delivery Details</p><h3>Keep every detail organized</h3><p>Collect addresses, payment choices, delivery instructions, and driver information.</p></article>
+          <article class="feature-card reveal reveal-delay-1"><div class="card-icon"><svg><use href="#icon-report"></use></svg></div><p class="feature-label">Restaurant Reports</p><h3>Understand what customers order</h3><p>Review popular items, order volume, and busy periods without manual calculations.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Dashboard preview -->
+    <section class="section section-soft dashboard-section" id="dashboard">
+      <div class="container">
+        <div class="section-heading split-heading reveal">
+          <div>
+            <p class="eyebrow">Live restaurant dashboard</p>
+            <h2>Your team sees every order the moment it arrives.</h2>
+          </div>
+          <p>No searching through chats. No rewriting orders. Everything your staff needs appears in one clear view.</p>
+        </div>
+
+        <div class="dashboard-shell reveal">
+          <div class="dashboard-topbar">
+            <div class="dashboard-brand"><span class="dashboard-logo"><svg><use href="#icon-logo"></use></svg></span><strong data-brand-name>OrderRise</strong><em>Restaurant Dashboard</em></div>
+            <div class="dashboard-actions"><button type="button" tabindex="-1">Today</button><span class="staff-avatar">HK</span></div>
+          </div>
+          <div class="dashboard-body">
+            <aside class="dashboard-sidebar" aria-hidden="true">
+              <span class="active"><svg><use href="#icon-dashboard"></use></svg> Orders</span>
+              <span><svg><use href="#icon-menu"></use></svg> Menu</span>
+              <span><svg><use href="#icon-users"></use></svg> Customers</span>
+              <span><svg><use href="#icon-report"></use></svg> Reports</span>
+            </aside>
+            <div class="dashboard-content">
+              <div class="dashboard-title-row"><div><small>Sunday, July 19</small><h3>Live Orders</h3></div><div class="live-indicator"><i></i> Live updates</div></div>
+              <div class="dashboard-stats">
+                <div><span>New</span><strong>4</strong></div><div><span>Preparing</span><strong>7</strong></div><div><span>Ready</span><strong>3</strong></div><div><span>Completed</span><strong>28</strong></div>
+              </div>
+              <div class="order-columns">
+                <section class="order-column">
+                  <div class="order-column-title"><span>New orders</span><b>2</b></div>
+                  <article class="order-card order-card-new" data-order-card>
+                    <div class="order-card-head"><div><strong>#1048</strong><span>Just now</span></div><em>Delivery</em></div>
+                    <h4>Alex M.</h4>
+                    <ul><li><b>2×</b> Chicken Tacos</li><li><b>1×</b> Coke</li></ul>
+                    <div class="order-meta"><span><svg><use href="#icon-payment"></use></svg>Cash</span><strong>$12.00</strong></div>
+                    <button type="button" tabindex="-1">Accept order</button>
+                  </article>
+                  <article class="order-card">
+                    <div class="order-card-head"><div><strong>#1047</strong><span>2 min ago</span></div><em>Pickup</em></div>
+                    <h4>Jamie R.</h4><ul><li><b>1×</b> Classic Burger</li><li><b>1×</b> Loaded Fries</li></ul>
+                    <div class="order-meta"><span><svg><use href="#icon-payment"></use></svg>Card</span><strong>$10.50</strong></div>
+                  </article>
+                </section>
+                <section class="order-column">
+                  <div class="order-column-title"><span>Preparing</span><b>2</b></div>
+                  <article class="order-card"><div class="order-card-head"><div><strong>#1046</strong><span>8 min ago</span></div><em class="status-preparing">Preparing</em></div><h4>Sam K.</h4><ul><li><b>3×</b> Chicken Tacos</li><li><b>2×</b> Soft Drinks</li></ul><div class="progress"><span style="width:58%"></span></div><div class="order-meta"><span>Est. 12 min</span><strong>$19.00</strong></div></article>
+                  <article class="order-card"><div class="order-card-head"><div><strong>#1045</strong><span>11 min ago</span></div><em class="status-preparing">Preparing</em></div><h4>Taylor N.</h4><ul><li><b>2×</b> Classic Burger</li></ul><div class="progress"><span style="width:74%"></span></div><div class="order-meta"><span>Est. 7 min</span><strong>$13.00</strong></div></article>
+                </section>
+                <section class="order-column">
+                  <div class="order-column-title"><span>Ready</span><b>2</b></div>
+                  <article class="order-card order-card-ready"><div class="order-card-head"><div><strong>#1044</strong><span>18 min ago</span></div><em class="status-ready">Ready</em></div><h4>Jordan P.</h4><ul><li><b>1×</b> Classic Burger</li><li><b>2×</b> Loaded Fries</li></ul><div class="ready-banner"><svg><use href="#icon-check"></use></svg> Customer notified</div><div class="order-meta"><span>Pickup</span><strong>$14.50</strong></div></article>
+                  <article class="order-card"><div class="order-card-head"><div><strong>#1043</strong><span>22 min ago</span></div><em class="status-ready">Ready</em></div><h4>Casey L.</h4><ul><li><b>4×</b> Chicken Tacos</li></ul><div class="order-meta"><span>Delivery</span><strong>$20.00</strong></div></article>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Business benefits -->
+    <section class="section benefits-section" id="benefits">
+      <div class="container benefits-layout">
+        <div class="benefits-copy reveal">
+          <p class="eyebrow">Better service, less pressure</p>
+          <h2>Built to help your restaurant serve faster and lose fewer orders.</h2>
+          <p>The system handles repetitive ordering steps while your team stays focused on customers, food preparation, and delivery.</p>
+          <a class="button button-primary config-link" data-action="booking" href="#contact">See how it fits your restaurant <svg><use href="#icon-arrow"></use></svg></a>
+        </div>
+        <div class="benefit-list">
+          <article class="benefit-row reveal"><span>01</span><div><h3>Reply to several customers at once</h3><p>Keep conversations moving during busy periods without assigning one employee to the phone.</p></div></article>
+          <article class="benefit-row reveal"><span>02</span><div><h3>Take orders beyond counter hours</h3><p>Let customers start an order whenever your online ordering service is available.</p></div></article>
+          <article class="benefit-row reveal"><span>03</span><div><h3>Give the kitchen clearer information</h3><p>Send complete items, quantities, details, and instructions in one organized order.</p></div></article>
+          <article class="benefit-row reveal"><span>04</span><div><h3>Create a more professional experience</h3><p>Customers receive fast replies, confirmations, and updates without downloading another app.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Case study placeholder -->
+    <section class="section case-study-section" id="case-study">
+      <div class="container">
+        <div class="case-study reveal">
+          <div class="case-visual">
+            <div class="placeholder-badge">Editable demo content</div>
+            <div class="restaurant-scene" role="img" aria-label="Stylized placeholder illustration for a future restaurant case study">
+              <div class="scene-sign">TACO HEAT</div>
+              <div class="scene-window"><span></span><span></span><span></span></div>
+              <div class="scene-counter"></div>
+              <div class="scene-table"><i></i><i></i></div>
+            </div>
+          </div>
+          <div class="case-copy">
+            <p class="eyebrow eyebrow-light">Case study template</p>
+            <h2>A clear structure for your first verified customer result.</h2>
+            <div class="case-steps">
+              <div><span>Problem</span><p>The restaurant struggled to reply quickly during busy periods.</p></div>
+              <div><span>Solution</span><p>An ordering assistant was configured around its menu and real order process.</p></div>
+              <div><span>Verified result</span><p>Replace this text with a real response-time, order-volume, or staff-time metric.</p></div>
+            </div>
+            <blockquote>“Replace this placeholder with an approved customer quote before publishing.”</blockquote>
+            <p class="placeholder-note">This section is intentionally labeled as placeholder content. Do not present it as a real customer story until permission and verified results are available.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Setup -->
+    <section class="section" id="setup">
+      <div class="container">
+        <div class="section-heading centered reveal">
+          <p class="eyebrow">A practical setup process</p>
+          <h2>Get started without changing how customers order.</h2>
+          <p>Your ordering assistant is configured around your menu, delivery rules, payment options, and staff workflow.</p>
+        </div>
+        <div class="setup-grid">
+          <article class="setup-card reveal"><span>1</span><div><h3>Share Your Menu</h3><p>Provide menu items, prices, operating hours, delivery areas, and payment options.</p></div></article>
+          <article class="setup-card reveal reveal-delay-1"><span>2</span><div><h3>We Configure the Assistant</h3><p>The conversation is built around your restaurant’s real ordering process.</p></div></article>
+          <article class="setup-card reveal reveal-delay-2"><span>3</span><div><h3>Your Team Reviews the Flow</h3><p>Test example orders and confirm that every important detail is collected.</p></div></article>
+          <article class="setup-card reveal reveal-delay-3"><span>4</span><div><h3>Start Receiving Orders</h3><p>Customers order through WhatsApp while your team manages everything from the dashboard.</p></div></article>
+        </div>
+        <p class="setup-note reveal"><svg><use href="#icon-clock"></use></svg> Straightforward setups can be prepared quickly once all menu and business details are available. The exact timeline depends on your requirements.</p>
+      </div>
+    </section>
+
+    <!-- 12. Pricing -->
+    <section class="section pricing-section" id="pricing">
+      <div class="container pricing-layout">
+        <div class="pricing-copy reveal">
+          <p class="eyebrow">Simple monthly pricing</p>
+          <h2>A professional WhatsApp order system without another complicated platform.</h2>
+          <p>Start with one restaurant and a clear ordering flow. Additional branches or custom requirements can be discussed separately.</p>
+          <div class="pricing-reassurance"><span><svg><use href="#icon-check"></use></svg> Staff stay in control</span><span><svg><use href="#icon-check"></use></svg> Designed around your menu</span><span><svg><use href="#icon-check"></use></svg> Initial setup support</span></div>
+        </div>
+
+        <article class="pricing-card reveal reveal-delay-1">
+          <div class="pricing-card-top"><p>Restaurant WhatsApp Ordering</p><span>Monthly</span></div>
+          <div class="price"><sup data-currency-symbol>$</sup><strong data-monthly-price>50</strong><span>/month<br><small>per restaurant</small></span></div>
+          <p class="pricing-description">Everything required to receive organized WhatsApp orders and manage them from one clear dashboard.</p>
+          <ul>
+            <li><svg><use href="#icon-check"></use></svg> WhatsApp ordering assistant</li>
+            <li><svg><use href="#icon-check"></use></svg> Menu setup and cart confirmation</li>
+            <li><svg><use href="#icon-check"></use></svg> Pickup and delivery flows</li>
+            <li><svg><use href="#icon-check"></use></svg> Address and payment collection</li>
+            <li><svg><use href="#icon-check"></use></svg> Restaurant dashboard and kitchen view</li>
+            <li><svg><use href="#icon-check"></use></svg> Customer status updates and order history</li>
+            <li><svg><use href="#icon-check"></use></svg> Initial setup and basic ongoing support</li>
+          </ul>
+          <a class="button button-primary button-lg config-link" data-action="whatsapp" href="#contact">Get Started on WhatsApp <svg><use href="#icon-arrow"></use></svg></a>
+          <small>Message us to confirm availability and setup requirements. Custom work or additional branches may be priced separately.</small>
+        </article>
+      </div>
+    </section>
+
+    <!-- 13. FAQ -->
+    <section class="section" id="faq">
+      <div class="container faq-layout">
+        <div class="faq-intro reveal">
+          <p class="eyebrow">Questions restaurant owners ask</p>
+          <h2>Clear answers before you decide.</h2>
+          <p>The demo is the easiest way to see the ordering experience. These answers cover the most common setup questions.</p>
+          <a class="text-link config-link" data-action="booking" href="#contact">Ask about your restaurant <svg><use href="#icon-arrow"></use></svg></a>
+        </div>
+
+        <div class="faq-list reveal" data-faq-list>
+          <article class="faq-item">
+            <h3><button type="button" aria-expanded="true" aria-controls="faq-panel-1" id="faq-button-1">Do I need to change my WhatsApp number?<svg aria-hidden="true"><use href="#icon-chevron"></use></svg></button></h3>
+            <div class="faq-panel" id="faq-panel-1" role="region" aria-labelledby="faq-button-1"><div><p>That depends on your current WhatsApp setup. During the demo, we will explain whether your existing business number can be used or whether a separate number is recommended.</p></div></div>
+          </article>
+          <article class="faq-item">
+            <h3><button type="button" aria-expanded="false" aria-controls="faq-panel-2" id="faq-button-2">What if the assistant misunderstands an order?<svg aria-hidden="true"><use href="#icon-chevron"></use></svg></button></h3>
+            <div class="faq-panel" id="faq-panel-2" role="region" aria-labelledby="faq-button-2" hidden><div><p>The system confirms the cart, quantities, delivery details, and payment choice before completing the order. Staff can also review and manage incoming orders from the dashboard.</p></div></div>
+          </article>
+          <article class="faq-item">
+            <h3><button type="button" aria-expanded="false" aria-controls="faq-panel-3" id="faq-button-3">Can my staff still control the orders?<svg aria-hidden="true"><use href="#icon-chevron"></use></svg></button></h3>
+            <div class="faq-panel" id="faq-panel-3" role="region" aria-labelledby="faq-button-3" hidden><div><p>Yes. Your team can view incoming orders, accept them, update their status, and manage the restaurant workflow.</p></div></div>
+          </article>
+          <article class="faq-item">
+            <h3><button type="button" aria-expanded="false" aria-controls="faq-panel-4" id="faq-button-4">Can customers type normal messages?<svg aria-hidden="true"><use href="#icon-chevron"></use></svg></button></h3>
+            <div class="faq-panel" id="faq-panel-4" role="region" aria-labelledby="faq-button-4" hidden><div><p>Yes, when natural-message ordering is enabled. Customers can write something like “two chicken burgers and one Coke,” and the ordering flow organizes the request into a cart for confirmation.</p></div></div>
+          </article>
+          <article class="faq-item">
+            <h3><button type="button" aria-expanded="false" aria-controls="faq-panel-5" id="faq-button-5">What happens if the internet goes down?<svg aria-hidden="true"><use href="#icon-chevron"></use></svg></button></h3>
+            <div class="faq-panel" id="faq-panel-5" role="region" aria-labelledby="faq-button-5" hidden><div><p>Because the system uses online messaging, an internet connection is required. Your team should keep a backup ordering process available during internet outages.</p></div></div>
+          </article>
+          <article class="faq-item">
+            <h3><button type="button" aria-expanded="false" aria-controls="faq-panel-6" id="faq-button-6">How long does setup take?<svg aria-hidden="true"><use href="#icon-chevron"></use></svg></button></h3>
+            <div class="faq-panel" id="faq-panel-6" role="region" aria-labelledby="faq-button-6" hidden><div><p>Setup depends on the size of your menu, delivery rules, payment methods, and required customizations. A timeline will be confirmed after reviewing your restaurant.</p></div></div>
+          </article>
+          <article class="faq-item">
+            <h3><button type="button" aria-expanded="false" aria-controls="faq-panel-7" id="faq-button-7">Can it work for pickup and delivery?<svg aria-hidden="true"><use href="#icon-chevron"></use></svg></button></h3>
+            <div class="faq-panel" id="faq-panel-7" role="region" aria-labelledby="faq-button-7" hidden><div><p>Yes. The ordering flow can ask whether the customer wants pickup or delivery and collect the relevant information for that choice.</p></div></div>
+          </article>
+          <article class="faq-item">
+            <h3><button type="button" aria-expanded="false" aria-controls="faq-panel-8" id="faq-button-8">Can I update my menu later?<svg aria-hidden="true"><use href="#icon-chevron"></use></svg></button></h3>
+            <div class="faq-panel" id="faq-panel-8" role="region" aria-labelledby="faq-button-8" hidden><div><p>Yes. Menu items, prices, availability, and restaurant details can be updated as your business changes.</p></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. Final CTA -->
+    <section class="section final-cta-section" id="contact">
+      <div class="container">
+        <div class="final-cta reveal">
+          <div class="final-cta-shape" aria-hidden="true"></div>
+          <div class="final-cta-copy">
+            <p class="eyebrow eyebrow-light">Your next order could be easier</p>
+            <h2>See how your next WhatsApp order could be handled automatically.</h2>
+            <p>Test the ordering experience yourself, or book a short call to see how it can work with your restaurant’s menu.</p>
+            <div class="hero-actions">
+              <a class="button button-light button-lg config-link" data-action="whatsapp" href="#contact"><svg><use href="#icon-logo"></use></svg> Chat With the Demo</a>
+              <a class="button button-outline-light button-lg config-link" data-action="booking" href="#contact">Book a 10-Minute Demo <svg><use href="#icon-arrow"></use></svg></a>
+            </div>
+          </div>
+          <div class="final-order-card" aria-hidden="true">
+            <div class="final-order-head"><span><svg><use href="#icon-check"></use></svg></span><div><strong>Order confirmed</strong><small>#1048 • Delivery</small></div></div>
+            <ul><li><span>2× Chicken Tacos</span><b>$10.00</b></li><li><span>1× Coke</span><b>$2.00</b></li></ul>
+            <div class="final-order-total"><span>Total</span><strong>$12.00</strong></div>
+            <div class="final-order-status"><i></i> Sent to restaurant dashboard</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="#top"><span class="brand-mark"><svg><use href="#icon-logo"></use></svg></span><span data-brand-name>OrderRise</span></a>
+        <p>A WhatsApp ordering assistant designed to help restaurants respond faster, organize orders, and reduce repetitive work.</p>
+      </div>
+      <div class="footer-links">
+        <div><strong>Product</strong><a href="#how-it-works">How It Works</a><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></div>
+        <div><strong>Contact</strong><a class="config-link" data-action="whatsapp" href="#contact">WhatsApp Demo</a><a class="config-link" data-action="booking" href="#contact">Book a Demo</a><a data-contact-link="email" hidden>Email</a><a data-contact-link="linkedin" hidden>LinkedIn</a><a data-contact-link="fiverr" hidden>Fiverr</a></div>
+        <div><strong>Legal</strong><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms & Conditions</a></div>
+      </div>
+    </div>
+    <div class="container footer-bottom"><span>© <span data-current-year></span> <span data-brand-name>OrderRise</span>. All rights reserved.</span><span>Built for busy restaurants.</span></div>
+  </footer>
+
+  <div class="mobile-sticky-cta" data-mobile-cta>
+    <a class="config-link" data-action="whatsapp" href="#contact"><svg aria-hidden="true"><use href="#icon-logo"></use></svg><span>Try the WhatsApp Demo</span><svg aria-hidden="true"><use href="#icon-arrow"></use></svg></a>
+  </div>
+
+  <div class="toast" role="status" aria-live="polite" aria-atomic="true" data-toast></div>
+
+  <noscript>
+    <div class="noscript-note">This page works without JavaScript, but the animated chat, mobile menu, and configured contact links require JavaScript.</div>
+  </noscript>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
