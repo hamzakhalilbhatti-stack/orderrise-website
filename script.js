@@ -5,11 +5,11 @@
    ======================================================================== */
 const SITE_CONFIG = Object.freeze({
   brandName: "OrderRise",
-  restaurantDemoName: "Taco Heat Demo",
+  restaurantDemoName: "Order rise Demo",
   whatsappNumber: "YOUR_NUMBER",
   bookingUrl: "YOUR_BOOKING_LINK",
-  email: "YOUR_EMAIL",
-  linkedinUrl: "YOUR_LINKEDIN_URL",
+  email: "hamzakhalilbhattibrothers@gmail.com",
+  linkedinUrl: "www.linkedin.com/in/hamza-khalil-34380923a",
   fiverrUrl: "YOUR_FIVERR_URL",
   monthlyPrice: 50,
   currency: "USD"
