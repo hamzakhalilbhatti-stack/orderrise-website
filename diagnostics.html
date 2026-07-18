@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>OrderRise Hero 3D Diagnostics</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css">
-  <script type="importmap">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<title>OrderRise 3D Diagnostics</title>
+<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="style.css" rel="stylesheet"/>
+<script type="importmap">
   {
     "imports": {
       "three": "./vendor/three.module.js",
@@ -14,7 +15,7 @@
     }
   }
   </script>
-  <style>
+<style>
     .diagnostic-page{min-height:100vh;padding:70px 0;background:#06101e}
     .diagnostic-grid{display:grid;gap:18px;grid-template-columns:.8fr 1.2fr;margin-top:30px}
     .diagnostic-list{display:grid;gap:10px}
@@ -27,32 +28,32 @@
   </style>
 </head>
 <body>
-  <main class="diagnostic-page">
-    <div class="container">
-      <a class="back-link" href="index.html">← Return to OrderRise</a>
-      <p class="eyebrow">3D system test</p>
-      <h1>OrderRise WebGL Diagnostics</h1>
-      <p class="lead">This page checks the optional homepage Three.js enhancement. The main website remains usable without WebGL.</p>
-      <div class="diagnostic-grid">
-        <section>
-          <div class="diagnostic-list">
-            <div class="diagnostic-item"><strong>JavaScript</strong><span class="diagnostic-result pass">Working</span></div>
-            <div class="diagnostic-item"><strong>WebGL support</strong><span id="webglResult" class="diagnostic-result">Checking…</span></div>
-            <div class="diagnostic-item"><strong>Local Three.js module</strong><span id="threeResult" class="diagnostic-result">Checking…</span></div>
-            <div class="diagnostic-item"><strong>3D renderer</strong><span id="rendererResult" class="diagnostic-result">Checking…</span></div>
-            <div class="diagnostic-item"><strong>Animation</strong><span id="animationResult" class="diagnostic-result">Checking…</span></div>
-          </div>
-          <p id="diagnosticMessage" class="diagnostic-help">The test is starting.</p>
-          <a class="button" href="index.html">Open the OrderRise Homepage</a>
-        </section>
-        <section class="diagnostic-canvas-wrap">
-          <canvas id="diagnosticCanvas"></canvas>
-          <div class="canvas-instructions"><span>Drag to rotate</span><span>Scroll to zoom</span></div>
-        </section>
-      </div>
-    </div>
-  </main>
-  <script type="module">
+<main class="diagnostic-page">
+<div class="container">
+<a class="back-link" href="index.html">← Return to OrderRise</a>
+<p class="eyebrow">3D system test</p>
+<h1>OrderRise WebGL Diagnostics</h1>
+<p class="lead">This page checks whether your browser can load the local Three.js files and render a colorful 3D object.</p>
+<div class="diagnostic-grid">
+<section>
+<div class="diagnostic-list">
+<div class="diagnostic-item"><strong>JavaScript</strong><span class="diagnostic-result pass">Working</span></div>
+<div class="diagnostic-item"><strong>WebGL support</strong><span class="diagnostic-result" id="webglResult">Checking…</span></div>
+<div class="diagnostic-item"><strong>Local Three.js module</strong><span class="diagnostic-result" id="threeResult">Checking…</span></div>
+<div class="diagnostic-item"><strong>3D renderer</strong><span class="diagnostic-result" id="rendererResult">Checking…</span></div>
+<div class="diagnostic-item"><strong>Animation</strong><span class="diagnostic-result" id="animationResult">Checking…</span></div>
+</div>
+<p class="diagnostic-help" id="diagnosticMessage">The test is starting.</p>
+<a class="button" href="index.html">Open the Complete 3D Website</a>
+</section>
+<section class="diagnostic-canvas-wrap">
+<canvas id="diagnosticCanvas"></canvas>
+<div class="canvas-instructions"><span>Drag to rotate</span><span>Scroll to zoom</span></div>
+</section>
+</div>
+</div>
+</main>
+<script type="module">
     import * as THREE from "three";
     import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
@@ -79,7 +80,7 @@
       setResult('rendererResult',true,'Created');
       const resize=()=>{const r=canvas.getBoundingClientRect();renderer.setSize(Math.max(1,r.width),Math.max(1,r.height),false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix();};
       new ResizeObserver(resize).observe(canvas);resize();
-      let frames=0;function animate(){requestAnimationFrame(animate);frames++;scene.children.filter(x=>x.isMesh&&x.geometry?.type==='BoxGeometry').forEach((m,i)=>{m.rotation.y+=.006+i*.001;m.rotation.x=.15*Math.sin(performance.now()*.001+i);});controls.update();renderer.render(scene,camera);if(frames===20){setResult('animationResult',true,'Running');document.getElementById('diagnosticMessage').textContent='All browser-side checks passed. The optional homepage 3D enhancement should render correctly.';}}animate();
+      let frames=0;function animate(){requestAnimationFrame(animate);frames++;scene.children.filter(x=>x.isMesh&&x.geometry?.type==='BoxGeometry').forEach((m,i)=>{m.rotation.y+=.006+i*.001;m.rotation.x=.15*Math.sin(performance.now()*.001+i);});controls.update();renderer.render(scene,camera);if(frames===20){setResult('animationResult',true,'Running');document.getElementById('diagnosticMessage').textContent='All browser-side 3D checks passed. The complete OrderRise scenes should render correctly.';}}animate();
     }catch(error){setResult('rendererResult',false,'Failed');setResult('animationResult',false,'Not running');document.getElementById('diagnosticMessage').textContent=`3D could not start: ${error.message}. Enable hardware acceleration or try current Chrome/Edge.`;console.error(error);}
   </script>
 </body>

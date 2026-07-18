@@ -1,0 +1,19 @@
+{
+  "console_errors": [],
+  "page_errors": [],
+  "checks": {
+    "headline_visible": true,
+    "purpose_section": true,
+    "audience_cards": true,
+    "seven_process_steps": true,
+    "eight_order_actions": true,
+    "cart_changed": true,
+    "inventory_changed": true,
+    "demo_explains_change": true,
+    "camera_button_active": true,
+    "pillar_changed": true,
+    "admin_changed": true
+  },
+  "screenshot": "/mnt/data/orderrise-hybrid-homepage-preview.png",
+  "status": "passed"
+}

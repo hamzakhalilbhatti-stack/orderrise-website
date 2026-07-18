@@ -1,0 +1,90 @@
+{
+  "status": "passed",
+  "html_ids_checked": 83,
+  "duplicate_ids": [],
+  "local_references_checked": 37,
+  "missing_references": [],
+  "required_demo_ids": [
+    "quick-demo",
+    "miniChatLog",
+    "miniQuickReplies",
+    "miniCartLines",
+    "miniCartTotalValue",
+    "miniStatTicket",
+    "miniStatStock",
+    "miniStatDriver",
+    "miniStatRevenue",
+    "miniProcessExplanation",
+    "miniResetDemo"
+  ],
+  "missing_demo_ids": [],
+  "javascript_syntax": {
+    "script.js": {
+      "passed": true,
+      "error": ""
+    },
+    "three-scene.js": {
+      "passed": true,
+      "error": ""
+    },
+    "page-scene.js": {
+      "passed": true,
+      "error": ""
+    }
+  },
+  "http_results": {
+    "/": 200,
+    "/style.css": 200,
+    "/script.js": 200,
+    "/three-scene.js": 200,
+    "/page-scene.js": 200,
+    "/diagnostics.html": 200,
+    "/assets/orderrise-logo.svg": 200,
+    "/vendor/three.module.js": 200
+  },
+  "browser_interaction_test": {
+    "status": "passed",
+    "results": {
+      "quick_reply_count": 7,
+      "labels": [
+        "Show me the menu",
+        "Add two zinger burgers",
+        "Make one spicy",
+        "Apply SAVE10",
+        "I want delivery",
+        "Confirm order",
+        "Track my order"
+      ],
+      "menu_reply_visible": true,
+      "cart_after_add": "2\u00d7 Zinger Burger\nRs 1,400",
+      "total_after_add": "Rs 1,400",
+      "stock_after_add": "22 burgers reserved",
+      "modifier_after_spicy": "2\u00d7 Zinger Burger\n1 burger: extra spicy\nRs 1,400",
+      "total_after_coupon": "Rs 1,260",
+      "total_after_delivery": "Rs 1,410",
+      "driver_pending": "Pending address",
+      "ticket_after_confirm": "#1042 \u00b7 Preparing",
+      "driver_after_confirm": "Assigned \u00b7 Ali K.",
+      "revenue_after_confirm": "Rs 19,810",
+      "progress_after_track": "100%",
+      "track_reply_visible": true,
+      "reset_cart": "No items yet \u2014 try \u201cShow me the menu\u201d.",
+      "reset_ticket": "Not created",
+      "reset_revenue": "Rs 18,400",
+      "reset_progress": "0%",
+      "horizontal_overflow": false
+    },
+    "page_errors": [],
+    "failures": [],
+    "test_method": "Chromium page.set_content isolated mini-demo interaction test"
+  },
+  "responsive_test": {
+    "desktop_screenshot": "orderrise-mini-demo-preview.png",
+    "desktop_overflow": false,
+    "mobile_overflow": false,
+    "mobile_quick_replies": 7,
+    "mobile_total": "Rs 1,400",
+    "mobile_screenshot": "orderrise-mini-demo-mobile-preview.png",
+    "status": "passed"
+  }
+}

@@ -1,93 +1,73 @@
-# OrderRise — Consolidated Landing Page Revision
+# OrderRise Hybrid Sales + Guided 3D Website
 
-This build implements the final consolidation specification for OrderRise.
+This version combines:
 
-## Core product message
+- Clear restaurant-focused sales messaging
+- Guided Three.js restaurant scenes
+- An interactive WhatsApp order demonstration
+- Kitchen, inventory, delivery and owner explanations
+- Responsive desktop and mobile layouts
+- Separate product, feature, solution, pricing and company pages
 
-OrderRise turns a WhatsApp customer order into coordinated kitchen, inventory,
-delivery and owner workflows.
+## Website purpose
 
-## Process explanations kept
+OrderRise turns customer messages on WhatsApp into structured restaurant operations:
 
-Only two detailed process experiences remain:
+WhatsApp → AI → Cart → Kitchen → Inventory → Delivery → Owner reporting
 
-1. The hero's interactive seven-stage 3D flow
-2. The Taco Heat chat and live restaurant-state demo
+## Start locally
 
-## Duplicate content removed
+Double-click:
 
-- Complete-process arrow list
-- Seven-scene scroll walkthrough
-- Five-system product-pillar section
-- Floating device showcase
-- Separate 3D demo destination
-- Repeated subpage WebGL canvases
-- Defensive meta-narration
+`start-website.bat`
 
-## Product section
-
-The product is consolidated into one Admin Hub with these modules:
-
-- Orders
-- Kitchen
-- Receipts
-- Promotions
-- Customers
-- Deliveries
-- Reports
-- Inventory
-- Menu
-- System
-
-Useful capabilities from the former product-pillar section now appear under the
-relevant Admin Hub module.
-
-## CTA hierarchy
-
-Primary action:
-
-- Message Hamza on WhatsApp
-
-Secondary action:
-
-- Book a call through `contact.html`
-
-The published WhatsApp link currently uses `923001794940`. Confirm this is the
-number you want public before deployment.
-
-## Pricing
-
-- Starter — from $50/month
-- Growth — custom quote
-- Multi-location — custom quote
-
-## Trust and proof
-
-The About page names Hamza Khalil and states that OrderRise is based in Lahore,
-Pakistan. No client logo, testimonial, response-time statistic or result has
-been invented. Use `docs/REAL_PROOF_CHECKLIST.md` after the first approved pilot.
-
-## 3D reliability
-
-- Static workflow content is visible by default.
-- Homepage WebGL is a progressive desktop enhancement.
-- Mobile and reduced-motion visitors retain the static workflow.
-- Unused order-demo, journey, pillar, device and command-center WebGL builders
-  were removed from `three-scene.js`.
-- Subpages do not load WebGL.
-
-## Run locally
+Or run:
 
 ```powershell
 python -m http.server 8080
 ```
 
-Open `http://localhost:8080/`.
+Then open:
 
-## Deploy
+`http://localhost:8080/`
+
+## Main files
+
+- `index.html` — hybrid sales homepage
+- `style.css` — complete responsive design
+- `script.js` — UI and product-demo interactions
+- `three-scene.js` — homepage Three.js scenes
+- `page-scene.js` — subpage Three.js scenes
+- `diagnostics.html` — WebGL browser test
+- `vendor/` — local Three.js modules
+
+## Upload to GitHub
 
 ```powershell
 git add .
-git commit -m "Consolidate OrderRise landing page content and CTAs"
+git commit -m "Build OrderRise hybrid sales and guided 3D website"
 git push origin main
 ```
+
+The demonstration uses fictional information and does not connect to the production restaurant backend.
+
+## Compact WhatsApp demonstration
+
+The homepage now includes a fictional Taco Heat order simulation before the
+larger 3D demonstration.
+
+It demonstrates:
+
+- Menu discovery
+- Adding two Zinger Burgers
+- Natural-language modifiers
+- SAVE10 discount
+- Delivery selection
+- Kitchen-ticket creation
+- Inventory updates
+- Driver assignment
+- Revenue updates
+- Order tracking
+- Complete reset
+
+The compact demo synchronizes with the larger 3D order scene.

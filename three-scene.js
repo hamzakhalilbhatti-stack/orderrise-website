@@ -25,19 +25,6 @@ const C = {
 const PROCESS_COLORS = [C.green, C.purple, C.orange, C.amber, C.blue, C.pink, C.cyan];
 const PROCESS_NAMES = ["WHATSAPP", "AI UNDERSTANDS", "CART & CHECKOUT", "KITCHEN", "INVENTORY", "DELIVERY", "OWNER"];
 
-
-function supportsWebGL() {
-  try {
-    const testCanvas = document.createElement("canvas");
-    return Boolean(
-      testCanvas.getContext("webgl2") ||
-      testCanvas.getContext("webgl")
-    );
-  } catch (_) {
-    return false;
-  }
-}
-
 const runners = [];
 const clock = new THREE.Clock();
 let soundEnabled = false;
@@ -60,9 +47,9 @@ function beep(frequency = 540, duration = 0.06, volume = 0.025) {
   } catch (_) {}
 }
 
-function setFallback() {
-  document.documentElement.classList.remove("webgl-ready");
-  document.documentElement.classList.add("webgl-static");
+function setFallback(canvasId) {
+  const fallback = document.querySelector(`[data-fallback-for="${canvasId}"]`);
+  if (fallback) fallback.classList.add("show");
 }
 
 function createRenderer(canvas, alpha = true) {
@@ -944,49 +931,331 @@ function buildHero() {
   };
 }
 
-const shouldEnhanceWith3D =
-  window.matchMedia("(min-width: 761px)").matches &&
-  !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
-  supportsWebGL();
+function buildOrderDemo() {
+  const runner = setupScene("orderDemoCanvas", new THREE.Vector3(11.3, 7.8, 13.0), new THREE.Vector3(0, 1.15, 0));
+  if (!runner) return null;
+  addLights(runner.scene, 1.0);
 
-const hero = shouldEnhanceWith3D ? buildHero() : null;
+  const world = new THREE.Group();
+  runner.scene.add(world);
+  world.add(createFloor(12.5, 8.5));
 
-if (hero) {
-  document.documentElement.classList.add("webgl-ready");
+  const phonePad = createZonePad(2.8, 3.4, C.green, 1, "PHONE");
+  phonePad.position.set(-4.7, 0, 0.2);
+  world.add(phonePad);
+  const phone = createPhone(0.62);
+  phone.position.set(-4.7, 2.45, 0.2);
+  phone.rotation.y = 0.35;
+  world.add(phone);
 
-  const fallback = document.querySelector(
-    '[data-fallback-for="hero3dCanvas"]'
-  );
+  const cartPad = createZonePad(3.2, 2.8, C.orange, 2, "CART");
+  cartPad.position.set(-1.1, 0, 0.8);
+  world.add(cartPad);
+  const cart = createCart();
+  cart.scale.setScalar(0.86);
+  cart.position.set(-1.1, 0.05, 0.8);
+  world.add(cart);
 
-  if (fallback) {
-    fallback.classList.remove("show");
+  const burger1 = createBurger(0.82);
+  const burger2 = createBurger(0.82);
+  burger1.position.set(-1.52, 1.28, 0.78);
+  burger2.position.set(-0.65, 1.28, 0.78);
+  burger1.visible = burger2.visible = false;
+  world.add(burger1, burger2);
+
+  const spicy = new THREE.Mesh(new THREE.SphereGeometry(0.16, 16, 16), basicMaterial(C.red));
+  spicy.position.set(-1.52, 2.12, 0.78);
+  spicy.visible = false;
+  world.add(spicy);
+
+  const inventoryPad = createZonePad(3.8, 3.2, C.blue, 3, "INVENTORY");
+  inventoryPad.position.set(3.85, 0, -1.75);
+  world.add(inventoryPad);
+  const inventory = createInventory();
+  inventory.scale.setScalar(0.72);
+  inventory.position.set(3.85, 0.08, -1.75);
+  world.add(inventory);
+
+  const kitchenPad = createZonePad(3.8, 3.2, C.amber, 4, "KITCHEN");
+  kitchenPad.position.set(3.65, 0, 1.8);
+  world.add(kitchenPad);
+  const kitchen = createKitchen();
+  kitchen.scale.setScalar(0.72);
+  kitchen.position.set(3.65, 0.08, 1.8);
+  world.add(kitchen);
+  kitchen.userData.ticket.visible = false;
+  kitchen.userData.ticketLabel.visible = false;
+
+  const scooter = createScooter(0.66);
+  scooter.position.set(3.8, 0.12, 3.0);
+  scooter.rotation.y = Math.PI / 2;
+  scooter.visible = false;
+  world.add(scooter);
+
+  const dashboard = createDashboardPanel(2.7, 1.7, C.cyan, "OWNER REVENUE");
+  dashboard.position.set(0.45, 4.35, -2.5);
+  dashboard.rotation.x = -0.08;
+  world.add(dashboard);
+
+  const coupon = createTextSprite("SAVE10 APPLIED", {
+    fontSize: 30,
+    scale: 0.72,
+    background: "rgba(38,16,66,.95)",
+    color: "#d7c4ff",
+    border: "rgba(164,124,255,.8)"
+  });
+  coupon.position.set(-0.95, 3.28, 0.65);
+  coupon.visible = false;
+  world.add(coupon);
+
+  const stageBanner = createTextSprite("1  MENU REQUEST", {
+    fontSize: 34,
+    scale: 0.78,
+    background: "rgba(4,8,17,.96)",
+    color: "#68ff9b",
+    border: "rgba(37,211,102,.8)"
+  });
+  stageBanner.position.set(0.2, 5.35, 0);
+  world.add(stageBanner);
+
+  const pathPhoneCart = createCurvePath([
+    new THREE.Vector3(-4.0, 2.0, 0.2),
+    new THREE.Vector3(-2.7, 1.6, 0.8),
+    new THREE.Vector3(-1.5, 1.2, 0.8)
+  ], C.orange);
+  const pathCartInventory = createCurvePath([
+    new THREE.Vector3(-0.3, 1.0, 0.5),
+    new THREE.Vector3(1.8, 1.3, -0.8),
+    new THREE.Vector3(3.1, 1.3, -1.5)
+  ], C.blue);
+  const pathCartKitchen = createCurvePath([
+    new THREE.Vector3(-0.2, 1.0, 0.9),
+    new THREE.Vector3(1.8, 1.4, 1.5),
+    new THREE.Vector3(3.0, 1.4, 1.8)
+  ], C.amber);
+  const pathDelivery = createCurvePath([
+    new THREE.Vector3(3.7, 0.65, 2.9),
+    new THREE.Vector3(1.8, 0.6, 3.25),
+    new THREE.Vector3(-0.2, 0.6, 3.45),
+    new THREE.Vector3(-2.5, 0.6, 3.0)
+  ], C.pink);
+
+  [pathPhoneCart, pathCartInventory, pathCartKitchen, pathDelivery].forEach(path => world.add(path.tube, path.orb));
+  pathPhoneCart.orb.visible = pathCartInventory.orb.visible = pathCartKitchen.orb.visible = pathDelivery.orb.visible = false;
+  pathPhoneCart.tube.visible = pathCartInventory.tube.visible = pathCartKitchen.tube.visible = pathDelivery.tube.visible = false;
+
+  const stageTargets = [phone, cart, spicy, burger1, coupon, scooter, kitchen, scooter];
+  let stage = 0;
+  let transitionStart = performance.now() * 0.001;
+
+  function applyStage(next) {
+    stage = next;
+    transitionStart = performance.now() * 0.001;
+    burger1.visible = burger2.visible = stage >= 1;
+    spicy.visible = stage >= 2;
+    burger1.userData.cheese.visible = burger2.userData.cheese.visible = stage >= 3;
+    coupon.visible = stage >= 4;
+    scooter.visible = stage >= 5;
+    kitchen.userData.ticket.visible = kitchen.userData.ticketLabel.visible = stage >= 6;
+
+    pathPhoneCart.tube.visible = stage >= 1;
+    pathPhoneCart.orb.visible = stage === 1;
+    pathCartInventory.tube.visible = stage >= 3;
+    pathCartInventory.orb.visible = stage === 3;
+    pathCartKitchen.tube.visible = stage >= 6;
+    pathCartKitchen.orb.visible = stage === 6;
+    pathDelivery.tube.visible = stage >= 7;
+    pathDelivery.orb.visible = stage >= 7;
+
+    inventory.userData.boxes.forEach((box, i) => {
+      box.visible = i < (stage >= 3 ? 9 : stage >= 1 ? 10 : 12);
+    });
+    dashboard.userData.bars.forEach((bar, i) => {
+      bar.scale.y = stage === 0 ? 0.45 : 0.75 + i * 0.1 + stage * 0.035;
+    });
+    if (stage >= 1) {
+      burger1.position.set(-4.0, 2.25, 0.25);
+      burger2.position.set(-4.0, 1.5, 0.25);
+    }
+
+    const bannerTexts = ["1  MENU REQUEST", "2  BURGERS ADDED", "3  SPICY MODIFIER", "4  EXTRA CHEESE", "5  SAVE10 COUPON", "6  DELIVERY SELECTED", "7  KITCHEN PREPARING", "8  OUT FOR DELIVERY"];
+    const bannerColors = [C.green, C.orange, C.red, C.yellow, C.purple, C.pink, C.amber, C.blue];
+    const oldTexture = stageBanner.material.map;
+    const replacement = createTextSprite(bannerTexts[stage], {
+      fontSize: 34,
+      scale: 0.78,
+      background: "rgba(4,8,17,.96)",
+      color: hexCss(bannerColors[stage]),
+      border: `${hexCss(bannerColors[stage])}cc`
+    });
+    stageBanner.material.map = replacement.material.map;
+    stageBanner.scale.copy(replacement.scale);
+    stageBanner.material.needsUpdate = true;
+    if (oldTexture) oldTexture.dispose();
+
+    const allGroups = [phone, cart, inventory, kitchen, scooter, dashboard, burger1, burger2];
+    allGroups.forEach(group => setGroupHighlight(group, C.white, false));
+    const accent = bannerColors[stage];
+    if (stage === 0) setGroupHighlight(phone, accent, true);
+    if (stage === 1) { setGroupHighlight(cart, accent, true); setGroupHighlight(burger1, accent, true); setGroupHighlight(burger2, accent, true); }
+    if (stage === 2) { setGroupHighlight(burger1, accent, true); setGroupHighlight(kitchen, accent, true); }
+    if (stage === 3) { setGroupHighlight(burger1, accent, true); setGroupHighlight(burger2, accent, true); setGroupHighlight(inventory, C.blue, true); }
+    if (stage === 4) setGroupHighlight(dashboard, accent, true);
+    if (stage === 5) setGroupHighlight(scooter, accent, true);
+    if (stage === 6) setGroupHighlight(kitchen, accent, true);
+    if (stage === 7) { setGroupHighlight(scooter, C.blue, true); setGroupHighlight(dashboard, C.cyan, true); }
+    beep(480 + stage * 55, 0.055, 0.022);
   }
-} else {
-  document.documentElement.classList.add("webgl-static");
+
+  runner.update = (dt, t) => {
+    phone.position.y = 2.45 + Math.sin(t * 1.2) * 0.09;
+    dashboard.position.y = 4.35 + Math.sin(t * 0.8) * 0.08;
+    stageBanner.position.y = 5.35 + Math.sin(t * 0.9) * 0.08;
+    const elapsed = Math.min(1, (t - transitionStart) / 1.1);
+    const eased = 1 - Math.pow(1 - elapsed, 3);
+    if (stage >= 1 && elapsed < 1) {
+      burger1.position.lerpVectors(new THREE.Vector3(-4.0,2.25,.25), new THREE.Vector3(-1.52,1.28,.78), eased);
+      burger2.position.lerpVectors(new THREE.Vector3(-4.0,1.5,.25), new THREE.Vector3(-.65,1.28,.78), eased);
+    }
+    if (spicy.visible) spicy.position.y = 2.12 + Math.sin(t * 3) * 0.08;
+    if (coupon.visible) coupon.position.y = 3.28 + Math.sin(t * 1.4) * 0.08;
+    if (scooter.visible && stage >= 7) scooter.position.x = 3.8 - ((t * 0.45) % 1) * 6.2;
+    if (pathPhoneCart.orb.visible) pathPhoneCart.orb.position.copy(pathPhoneCart.curve.getPointAt((t * 0.34) % 1));
+    if (pathCartInventory.orb.visible) pathCartInventory.orb.position.copy(pathCartInventory.curve.getPointAt((t * 0.30) % 1));
+    if (pathCartKitchen.orb.visible) pathCartKitchen.orb.position.copy(pathCartKitchen.curve.getPointAt((t * 0.30) % 1));
+    if (pathDelivery.orb.visible) pathDelivery.orb.position.copy(pathDelivery.curve.getPointAt((t * 0.18) % 1));
+    kitchen.userData.screen.userData.display.material.opacity = 0.62 + Math.sin(t * 2.2) * 0.12;
+  };
+
+  applyStage(0);
+  return { setStage: applyStage };
 }
 
-/*
- * The website is static-first. WebGL is an optional desktop enhancement.
- * The Taco Heat demo and all conversion content work without the 3D engine.
- */
+function buildAdmin() {
+  const runner = setupScene("adminCanvas", new THREE.Vector3(12.2, 8.7, 14.2), new THREE.Vector3(0, 1.5, 0));
+  if (!runner) return null;
+  addLights(runner.scene, 1.0);
+  const world = new THREE.Group();
+  runner.scene.add(world);
+  world.add(createFloor(12, 8));
+
+  const corePanel = createDashboardPanel(4.5, 2.8, C.cyan, "ADMIN HUB · MISSION CONTROL");
+  corePanel.position.set(0, 2, 0);
+  world.add(corePanel);
+
+  const names = ["orders","kitchen","receipts","promotions","customers","deliveries","reports","staff","inventory","menu","system"];
+  const nodeColors = [C.orange,C.amber,C.yellow,C.purple,C.cyan,C.pink,C.blue,C.green,C.blue,C.orange,C.purple];
+  const nodes = {};
+  const lines = {};
+
+  names.forEach((name, i) => {
+    const angle = i / names.length * Math.PI * 2;
+    const radius = i % 2 ? 4.5 : 3.9;
+    const color = nodeColors[i];
+    const node = roundedBox(1.72, .80, .18, color, .14, {metalness:.28,roughness:.34,emissive:color,emissiveIntensity:.08});
+    node.position.set(Math.cos(angle) * radius, 1.75 + Math.sin(angle * 2) * .65, Math.sin(angle) * 2.9);
+    node.rotation.y = -angle + Math.PI / 2;
+    const label = createTextSprite(`${i + 1}  ${name.toUpperCase()}`, {fontSize:21,scale:.40,background:"rgba(4,8,17,.94)",color:hexCss(color),border:`${hexCss(color)}88`});
+    label.position.z = .12;
+    node.add(label);
+    world.add(node);
+    nodes[name] = node;
+
+    const geometry = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,2,0), node.position.clone()]);
+    const line = new THREE.Line(geometry, new THREE.LineBasicMaterial({color,transparent:true,opacity:.45}));
+    world.add(line);
+    lines[name] = line;
+  });
+
+  const activeBanner = createTextSprite("ORDERS · MESSAGE → STATUS → FULFILLMENT", {fontSize:30,scale:.72,background:"rgba(4,8,17,.96)",color:"#ffb56d",border:"rgba(255,159,67,.8)"});
+  activeBanner.position.set(0,5.25,0);
+  world.add(activeBanner);
+
+  let active = "orders";
+  function highlight(key) {
+    active = key;
+    Object.entries(nodes).forEach(([name, node], index) => {
+      const selected = name === key;
+      node.scale.setScalar(selected ? 1.24 : .92);
+      node.material.opacity = selected ? 1 : .68;
+      node.material.transparent = true;
+      lines[name].material.opacity = selected ? 1 : .24;
+      setGroupHighlight(node, nodeColors[index], selected);
+    });
+
+    const index = names.indexOf(key);
+    const texts = {
+      orders:"MESSAGE → STATUS → FULFILLMENT",
+      kitchen:"TICKET → PREPARING → READY",
+      receipts:"ORDER → PAYMENT → RECEIPT",
+      promotions:"AUDIENCE → OFFER → CONVERSION",
+      customers:"PROFILE → HISTORY → LOYALTY",
+      deliveries:"ASSIGNMENT → ROUTE → COMPLETE",
+      reports:"DATA → METRICS → DECISIONS",
+      staff:"ROLE → ACCESS → RESPONSIBILITY",
+      inventory:"USAGE → STOCK → ALERT",
+      menu:"PRODUCT → PRICE → AVAILABILITY",
+      system:"INTEGRATION → HEALTH → CONTROL"
+    };
+    const replacement = createTextSprite(`${key.toUpperCase()} · ${texts[key]}`, {fontSize:30,scale:.72,background:"rgba(4,8,17,.96)",color:hexCss(nodeColors[index]),border:`${hexCss(nodeColors[index])}cc`});
+    const oldTexture = activeBanner.material.map;
+    activeBanner.material.map = replacement.material.map;
+    activeBanner.scale.copy(replacement.scale);
+    activeBanner.material.needsUpdate = true;
+    if (oldTexture) oldTexture.dispose();
+    beep(620, .045, .018);
+  }
+
+  runner.update = (dt, t) => {
+    corePanel.position.y = 2 + Math.sin(t * .8) * .11;
+    activeBanner.position.y = 5.25 + Math.sin(t * .9) * .06;
+    corePanel.userData.bars.forEach((bar, i) => bar.scale.y = .78 + Math.sin(t * 1.2 + i * .5) * .16);
+    Object.values(nodes).forEach((node, i) => node.position.y += Math.sin(t + i) * .0007);
+  };
+
+  highlight("orders");
+  return { focus: highlight };
+}
+
+function buildFinal() {
+  const runner=setupScene("finalCanvas",new THREE.Vector3(13,8.5,14),new THREE.Vector3(0,1.2,0));
+  if(!runner)return null;
+  runner.controls.enabled=false;
+  addLights(runner.scene,.85);
+  const restaurant=createRestaurant(.82);runner.scene.add(restaurant);
+  const phone=createPhone(.62);phone.position.set(-6,2.9,.4);phone.rotation.y=.35;runner.scene.add(phone);
+  const path=createCurvePath([new THREE.Vector3(-5.3,2.7,.4),new THREE.Vector3(-1.5,2,0),new THREE.Vector3(0,1.4,0),new THREE.Vector3(3,1.4,1.7),new THREE.Vector3(-2.4,2.2,1.8)]);runner.scene.add(path.tube,path.orb);
+  runner.update=(dt,t)=>{
+    const cycle=(t*.035)%1;
+    const distance=13+cycle*7;
+    runner.camera.position.set(Math.cos(t*.08)*distance,8.5+cycle*3,Math.sin(t*.08)*distance+9);
+    runner.camera.lookAt(0,1.2,0);
+    path.orb.position.copy(path.curve.getPointAt((t*.1)%1));
+    phone.position.y=2.9+Math.sin(t)*.1;
+  };
+  return{};
+}
+
+const hero = buildHero();
+const orderDemo = buildOrderDemo();
+
+const admin = buildAdmin();
+buildFinal();
+
 window.OrderRise3D = {
   focusHero: key => hero?.focus(key),
-  setOrderStage: () => {},
-  setJourneyStage: () => {},
-  setPillar: () => {},
-  focusDevice: () => {},
-  focusAdmin: () => {},
+  setOrderStage: stage => orderDemo?.setStage(stage),
+
+  focusAdmin: key => admin?.focus(key),
   setSound: enabled => {
     soundEnabled = Boolean(enabled);
-    if (soundEnabled) beep(660, .07, .022);
+    if (soundEnabled) beep(660,.07,.022);
   }
 };
 
 if (window.__orderRisePending3D) {
-  for (const [method, args] of Object.entries(window.__orderRisePending3D)) {
-    if (typeof window.OrderRise3D[method] === "function") {
-      window.OrderRise3D[method](...(args || []));
-    }
+  for (const [method,args] of Object.entries(window.__orderRisePending3D)) {
+    if (typeof window.OrderRise3D[method] === "function") window.OrderRise3D[method](...(args || []));
   }
   delete window.__orderRisePending3D;
 }

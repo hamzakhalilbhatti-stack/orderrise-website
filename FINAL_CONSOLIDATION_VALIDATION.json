@@ -1,0 +1,235 @@
+{
+  "status": "passed",
+  "tasks": {
+    "faq_items": 4,
+    "faq_answers": 4,
+    "complete_process_present": false,
+    "journey_section_present": false,
+    "pillars_section_present": false,
+    "devices_section_present": false,
+    "admin_hub_count": 1,
+    "admin_modules": 11,
+    "admin_initial_features": [
+      "Natural-language ordering",
+      "Cart management",
+      "Pickup and delivery",
+      "Payment selection",
+      "Confirmation and tracking"
+    ],
+    "product_proof_buttons": 8,
+    "taco_demo_container": true,
+    "hero_process_stages": 7,
+    "homepage_fallback_blocks": 3,
+    "primary_whatsapp_buttons": [
+      "Message us on WhatsApp",
+      "Message us on WhatsApp ↗",
+      "Message us on WhatsApp",
+      "Message us on WhatsApp"
+    ],
+    "secondary_book_call_links": [
+      "Book a call",
+      "Book a call",
+      "Book a call",
+      "Book a call"
+    ],
+    "forbidden_hits": {}
+  },
+  "protected_sections": {
+    "problems": {
+      "present": true,
+      "visible_text_unchanged": true
+    },
+    "order-demo": {
+      "present": true,
+      "visible_text_unchanged": false
+    },
+    "product-proof": {
+      "present": true,
+      "visible_text_unchanged": true
+    },
+    "roi": {
+      "present": true,
+      "visible_text_unchanged": true
+    },
+    "solutions": {
+      "present": true,
+      "visible_text_unchanged": true
+    }
+  },
+  "browser_validation": {
+    "title": "OrderRise | WhatsApp Ordering, Kitchen, Delivery & Restaurant Operations",
+    "body_len": 7411,
+    "faq_count": 4,
+    "faq_answer_texts": [
+      "No. The customer-facing experience is designed around WhatsApp.",
+      "No. This public demo runs on scripted sample data only — no live restaurant system is connected. A real pilot connects to your actual WhatsApp Business number, live menu, and current stock levels.",
+      "No. This demo shows delivery status as assigned or unassigned, not live GPS location. Real-time driver tracking depends on the delivery method or driver app your restaurant uses, and can be integrated during setup.",
+      "Yes. Menu structure, modifiers, pricing rules, promotions, and kitchen ticket format are all configured specifically for your restaurant during onboarding — this demo shows one example configuration, not a fixed template."
+    ],
+    "faq_before": [
+      false,
+      true,
+      true,
+      true
+    ],
+    "faq_click_2": [
+      true,
+      false,
+      true,
+      true
+    ],
+    "faq_click_3": [
+      true,
+      true,
+      false,
+      true
+    ],
+    "faq_click_4": [
+      true,
+      true,
+      true,
+      false
+    ],
+    "quick_buttons": 7,
+    "quick_click": true,
+    "mini_cart": "Rs 1,400",
+    "product_proof_buttons": 8,
+    "admin_modules": 11,
+    "admin_features_initial": [
+      "Natural-language ordering",
+      "Cart management",
+      "Pickup and delivery",
+      "Payment selection",
+      "Confirmation and tracking"
+    ],
+    "admin_menu_click": [
+      "Menu discovery",
+      "Product modifiers",
+      "Category and price management",
+      "Availability and add-ons"
+    ],
+    "primary_ctas": [
+      "Message us on WhatsApp",
+      "Message us on WhatsApp ↗",
+      "Message us on WhatsApp",
+      "Message us on WhatsApp"
+    ],
+    "secondary_ctas": [
+      "Book a call",
+      "Book a call",
+      "Book a call",
+      "Book a call",
+      "Book a call"
+    ],
+    "removed_sections": {
+      "journey": false,
+      "pillars": false,
+      "devices": false,
+      "complete": false
+    },
+    "fallback_count": 3,
+    "mobile_overflow": 0,
+    "mobile_menu_click": true
+  },
+  "javascript_syntax": {
+    "script.js": {
+      "passed": true,
+      "error": ""
+    },
+    "three-scene.js": {
+      "passed": true,
+      "error": ""
+    },
+    "page-scene.js": {
+      "passed": true,
+      "error": ""
+    }
+  },
+  "html_pages_checked": 20,
+  "html_reports": {
+    "404.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "about.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "contact.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "diagnostics.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "features.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "how-it-works.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "index.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "pricing.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "privacy.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "product.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "solutions/bakeries.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "solutions/burger-restaurants.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "solutions/cafes.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "solutions/cloud-kitchens.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "solutions/fast-food.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "solutions/multi-location.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "solutions/pizza-restaurants.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "solutions/takeaway.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "solutions.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    },
+    "terms.html": {
+      "duplicate_ids": [],
+      "missing_references": []
+    }
+  },
+  "http_files_checked": 19,
+  "http_failures": {},
+  "manual_flags": "docs/MANUAL_TEST_FLAGS.md",
+  "task_log": "docs/TASK_CHANGELOG.md"
+}
