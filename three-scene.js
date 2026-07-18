@@ -25,6 +25,19 @@ const C = {
 const PROCESS_COLORS = [C.green, C.purple, C.orange, C.amber, C.blue, C.pink, C.cyan];
 const PROCESS_NAMES = ["WHATSAPP", "AI UNDERSTANDS", "CART & CHECKOUT", "KITCHEN", "INVENTORY", "DELIVERY", "OWNER"];
 
+
+function supportsWebGL() {
+  try {
+    const testCanvas = document.createElement("canvas");
+    return Boolean(
+      testCanvas.getContext("webgl2") ||
+      testCanvas.getContext("webgl")
+    );
+  } catch (_) {
+    return false;
+  }
+}
+
 const runners = [];
 const clock = new THREE.Clock();
 let soundEnabled = false;
@@ -47,9 +60,9 @@ function beep(frequency = 540, duration = 0.06, volume = 0.025) {
   } catch (_) {}
 }
 
-function setFallback(canvasId) {
-  const fallback = document.querySelector(`[data-fallback-for="${canvasId}"]`);
-  if (fallback) fallback.classList.add("show");
+function setFallback() {
+  document.documentElement.classList.remove("webgl-ready");
+  document.documentElement.classList.add("webgl-static");
 }
 
 function createRenderer(canvas, alpha = true) {
@@ -1501,12 +1514,30 @@ function buildFinal() {
   return{};
 }
 
-const hero = buildHero();
+const shouldEnhanceWith3D =
+  window.matchMedia("(min-width: 761px)").matches &&
+  !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+  supportsWebGL();
+
+const hero = shouldEnhanceWith3D ? buildHero() : null;
+
+if (hero) {
+  document.documentElement.classList.add("webgl-ready");
+
+  const fallback = document.querySelector(
+    '[data-fallback-for="hero3dCanvas"]'
+  );
+
+  if (fallback) {
+    fallback.classList.remove("show");
+  }
+} else {
+  document.documentElement.classList.add("webgl-static");
+}
 
 /*
- * The homepage intentionally creates only one WebGL renderer.
- * Product proof is handled by the lightweight HTML/JavaScript Taco Heat demo.
- * This keeps the sales page clearer and significantly reduces GPU load.
+ * The website is static-first. WebGL is an optional desktop enhancement.
+ * The Taco Heat demo and all conversion content work without the 3D engine.
  */
 window.OrderRise3D = {
   focusHero: key => hero?.focus(key),

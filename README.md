@@ -1,55 +1,81 @@
-# OrderRise — Streamlined 3D Sales Website
+# OrderRise — Conversion-Clean Website
 
-OrderRise is a restaurant automation website that explains one clear promise:
+OrderRise explains one promise:
 
-**One WhatsApp message becomes a connected restaurant workflow.**
+**One WhatsApp message becomes organized restaurant work.**
 
-The homepage now contains:
+## Final homepage structure
 
-1. One concise value-focused hero
-2. One lightweight Three.js restaurant scene
-3. Four restaurant pain points
-4. One interactive Taco Heat order demo
-5. One combined product workspace
+1. Short value-focused hero
+2. Four restaurant problems
+3. Three audience outcomes
+4. Interactive Taco Heat order demo
+5. One concrete Admin Hub section
 6. Restaurant-specific solutions
-7. Pricing and ROI calculator
-8. FAQ and demo-booking conversion section
+7. Founder and founding-pilot trust
+8. Tiered pricing and ROI
+9. Complete FAQ
+10. WhatsApp-first conversion section
 
-## Performance decisions
+## What was removed
 
-- Only one WebGL renderer runs on the homepage.
-- Repeated 3D journey, device and command-center canvases were removed.
-- The practical order demo uses lightweight HTML, CSS and JavaScript.
-- Three.js is included locally.
-- The website works on GitHub Pages without npm or a build command.
-- A text fallback appears only when WebGL genuinely cannot start.
+- Seven-step hero icon row
+- Complete-process arrow list
+- Scroll-based seven-scene walkthrough
+- Separate product-pillar showcase
+- Separate device showcase
+- Separate command-center showcase
+- Subpage 3D canvases
+- Repeated WebGL fallback messages
+- Old `3D Demo`, `#interactive-demo` and `#quick-demo` paths
+- Defensive meta-narration
+
+## CTA hierarchy
+
+Primary:
+
+- Message Hamza on WhatsApp
+
+Secondary:
+
+- Book a restaurant workflow call
+
+The current WhatsApp link uses:
+
+`923001794940`
+
+Confirm that this is the number you want published before launch.
+
+## Pricing
+
+- Starter: from $50/month
+- Growth: custom quote
+- Multi-location: custom quote
+
+## 3D strategy
+
+- Static workflow is the default experience.
+- The homepage WebGL scene is an optional desktop enhancement.
+- Mobile and reduced-motion visitors use the static workflow.
+- Subpages contain no WebGL.
 
 ## Run locally
-
-Double-click:
-
-`start-website.bat`
-
-Or run:
 
 ```powershell
 python -m http.server 8080
 ```
 
-Open:
+Then open:
 
 `http://localhost:8080/`
 
-## Upload to GitHub
+## Deploy
 
 ```powershell
 git add .
-git commit -m "Launch streamlined OrderRise 3D sales website"
+git commit -m "Apply OrderRise conversion and content cleanup"
 git push origin main
 ```
 
-## Important
-
-The Taco Heat demonstration uses fictional data. The static contact form does
-not transmit information and is not connected to a production restaurant
-backend.
+The Taco Heat demo uses demonstration data. No real client proof or performance
+statistics have been invented.

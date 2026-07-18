@@ -1,93 +1,134 @@
 
-const pillarData = {
-  ordering: {
-    eyebrow: "System 1",
-    title: "Customers Order Naturally. Your System Handles the Complexity.",
+const adminHubData = {
+  orders: {
+    eyebrow: "LIVE ORDERS",
+    title: "See every active order and its current state.",
     description:
-      "WhatsApp messages become structured carts, modifiers, checkout details and tracking updates.",
-    features: [
-      "Natural-language ordering",
-      "Menu discovery",
-      "Product modifiers",
-      "Cart management",
-      "Pickup and delivery",
-      "Payment selection",
-      "Coupons",
-      "Confirmation and tracking"
-    ],
-    name: "INTELLIGENT ORDERING",
-    purpose: "Phone → AI → cart → checkout"
+      "Review customer details, items, totals, fulfillment method, payment status and the next restaurant action.",
+    metrics: [["New", "8"], ["Preparing", "12"], ["Ready", "5"]],
+    headers: ["Order", "Customer", "Status", "Total"],
+    rows: [
+      ["#1042", "Ahmed", "Preparing", "PKR 1,410"],
+      ["#1041", "Sara", "Ready", "PKR 2,250"],
+      ["#1040", "Usman", "Out for delivery", "PKR 1,680"]
+    ]
   },
-  operations: {
-    eyebrow: "System 2",
-    title: "Every Team Sees Exactly What They Need.",
+  kitchen: {
+    eyebrow: "KITCHEN DISPLAY",
+    title: "Give the kitchen a clear preparation queue.",
     description:
-      "Kitchen, inventory and owner workspaces stay connected to the same order record.",
-    features: [
-      "Kitchen display",
-      "Structured tickets",
-      "Menu administration",
-      "Inventory updates",
-      "Receipts",
-      "Open and close controls",
-      "Staff workspaces"
-    ],
-    name: "RESTAURANT OPERATIONS",
-    purpose: "Kitchen → inventory → owner control"
+      "Tickets contain items, quantities, modifiers, priority and preparation status without requiring staff to read customer chat history.",
+    metrics: [["Waiting", "6"], ["Avg. prep", "14 min"], ["Delayed", "1"]],
+    headers: ["Ticket", "Items", "Priority", "Status"],
+    rows: [
+      ["#1042", "2 burgers", "Normal", "Preparing"],
+      ["#1041", "Pizza + drink", "High", "Ready"],
+      ["#1039", "4 meals", "Normal", "Queued"]
+    ]
   },
-  growth: {
-    eyebrow: "System 3",
-    title: "Turn Every Order Into a Customer Relationship.",
+  receipts: {
+    eyebrow: "RECEIPTS",
+    title: "Keep a consistent record of every completed sale.",
     description:
-      "Customer profiles, order history, loyalty and promotions update after each completed order.",
-    features: [
-      "Customer CRM",
-      "Order history",
-      "Favorite products",
-      "Customer levels",
-      "Loyalty points",
-      "Saved orders",
-      "Promotions and coupons",
-      "Repeat-order campaigns"
-    ],
-    name: "CUSTOMERS & GROWTH",
-    purpose: "Profile → history → loyalty → reorder"
+      "Generate order summaries containing items, discounts, delivery fees, payment method and final total.",
+    metrics: [["Today", "128"], ["Paid", "116"], ["COD", "12"]],
+    headers: ["Receipt", "Method", "Discount", "Total"],
+    rows: [
+      ["R-1042", "Cash", "SAVE10", "PKR 1,410"],
+      ["R-1041", "Card", "—", "PKR 2,250"],
+      ["R-1040", "COD", "—", "PKR 1,680"]
+    ]
   },
-  delivery: {
-    eyebrow: "System 4",
-    title: "Control Every Delivery From Dispatch to Completion.",
+  promotions: {
+    eyebrow: "PROMOTIONS",
+    title: "Control offers without changing order calculations manually.",
     description:
-      "Drivers receive assignments and update the restaurant and customer as the order progresses.",
-    features: [
-      "Driver accounts",
-      "Order assignment",
-      "Delivery statuses",
-      "Cash-on-delivery records",
-      "Delivery zones",
-      "Failed deliveries",
-      "Returned deliveries",
-      "Customer updates"
-    ],
-    name: "DELIVERY MANAGEMENT",
-    purpose: "Assignment → status → completion"
+      "Create coupons and customer campaigns while keeping eligibility, limits and discount reporting visible.",
+    metrics: [["Active", "4"], ["Redemptions", "37"], ["Revenue", "PKR 42K"]],
+    headers: ["Campaign", "Offer", "Used", "Status"],
+    rows: [
+      ["SAVE10", "10% off", "24", "Active"],
+      ["FIRSTORDER", "PKR 200", "9", "Active"],
+      ["WEEKEND", "Free fries", "4", "Scheduled"]
+    ]
   },
-  intelligence: {
-    eyebrow: "System 5",
-    title: "Know What Is Happening Without Standing at the Counter.",
+  customers: {
+    eyebrow: "CUSTOMER CRM",
+    title: "Turn completed orders into useful customer history.",
     description:
-      "Owners review sales, products, customers, discounts and delivery performance.",
-    features: [
-      "Daily sales",
-      "Order totals",
-      "Average order value",
-      "Top products",
-      "Customer performance",
-      "Delivery performance",
-      "Discount reporting",
-      "CSV and PDF exports"
-    ],
-    name: "OWNER INTELLIGENCE",
-    purpose: "Orders → metrics → decisions"
+      "Store order history, favorite products, loyalty status and permission-based promotion activity.",
+    metrics: [["Customers", "1,842"], ["Repeat rate", "42%"], ["VIP", "86"]],
+    headers: ["Customer", "Orders", "Favorite", "Level"],
+    rows: [
+      ["Ahmed", "12", "Zinger Burger", "Gold"],
+      ["Sara", "8", "Pepperoni Pizza", "Silver"],
+      ["Usman", "5", "Chicken Meal", "Member"]
+    ]
+  },
+  deliveries: {
+    eyebrow: "DELIVERIES",
+    title: "Assign orders and track delivery status clearly.",
+    description:
+      "Manage driver assignment, order state, cash collection and failed or returned deliveries without claiming unsupported live GPS.",
+    metrics: [["Assigned", "4"], ["Delivered", "18"], ["COD pending", "PKR 8K"]],
+    headers: ["Order", "Driver", "Status", "Cash"],
+    rows: [
+      ["#1042", "Ali K.", "Assigned", "PKR 1,410"],
+      ["#1040", "Hamza R.", "Out", "PKR 1,680"],
+      ["#1038", "Bilal S.", "Delivered", "Collected"]
+    ]
+  },
+  reports: {
+    eyebrow: "OWNER REPORTS",
+    title: "Understand sales and operations without combining spreadsheets.",
+    description:
+      "Review order totals, average order value, product performance, customer activity, discounts and delivery results.",
+    metrics: [["Revenue", "PKR 184K"], ["AOV", "PKR 1,438"], ["Growth", "+18%"]],
+    headers: ["Report", "Today", "Previous", "Change"],
+    rows: [
+      ["Orders", "128", "111", "+15%"],
+      ["Revenue", "184K", "156K", "+18%"],
+      ["Repeat rate", "42%", "38%", "+4 pts"]
+    ]
+  },
+  inventory: {
+    eyebrow: "INVENTORY",
+    title: "Connect sold items with available restaurant stock.",
+    description:
+      "Reserve ingredients when orders are confirmed and highlight products approaching a low-stock threshold.",
+    metrics: [["Products", "64"], ["Low stock", "5"], ["Unavailable", "2"]],
+    headers: ["Item", "Available", "Reserved", "State"],
+    rows: [
+      ["Burger patties", "22", "2", "Normal"],
+      ["Cheese slices", "8", "2", "Low"],
+      ["Coke cans", "41", "0", "Normal"]
+    ]
+  },
+  menu: {
+    eyebrow: "MENU",
+    title: "Keep prices, products and modifiers controlled in one place.",
+    description:
+      "Manage availability, categories, prices, extras, sizes and customer-facing product descriptions.",
+    metrics: [["Products", "48"], ["Categories", "7"], ["Hidden", "3"]],
+    headers: ["Product", "Price", "Category", "State"],
+    rows: [
+      ["Zinger Burger", "PKR 700", "Burgers", "Available"],
+      ["Loaded Fries", "PKR 450", "Sides", "Available"],
+      ["Family Box", "PKR 2,900", "Deals", "Hidden"]
+    ]
+  },
+  system: {
+    eyebrow: "SYSTEM",
+    title: "Control restaurant settings and connected services.",
+    description:
+      "Manage restaurant status, roles, notification rules, integrations and operational safeguards.",
+    metrics: [["Restaurant", "Open"], ["WhatsApp", "Connected"], ["Alerts", "2"]],
+    headers: ["Setting", "Value", "Owner", "State"],
+    rows: [
+      ["Ordering", "Enabled", "Admin", "Active"],
+      ["Kitchen alerts", "Instant", "Manager", "Active"],
+      ["Daily report", "11:00 PM", "Owner", "Scheduled"]
+    ]
   }
 };
 
@@ -291,34 +332,18 @@ function initHeroControls() {
   });
 }
 
-function updatePillar(key) {
-  const data = pillarData[key];
+function updateAdminHub(key) {
+  const data = adminHubData[key];
 
   if (!data) {
     return;
   }
 
-  const eyebrow =
-    document.getElementById("pillarEyebrow");
-
-  const title =
-    document.getElementById("pillarTitle");
-
-  const description =
-    document.getElementById(
-      "pillarDescription"
-    );
-
-  const features =
-    document.getElementById("pillarFeatures");
-
-  const sceneName =
-    document.getElementById("pillarSceneName");
-
-  const scenePurpose =
-    document.getElementById(
-      "pillarScenePurpose"
-    );
+  const eyebrow = document.getElementById("adminModuleEyebrow");
+  const title = document.getElementById("adminModuleTitle");
+  const description = document.getElementById("adminModuleDescription");
+  const metrics = document.getElementById("adminModuleMetrics");
+  const table = document.getElementById("adminSampleTable");
 
   if (eyebrow) {
     eyebrow.textContent = data.eyebrow;
@@ -332,33 +357,56 @@ function updatePillar(key) {
     description.textContent = data.description;
   }
 
-  if (features) {
-    features.innerHTML = data.features
-      .map((feature) => `<li>${feature}</li>`)
+  if (metrics) {
+    metrics.innerHTML = data.metrics
+      .map(
+        ([label, value]) => `
+          <article>
+            <span>${label}</span>
+            <strong>${value}</strong>
+          </article>
+        `
+      )
       .join("");
   }
 
-  if (sceneName) {
-    sceneName.textContent = data.name;
-  }
+  if (table) {
+    const header = `
+      <div class="admin-table-row admin-table-head">
+        ${data.headers.map((item) => `<span>${item}</span>`).join("")}
+      </div>
+    `;
 
-  if (scenePurpose) {
-    scenePurpose.textContent = data.purpose;
+    const rows = data.rows
+      .map(
+        (row) => `
+          <div class="admin-table-row">
+            ${row
+              .map(
+                (item, index) =>
+                  `<span${index === 2 ? ' class="status-live"' : ""}>${item}</span>`
+              )
+              .join("")}
+          </div>
+        `
+      )
+      .join("");
+
+    table.innerHTML = header + rows;
   }
 
   document
-    .querySelectorAll("[data-pillar]")
+    .querySelectorAll("[data-admin-module]")
     .forEach((button) => {
       button.classList.toggle(
         "active",
-        button.dataset.pillar === key
+        button.dataset.adminModule === key
       );
     });
 }
 
-function initPillars() {
-  const buttons =
-    document.querySelectorAll("[data-pillar]");
+function initAdminHub() {
+  const buttons = document.querySelectorAll("[data-admin-module]");
 
   if (!buttons.length) {
     return;
@@ -366,11 +414,11 @@ function initPillars() {
 
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
-      updatePillar(button.dataset.pillar);
+      updateAdminHub(button.dataset.adminModule);
     });
   });
 
-  updatePillar("ordering");
+  updateAdminHub("orders");
 }
 
 function numberValue(id, fallback = 0) {
@@ -1215,7 +1263,7 @@ document.addEventListener(
     initTilt();
     initHeroControls();
     initMiniWhatsAppDemo();
-    initPillars();
+    initAdminHub();
     initRoi();
     initFaq();
     initForm();
