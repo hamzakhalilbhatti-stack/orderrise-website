@@ -6,7 +6,7 @@
 const SITE_CONFIG = Object.freeze({
   brandName: "OrderRise",
   restaurantDemoName: "Order rise Demo",
-  whatsappNumber: "YOUR_NUMBER",
+  whatsappNumber: "+923001794940",
   bookingUrl: "YOUR_BOOKING_LINK",
   email: "hamzakhalilbhattibrothers@gmail.com",
   linkedinUrl: "www.linkedin.com/in/hamza-khalil-34380923a",
